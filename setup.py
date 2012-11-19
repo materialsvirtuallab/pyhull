@@ -14,6 +14,10 @@ extension = Extension('pyhull._pyhull',
                       sources=['_pyhull.c'] + sources
 )
 
+long_description = """
+pyhull is a port of Qhull to Python.
+"""
+
 setup (name = 'pyhull',
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
@@ -23,6 +27,7 @@ setup (name = 'pyhull',
        description = 'pyhull is a port of Qhull to Python.',
        keywords=["qhull", "convex", "hull", "computational",
                  "geometry"],
+       install_requires=["numpy>=1.5"],
        classifiers=[
            "Programming Language :: Python :: 2.7",
            "Development Status :: 4 - Beta",
@@ -31,6 +36,7 @@ setup (name = 'pyhull',
            "Operating System :: OS Independent",
            "Topic :: Software Development :: Libraries :: Python Modules"
        ],
+       long_description=long_description,
        download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
        packages=find_packages(),
        version = '0.1',

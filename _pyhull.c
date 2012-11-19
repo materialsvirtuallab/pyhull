@@ -94,26 +94,29 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
     }
   fclose(stream);
   fclose(output);
-  FILE *outread = fopen(tmp_output_file, "r");
-  char buffer[150], message[10000][150];
-  int i=0;
+
+  FILE *fout = fopen(tmp_output_file, "r");
+  int count = 0;
+  int MAX_BUF_SIZE = 100;
+  char buffer[MAX_BUF_SIZE];
+  while(fgets(buffer, MAX_BUF_SIZE, fout)){
+      count++;
+  }
+  fclose(fout);
+
+  fout = fopen(tmp_output_file, "r");
+  int i = 0;
+
+  PyObject* pydata = PyList_New(count);
   /*stores and prints the data from the string*/
-  while(fgets(buffer,150,outread)){
-    strcpy(message[i],buffer);
+  while(fgets(buffer,MAX_BUF_SIZE, fout)){
+    PyList_SetItem(pydata, i, PyString_FromString(buffer));
     i++;
   }
-  fclose(outread);
-
+  fclose(fout);
   remove(tmp_input_file);
   remove(tmp_output_file);
 
-
-  PyObject* pydata = PyList_New(i);
-  int j;
-  for (j = 0; j < i; j++)
-  {
-        PyList_SetItem(pydata, j, PyString_FromString(message[j]));
-  }
 
   return pydata;
 }

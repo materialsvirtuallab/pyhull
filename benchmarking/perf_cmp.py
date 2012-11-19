@@ -16,35 +16,34 @@ __date__ = "11/19/12"
 import numpy as np
 
 from scipy.spatial import Delaunay
-from pyhull.qconvex import get_vertices
+from pyhull.qconvex import ConvexHull
 from pymatgen.command_line.qhull_caller import qconvex
 
-
-data = np.random.randn(100,3)
-
-def scipy_test():
+def scipy_test(data):
     return Delaunay(data).convex_hull
 
-def pyhull_test():
-    return get_vertices(data)
+def pyhull_test(data):
+    return ConvexHull(data)
 
-def pymatgen_ext_test():
+def pymatgen_ext_test(data):
     return qconvex(data)
 
 if __name__ == "__main__":
     import timeit
-    print "Scipy results"
-    print timeit.timeit("scipy_test()",
-                        setup="from __main__ import scipy_test",
-                        number=1)
-    print
-    print "pymatgen_ext_test results"
-    print timeit.timeit("pymatgen_ext_test()",
-                        setup="from __main__ import pymatgen_ext_test",
-                        number=1)
-    print
-    print "pyhull results"
-    print timeit.timeit("pyhull_test()",
-                        setup="from __main__ import pyhull_test",
-                        number=1)
-    print
+    global data
+    for npts in [100, 1000, 2000]:
+        for dim in [3,4,5,6]:
+            print "Number of points: {}, Dim: {}".format(npts, dim)
+            data = np.random.randn(npts,dim)
+            print "Scipy: ",
+            print timeit.timeit("scipy_test(data)",
+                                setup="from __main__ import scipy_test, data",
+                                number=1)
+            print "pymatgen_ext_test: ",
+            print timeit.timeit("pymatgen_ext_test(data)",
+                                setup="from __main__ import pymatgen_ext_test, data",
+                                number=1)
+            print "pyhull: ",
+            print timeit.timeit("pyhull_test(data)",
+                                setup="from __main__ import pyhull_test, data",
+                                number=1)
