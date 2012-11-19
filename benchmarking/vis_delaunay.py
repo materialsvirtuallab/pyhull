@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-TODO: Change the module doc.
+Generates the Delaunay triangulation and convex hull for a random set of 2D
+points and plot them. For testing purposes.
 """
 
 from __future__ import division
@@ -17,16 +18,15 @@ import itertools
 
 import numpy as np
 
-from pyhull.qdelaunay import DelaunayTriangulation
+from pyhull.qdelaunay import DelaunayTri
 from pyhull.qconvex import ConvexHull
 import matplotlib.pyplot as plt
 
-points = np.random.randn(30, 2)
+points = np.random.randn(50, 2)
 for pt in points:
     plt.plot(pt[0], pt[1], 'ro')
 
-
-d = DelaunayTriangulation(points)
+d = DelaunayTri(points)
 
 for s in d.simplices:
     for c1, c2 in itertools.combinations(s.coords, 2):

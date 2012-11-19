@@ -2,14 +2,14 @@ __author__ = 'shyue'
 
 import unittest
 
-from pyhull.qdelaunay import DelaunayTriangulation
+from pyhull.qdelaunay import DelaunayTri
 
 
-class DelaunayTriangulationTestCase(unittest.TestCase):
+class DelaunayTriTestCase(unittest.TestCase):
 
     def setUp(self):
         data = [[0,0], [-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-        self.delau = DelaunayTriangulation(data)
+        self.delau = DelaunayTri(data)
         sphere_data = [[0.3927286959385721, 0.3027233106882571,
                         -0.0642087887467873],
                        [-0.3040289937812381, 0.08411211324060132,
@@ -30,7 +30,7 @@ class DelaunayTriangulationTestCase(unittest.TestCase):
                         -0.1968618818332127],
                        [-0.4630278928730662, -0.1886147011806086,
                         0.005446551209538857]]
-        self.spdelau = DelaunayTriangulation(sphere_data)
+        self.spdelau = DelaunayTri(sphere_data)
 
     def test_vertices(self):
         expected_ans = [[3, 0, 1], [0, 2, 1], [4, 0, 3], [0, 4, 2]]

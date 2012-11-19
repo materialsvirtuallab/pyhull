@@ -18,7 +18,7 @@ import pyhull._pyhull as hull
 
 from pyhull.simplex import Simplex
 
-class DelaunayTriangulation(object):
+class DelaunayTri(object):
     """
     Delaunay triangulation for a set of points.
     """
