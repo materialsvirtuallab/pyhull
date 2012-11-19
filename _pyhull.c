@@ -60,47 +60,47 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
   PyObject* pydata;
   if ((fin != NULL) && (fout != NULL))
   {
-    fputs(data, fin);
-    fseek(fin, 0, SEEK_SET);
-    /* Now do the usual qhull code (modified from qconvex.c). */
-    qh_init_A(fin, fout, stderr, argc, argv);
+     fputs(data, fin);
+     fseek(fin, 0, SEEK_SET);
+     /* Now do the usual qhull code (modified from qconvex.c). */
+     qh_init_A(fin, fout, stderr, argc, argv);
 
-    exitcode= setjmp(qh errexit);
-    if (!exitcode) {
-       qh_checkflags(qh qhull_command, hidden_options);
-       qh_initflags(qh qhull_command);
-       points= qh_readpoints(&numpoints, &dim, &ismalloc);
-       if (dim >= 5) {
-          qh_option("Qxact_merge", NULL, NULL);
-          qh MERGEexact= True;
-       }
-       qh_init_B(points, numpoints, dim, ismalloc);
-       qh_qhull();
-       qh_check_output();
-       qh_produce_output();
-       if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
-          qh_check_points();
-          exitcode= qh_ERRnone;
-       }
-
-        /* We need to know the number of lines in the file to allocate the PyList
-        object */
-
-        fseek(fout, 0, SEEK_SET);
-        int count = 0;
-        int MAX_BUF_SIZE = 100;
-        char buffer[MAX_BUF_SIZE];
-        while(fgets(buffer, MAX_BUF_SIZE, fout)){
-           count++;
+     exitcode= setjmp(qh errexit);
+     if (!exitcode) {
+        qh_checkflags(qh qhull_command, hidden_options);
+        qh_initflags(qh qhull_command);
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        if (dim >= 5) {
+           qh_option("Qxact_merge", NULL, NULL);
+           qh MERGEexact= True;
         }
-        fseek(fout, 0, SEEK_SET);
-        int i = 0;
+        qh_init_B(points, numpoints, dim, ismalloc);
+        qh_qhull();
+        qh_check_output();
+        qh_produce_output();
+        if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+           qh_check_points();
+           exitcode= qh_ERRnone;
+     }
 
-        pydata = PyList_New(count);
-        while(fgets(buffer,MAX_BUF_SIZE, fout)){
-           PyList_SetItem(pydata, i, PyString_FromString(buffer));
-           i++;
-        }
+     /* We need to know the number of lines in the file to allocate the PyList
+     object */
+
+     fseek(fout, 0, SEEK_SET);
+     int count = 0;
+     int MAX_BUF_SIZE = 100;
+     char buffer[MAX_BUF_SIZE];
+     while(fgets(buffer, MAX_BUF_SIZE, fout)){
+       count++;
+     }
+     fseek(fout, 0, SEEK_SET);
+     int i = 0;
+
+     pydata = PyList_New(count);
+     while(fgets(buffer,MAX_BUF_SIZE, fout)){
+        PyList_SetItem(pydata, i, PyString_FromString(buffer));
+        i++;
+     }
   }
   else
   {
