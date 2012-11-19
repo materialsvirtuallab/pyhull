@@ -20,11 +20,11 @@ is currently in an extremely early alpha, and only a very limited subset of
 functions are supported.
 
 The reason for this package is that there is currently no effective port of
-the qhull, especially for higher dimensions. While isolated packages exist
-for up to 3D convex hulls, no effective package exist for higher dimensions.
-The only other known code which supports convex hulls in higher dimension is
-the scipy.spatial package, but that code is extremely inefficient compared to
- the original Qhull in C.
+the qhull algorithm. While isolated packages exist for up to 3D convex hulls,
+no effective package exist for higher dimensions. The only other known code
+which supports convex hulls in higher dimension is the scipy.spatial
+package, but that code is extremely inefficient compared to the original
+Qhull in C.
 
 For more details, please visit the pyhull's GitHub page
 (https://github.com/shyuep/pyhull).

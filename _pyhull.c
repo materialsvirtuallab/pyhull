@@ -80,8 +80,110 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
         qh_produce_output();
         if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
            qh_check_points();
-           exitcode= qh_ERRnone;
+        exitcode= qh_ERRnone;
      }
+     qh NOerrexit= True;  /* no more setjmp */
+     #ifdef qh_NOmem
+        qh_freeqhull( True);
+     #else
+        qh_freeqhull( False);
+        qh_memfreeshort(&curlong, &totlong);
+        if (curlong || totlong)
+           fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
+           totlong, curlong);
+     #endif
+
+     /* We need to know the number of lines in the file to allocate the PyList
+     object */
+
+     fseek(fout, 0, SEEK_SET);
+     int count = 0;
+     int MAX_BUF_SIZE = 100;
+     char buffer[MAX_BUF_SIZE];
+     while(fgets(buffer, MAX_BUF_SIZE, fout)){
+       count++;
+     }
+     fseek(fout, 0, SEEK_SET);
+     int i = 0;
+
+     pydata = PyList_New(count);
+     while(fgets(buffer,MAX_BUF_SIZE, fout)){
+        PyList_SetItem(pydata, i, PyString_FromString(buffer));
+        i++;
+     }
+  }
+  else
+  {
+     return NULL;
+  }
+  fclose(fin);
+  fclose(fout);
+  remove(tmp_input_file);
+  remove(tmp_output_file);
+  return pydata;
+}
+
+static PyObject* qdelaunay(PyObject *self, PyObject *args) {
+  int argc;
+  char *argv[2];
+  const char *argvar;
+  const char *data;
+  int curlong, totlong; /* used !qh_NOmem */
+  int exitcode, numpoints, dim;
+  coordT *points;
+  boolT ismalloc;
+  if (!PyArg_ParseTuple(args, "ss", &argvar, &data))
+      return NULL;
+  argc=2;
+  argv[0] = argvar;
+  argv[1] = argvar;
+
+  char *tmp_input_file = tempnam(NULL, tmp_in_prefix);
+  char *tmp_output_file = tempnam(NULL, tmp_out_prefix);
+
+  /* Because qhull uses stdin and stdout streams for io, we need to create
+  FILE* stream to simulate these io streams. Suggestions on a better
+  cross-platform way to implement a string stream equivalent are welcome.*/
+  FILE *fin = fopen(tmp_input_file, "w+");
+  FILE *fout = fopen(tmp_output_file, "w+");
+  PyObject* pydata;
+  if ((fin != NULL) && (fout != NULL))
+  {
+     fputs(data, fin);
+     fseek(fin, 0, SEEK_SET);
+     /* Now do the usual qhull code (modified from qconvex.c). */
+     qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
+     exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
+     if (!exitcode) {
+        qh_option("delaunay  Qbbound-last", NULL, NULL);
+        qh DELAUNAY= True;     /* 'd'   */
+        qh SCALElast= True;    /* 'Qbb' */
+        qh KEEPcoplanar= True; /* 'Qc', to keep coplanars in 'p' */
+        qh_checkflags(qh qhull_command, hidden_options);
+        qh_initflags(qh qhull_command);
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        if (dim >= 5) {
+           qh_option("Qxact_merge", NULL, NULL);
+           qh MERGEexact= True; /* 'Qx' always */
+        }
+        qh_init_B(points, numpoints, dim, ismalloc);
+        qh_qhull();
+        qh_check_output();
+        qh_produce_output();
+        if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+           qh_check_points();
+        exitcode= qh_ERRnone;
+     }
+     qh NOerrexit= True;  /* no more setjmp */
+     #ifdef qh_NOmem
+       qh_freeqhull( True);
+     #else
+       qh_freeqhull( False);
+       qh_memfreeshort(&curlong, &totlong);
+       if (curlong || totlong)
+         fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
+            totlong, curlong);
+     #endif
 
      /* We need to know the number of lines in the file to allocate the PyList
      object */
@@ -116,6 +218,7 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
 
 static PyMethodDef QhullMethods[] = {
     {"qconvex",  qconvex, METH_VARARGS, "qconvex"},
+    {"qdelaunay",  qdelaunay, METH_VARARGS, "qdelaunay"},
     {NULL, NULL, 0, NULL}
 };
 
