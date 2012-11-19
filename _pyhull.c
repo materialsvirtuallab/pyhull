@@ -44,8 +44,8 @@ int isatty(int);  /* returns 1 if stdin is a tty
 
 /* duplicated in qconvex.htm */
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
-char *tmp_input_file = "pyqconvex.in.tmp";
-char *tmp_output_file = "pyqconvex.out.tmp";
+char * tmp_in_prefix = "pyqconvex.in";
+char * tmp_out_prefix = "pyqconvex.out";
 
 static PyObject* qconvex(PyObject *self, PyObject *args) {
   int argc;
@@ -61,63 +61,86 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
   argc=2;
   argv[0] = argvar;
   argv[1] = argvar;
-  FILE *fp = fopen(tmp_input_file, "w");
-  if (fp != NULL)
+
+  char *tmp_input_file = tempnam(NULL, tmp_in_prefix);
+  char *tmp_output_file = tempnam(NULL, tmp_in_prefix);
+
+  /* Because qhull uses stdin and stdout streams for io, we need to create
+  FILE* stream to simulate these io streams. Suggestions on a better
+  cross-platform way to implement a string stream equivalent are welcome.*/
+  FILE *fin = fopen(tmp_input_file, "w");
+  if (fin != NULL)
   {
-        fputs(data, fp);
-
+        fputs(data, fin);
   }
-  fclose(fp);
-
-  FILE *stream = fopen(tmp_input_file, "r");
-  FILE *output = fopen(tmp_output_file, "w");
-
-
-  qh_init_A(stream, output, stderr, argc, argv);
-
-  exitcode= setjmp(qh errexit);
-    if (!exitcode) {
-      qh_checkflags(qh qhull_command, hidden_options);
-      qh_initflags(qh qhull_command);
-      points= qh_readpoints(&numpoints, &dim, &ismalloc);
-      if (dim >= 5) {
-        qh_option("Qxact_merge", NULL, NULL);
-        qh MERGEexact= True;
-      }
-      qh_init_B(points, numpoints, dim, ismalloc);
-      qh_qhull();
-      qh_check_output();
-      qh_produce_output();
-      if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
-        qh_check_points();
-      exitcode= qh_ERRnone;
-    }
-  fclose(stream);
-  fclose(output);
-
-  FILE *fout = fopen(tmp_output_file, "r");
-  int count = 0;
-  int MAX_BUF_SIZE = 100;
-  char buffer[MAX_BUF_SIZE];
-  while(fgets(buffer, MAX_BUF_SIZE, fout)){
-      count++;
+  else
+  {
+     return NULL;
   }
-  fclose(fout);
+  fclose(fin);
 
+  /* Now do the usual qhull code (modified from qconvex.c). */
+  fin = fopen(tmp_input_file, "r");
+  FILE *fout = fopen(tmp_output_file, "w");
+  if ((fin != NULL) && (fout != NULL))
+  {
+
+      qh_init_A(fin, fout, stderr, argc, argv);
+
+      exitcode= setjmp(qh errexit);
+        if (!exitcode) {
+          qh_checkflags(qh qhull_command, hidden_options);
+          qh_initflags(qh qhull_command);
+          points= qh_readpoints(&numpoints, &dim, &ismalloc);
+          if (dim >= 5) {
+            qh_option("Qxact_merge", NULL, NULL);
+            qh MERGEexact= True;
+          }
+          qh_init_B(points, numpoints, dim, ismalloc);
+          qh_qhull();
+          qh_check_output();
+          qh_produce_output();
+          if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+            qh_check_points();
+          exitcode= qh_ERRnone;
+        }
+      fclose(fin);
+      fclose(fout);
+  }
+  else
+  {
+       return NULL;
+  }
+
+  /* We need to know the number of lines in the file to allocate the PyList
+  object */
+  PyObject* pydata;
   fout = fopen(tmp_output_file, "r");
-  int i = 0;
+  if (fout != NULL)
+  {
+      int count = 0;
+      int MAX_BUF_SIZE = 100;
+      char buffer[MAX_BUF_SIZE];
+      while(fgets(buffer, MAX_BUF_SIZE, fout)){
+          count++;
+      }
+      fseek(fout, 0, SEEK_SET);
+      int i = 0;
 
-  PyObject* pydata = PyList_New(count);
-  /*stores and prints the data from the string*/
-  while(fgets(buffer,MAX_BUF_SIZE, fout)){
-    PyList_SetItem(pydata, i, PyString_FromString(buffer));
-    i++;
+      pydata = PyList_New(count);
+      /*stores and prints the data from the string*/
+      while(fgets(buffer,MAX_BUF_SIZE, fout)){
+        PyList_SetItem(pydata, i, PyString_FromString(buffer));
+        i++;
+      }
+      fclose(fout);
   }
-  fclose(fout);
+  else{
+    return NULL;
+  }
+
   remove(tmp_input_file);
   remove(tmp_output_file);
-
-
   return pydata;
 }
 
