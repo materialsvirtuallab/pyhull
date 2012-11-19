@@ -17,6 +17,7 @@ __date__ = "Nov 19 2012"
 
 import pyhull._pyhull as hull
 
+from pyhull.simplex import Simplex
 
 class ConvexHull(object):
     """
@@ -46,3 +47,9 @@ class ConvexHull(object):
         output.pop(0)
         return [[int(i) for i in row.strip().split()] for row in output]
 
+    @property
+    def simplices(self):
+        """
+        Returns the simplices of the convex hull.
+        """
+        return [Simplex([self.points[i] for i in v]) for v in self.vertices]
