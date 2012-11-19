@@ -1,9 +1,9 @@
 pyhull
 =======
 
-pyhull is a port of Qhull as a Python extension. It is currently in an
-extremely early alpha, and only a very limited subset of functions are
-supported.
+pyhull is a port of Qhull (http://www.qhull.org/)  as a Python extension. It
+is currently in an extremely early alpha, and only a very limited subset of
+functions are supported.
 
 The reason for this package is that there is currently no effective port of
 the qhull, especially for higher dimensions. While isolated packages exist
@@ -18,11 +18,18 @@ Performance of pyhull
 pyqhull is still in the early stages of development, but some performance
 metrics are already available.
 
-Time taken to generate convex hull
-----------------------------------
+The table below indicates the time taken in seconds to generate the convex
+hull for a given number of points in a specified number of dimensions. The
+final col (Cmd-line qconvex) is the time taken to generate the data using a
+subprocess call to command line qconvex as a comparison for pyhull.
 
 <table>
-<tr><th>Number of points</th><th>Dim</th><th>scipy</th><th>pyhull</th><th>Cmd-line qconvex</th>
+<tr>
+<th>Number of points</th>
+<th>Dim</th>
+<th>scipy</th>
+<th>pyhull</th>
+<th>Cmd-line qconvex</th>
 <tr>
 <td>100</td><td>3</td>
 <td>0.00237</td>
@@ -96,3 +103,7 @@ Time taken to generate convex hull
 <td>0.42673</td>
 </tr>
 </table>
+
+It is clear from the above table that even in its early alpha form,
+pyhull outperforms scipy.spatial for large number of points in higher
+dimensions.
