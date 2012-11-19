@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 """
-Interface with command line qhull.
-Needs qhull installed. You can get it from http://www.qhull.org/.
+This module implements a ConvexHull class.
 """
 
 from __future__ import division

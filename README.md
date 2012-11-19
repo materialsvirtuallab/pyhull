@@ -107,3 +107,11 @@ subprocess call to command line qconvex as a comparison for pyhull.
 It is clear from the above table that even in its early alpha form,
 pyhull outperforms scipy.spatial for large number of points in higher
 dimensions.
+
+Usage
+=====
+
+A C extension has been written, but it is generally recommended that you
+ignore the direct C interface. Instead, user-friendly wrapper classes have
+been written. For example, pyhull.qconvex.ConvexHull implements ConvexHull
+object that represents the ConvexHull of a set of points.
