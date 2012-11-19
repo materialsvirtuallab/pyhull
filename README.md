@@ -1,7 +1,7 @@
 pyhull
 =======
 
-pyhull is a port of Qhull (http://www.qhull.org/)  as a Python extension. It
+pyhull is a port of Qhull (http://www.qhull.org/) as a Python extension. It
 is currently in an extremely early alpha, and only a very limited subset of
 functions are supported.
 

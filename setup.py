@@ -15,7 +15,19 @@ extension = Extension('pyhull._pyhull',
 )
 
 long_description = """
-pyhull is a port of Qhull to Python.
+pyhull is a port of Qhull (http://www.qhull.org/) as a Python extension. It
+is currently in an extremely early alpha, and only a very limited subset of
+functions are supported.
+
+The reason for this package is that there is currently no effective port of
+the qhull, especially for higher dimensions. While isolated packages exist
+for up to 3D convex hulls, no effective package exist for higher dimensions.
+The only other known code which supports convex hulls in higher dimension is
+the scipy.spatial package, but that code is extremely inefficient compared to
+ the original Qhull in C.
+
+For more details, please visit the pyhull's GitHub page
+(https://github.com/shyuep/pyhull).
 """
 
 setup (name = 'pyhull',
@@ -39,6 +51,6 @@ setup (name = 'pyhull',
        long_description=long_description,
        download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
        packages=find_packages(),
-       version = '0.1',
+       version = '0.1a',
        ext_modules = [extension]
 )
