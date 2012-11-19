@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+"""
+Interface with command line qhull.
+Needs qhull installed. You can get it from http://www.qhull.org/.
+"""
+
+from __future__ import division
+
+__author__ = "Shyue Ping Ong"
+__version__ = "0.1"
+__maintainer__ = "Shyue Ping Ong"
+__email__ = "shyuep@gmail.com"
+__status__ = "Beta"
+__date__ = "Nov 19 2012"
+
+
+import pyhull._pyhull as hull
+
+
+def get_vertices(points):
+    """
+    Returns the vertices of the convex hull of a set of points.
+
+    Args:
+        points:
+            All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
+            [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+
+    Returns:
+        The vertices as a list of list of integer indices. E.g., [[0, 2], [1,
+        0], [2, 3], [3, 1]]
+    """
+    prep_str = [str(len(points[0])), str(len(points))]
+    prep_str.extend([' '.join([str(i) for i in row]) for row in points])
+    output = hull.qconvex("i", "\n".join(prep_str))
+    output.pop(0)
+    return [[int(i) for i in row.strip().split()] for row in output]
