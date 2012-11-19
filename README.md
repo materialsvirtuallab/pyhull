@@ -106,7 +106,8 @@ subprocess call to command line qconvex as a comparison for pyhull.
 
 It is clear from the above table that even in its early alpha form,
 pyhull outperforms scipy.spatial for large number of points in higher
-dimensions.
+dimensions. Also, pyhull is tested to be safe in terms of usage with Python
+multiprocessing, unlike a subprocess call to Qhull.
 
 Usage
 =====
