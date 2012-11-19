@@ -39,6 +39,7 @@ class DelaunayTriangulationTestCase(unittest.TestCase):
                         [2, 4, 3, 0], [4, 2, 8, 0], [2, 8, 6, 9], [2, 8, 3, 6],
                         [8, 2, 1, 9], [2, 4, 8, 1], [2, 5, 4, 1], [5, 2, 4, 3],
                         [4, 5, 7, 1], [2, 5, 1, 9]]
+        print len(expected_ans)
         self.assertEqual(self.spdelau.vertices, expected_ans)
 
     def test_simplices(self):
