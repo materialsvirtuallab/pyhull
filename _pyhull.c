@@ -31,8 +31,8 @@ int isatty(int);  /* returns 1 if stdin is a tty
 
 /* duplicated in qconvex.htm */
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
-char * tmp_in_prefix = "pyqconvex.in";
-char * tmp_out_prefix = "pyqconvex.out";
+char * tmp_in_prefix = "pyhull.in.";
+char * tmp_out_prefix = "pyhull.out.";
 
 static PyObject* qconvex(PyObject *self, PyObject *args) {
   int argc;
