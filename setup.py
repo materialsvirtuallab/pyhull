@@ -51,6 +51,6 @@ setup (name = 'pyhull',
        long_description=long_description,
        download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
        packages=find_packages(),
-       version = '0.1a',
+       version = '0.2',
        ext_modules = [extension]
 )

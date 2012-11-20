@@ -130,10 +130,10 @@ Example usage of high-level functions:
     >>> qvoronoi("o", pts)
     ['2\n', '5 5 1\n', '-10.101 -10.101 \n', '     0   -0.5 \n', '  -0.5      0 \n', '   0.5      0 \n', '     0    0.5 \n', '3 2 0 1\n', '3 4 0 2\n', '3 3 0 1\n', '3 4 0 3\n', '4 4 2 1 3\n']
 
-The return values are simply a list of string from the output.
+The return values are simply a list of strings from the output.
 
-For more useful analysis outputs, please use the high-level classes in the
-convex_hull and delaunay modules. For example,
+For more useful analysis outputs, please use the high-level ConvexHull
+and DelaunayTri classes in the convex_hull and delaunay modules. For example,
 
     >>> from pyhull.convex_hull import ConvexHull
     >>> hull = ConvexHull(pts)
