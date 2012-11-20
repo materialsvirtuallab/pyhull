@@ -1,7 +1,6 @@
 __author__ = 'shyue'
 
 import unittest
-import numpy as np
 
 from pyhull.convex_hull import ConvexHull
 
