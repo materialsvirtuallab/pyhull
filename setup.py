@@ -15,22 +15,24 @@ extension = Extension('pyhull._pyhull',
 )
 
 long_description = """
-pyhull is a port of Qhull (http://www.qhull.org/) as a Python extension. It
-is currently in an extremely early alpha, and only a very limited subset of
-functions are supported.
+pyhull is a Python wrapper to Qhull (http://www.qhull.org/) for the
+computation of the convex hull, Delaunay triangulation and Voronoi diagram.
+It is written as a Python C extension, with both high-level and low-level
+interfaces to qhull.
 
-The reason for this package is that there is currently no effective port of
-the qhull algorithm. While isolated packages exist for up to 3D convex hulls,
-no effective package exist for higher dimensions. The only other known code
-which supports convex hulls in higher dimension is the scipy.spatial
-package, but that code is extremely inefficient compared to the original
-Qhull in C.
+Currently, there is no effective port of the qhull algorithm,
+especially for higher dimensions. While isolated packages exist
+for up to 3D convex hulls, no effective package exist for higher dimensions.
+The only other known code which supports convex hulls in higher dimension is
+the scipy.spatial package, but that code is extremely inefficient compared to
+the original Qhull in C. Pyhull is much faster than the scipy.spatial package.
 
-For more details, please visit the pyhull's GitHub page
-(https://github.com/shyuep/pyhull).
+For more details, please visit the pyhull GitHub page at
+https://github.com/shyuep/pyhull.
 """
 
 setup (name = 'pyhull',
+       version = '1.0',
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
        maintainer="Shyue Ping Ong",
@@ -51,6 +53,5 @@ setup (name = 'pyhull',
        long_description=long_description,
        download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
        packages=find_packages(),
-       version = '0.2',
        ext_modules = [extension]
 )
