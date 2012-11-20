@@ -17,7 +17,7 @@ from multiprocessing import Pool
 
 import numpy as np
 
-from pyhull.qconvex import ConvexHull
+from pyhull.convex_hull import ConvexHull
 
 num_proc = 100
 

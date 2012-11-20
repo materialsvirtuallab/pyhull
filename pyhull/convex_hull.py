@@ -14,37 +14,31 @@ __status__ = "Beta"
 __date__ = "Nov 19 2012"
 
 
-import pyhull._pyhull as hull
-
+from pyhull import qconvex
 from pyhull.simplex import Simplex
 
 class ConvexHull(object):
     """
     Convex hull for a set of points.
+
+    .. attribute: vertices
+
+        The vertices as a list of list of integer indices. E.g., [[0, 2], [1,
+        0], [2, 3], [3, 1]]
     """
 
     def __init__(self, points):
-        self.points = points
-        self.vertices = self._calc_vertices(points)
-
-    def _calc_vertices(self, points):
         """
-        Returns the vertices of the convex hull of a set of points.
-
         Args:
             points:
                 All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
                 [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-
-        Returns:
-            The vertices as a list of list of integer indices. E.g., [[0, 2], [1,
-            0], [2, 3], [3, 1]]
         """
-        prep_str = [str(len(points[0])), str(len(points))]
-        prep_str.extend([' '.join([str(i) for i in row]) for row in points])
-        output = hull.qconvex("i", "\n".join(prep_str))
+        self.points = points
+        output = qconvex("i", points)
         output.pop(0)
-        return [[int(i) for i in row.strip().split()] for row in output]
+        self.vertices = [[int(i) for i in row.strip().split()]
+                         for row in output]
 
     @property
     def simplices(self):

@@ -1,15 +1,15 @@
 __author__ = 'shyue'
 
 import unittest
+import numpy as np
 
-from pyhull.qdelaunay import DelaunayTri
+from pyhull.convex_hull import ConvexHull
 
-
-class DelaunayTriTestCase(unittest.TestCase):
+class ConvexHullTestCase(unittest.TestCase):
 
     def setUp(self):
-        data = [[0,0], [-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-        self.delau = DelaunayTri(data)
+        data = [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+        self.hull = ConvexHull(data)
         sphere_data = [[0.3927286959385721, 0.3027233106882571,
                         -0.0642087887467873],
                        [-0.3040289937812381, 0.08411211324060132,
@@ -30,21 +30,26 @@ class DelaunayTriTestCase(unittest.TestCase):
                         -0.1968618818332127],
                        [-0.4630278928730662, -0.1886147011806086,
                         0.005446551209538857]]
-        self.spdelau = DelaunayTri(sphere_data)
+        self.sphull = ConvexHull(sphere_data)
 
     def test_vertices(self):
-        expected_ans = [[3, 0, 1], [0, 2, 1], [4, 0, 3], [0, 4, 2]]
-        self.assertEqual(self.delau.vertices, expected_ans)
-        expected_ans = [[8, 3, 6, 0], [4, 8, 1, 0], [7, 4, 1, 0], [8, 2, 3, 0],
-                        [2, 4, 3, 0], [4, 2, 8, 0], [2, 8, 6, 9], [2, 8, 3, 6],
-                        [8, 2, 1, 9], [2, 4, 8, 1], [2, 5, 4, 1], [5, 2, 4, 3],
-                        [4, 5, 7, 1], [2, 5, 1, 9]]
-        print len(expected_ans)
-        self.assertEqual(self.spdelau.vertices, expected_ans)
+        expected_ans = [[0, 2], [1, 0], [2, 3], [3, 1]]
+        self.assertEqual(self.hull.vertices, expected_ans)
+        expected_ans = [[1, 5, 9], [6, 3, 0], [6, 8, 9], [8, 1, 9], [8, 6, 0],
+                        [1, 8, 0], [7, 1, 0], [7, 5, 1], [2, 6, 9], [2, 3, 6],
+                        [5, 2, 9], [3, 2, 5], [4, 3, 5], [7, 4, 5], [3, 4, 0],
+                        [4, 7, 0]]
+        self.assertEqual(self.sphull.vertices, expected_ans)
+
+    def test_redundant_points(self):
+        data = self.hull.points
+        expected_ans = [[0, 2], [1, 0], [2, 3], [3, 1]]
+        data.extend([[0, -0.5], [0,  0.5], [-0.5, 0], [0.5, 0]])
+        self.assertEqual(ConvexHull(data).vertices, expected_ans)
 
     def test_simplices(self):
-        self.assertEqual(len(self.delau.simplices), 4)
-        self.assertEqual(len(self.spdelau.simplices), 14)
+        self.assertEqual(len(self.hull.simplices), 4)
+        self.assertEqual(len(self.sphull.simplices), 16)
 
 if __name__ == '__main__':
     unittest.main()

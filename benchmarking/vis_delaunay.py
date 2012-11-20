@@ -18,8 +18,8 @@ import itertools
 
 import numpy as np
 
-from pyhull.qdelaunay import DelaunayTri
-from pyhull.qconvex import ConvexHull
+from pyhull.delaunay import DelaunayTri
+from pyhull.convex_hull import ConvexHull
 import matplotlib.pyplot as plt
 
 points = np.random.randn(50, 2)

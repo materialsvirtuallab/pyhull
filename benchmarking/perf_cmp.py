@@ -16,7 +16,7 @@ __date__ = "11/19/12"
 import numpy as np
 
 from scipy.spatial import Delaunay
-from pyhull.qconvex import ConvexHull
+from pyhull.convex_hull import ConvexHull
 from pymatgen.command_line.qhull_caller import qconvex
 
 def scipy_test(data):
