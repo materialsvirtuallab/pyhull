@@ -37,8 +37,8 @@ class DelaunayTri(object):
         """
         Args:
             points:
-            All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
-            [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+                All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
+                [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
         """
         self.points = points
         output = qdelaunay("i", points)

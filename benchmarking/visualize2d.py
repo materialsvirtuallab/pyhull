@@ -20,9 +20,13 @@ import numpy as np
 
 from pyhull.delaunay import DelaunayTri
 from pyhull.convex_hull import ConvexHull
+from pyhull.voronoi import VoronoiTess
+
 import matplotlib.pyplot as plt
 
-points = np.random.randn(50, 2)
+points = np.random.randn(30, 2)
+
+
 for pt in points:
     plt.plot(pt[0], pt[1], 'ro')
 
@@ -37,5 +41,17 @@ d = ConvexHull(points)
 for s in d.simplices:
     for c1, c2 in itertools.combinations(s.coords, 2):
         plt.plot([c1[0],c2[0]], [c1[1], c2[1]], 'b-')
+
+d = VoronoiTess(points)
+points = d.points
+vertices = d.vertices
+for r in d.regions:
+    for i in xrange(len(r)):
+        ind1 = r[i]
+        ind2 = r[(i+1) % len(r)]
+        if ind1 and ind2:
+            c1 = vertices[ind1]
+            c2 = vertices[ind2]
+            plt.plot([c1[0],c2[0]], [c1[1], c2[1]], 'g-.')
 
 plt.show()

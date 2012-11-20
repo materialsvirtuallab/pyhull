@@ -14,9 +14,11 @@ __email__ = "shyuep@gmail.com"
 __status__ = "Beta"
 __date__ = "Nov 19 2012"
 
+import itertools
+
+import numpy as np
 
 from pyhull import qvoronoi
-from pyhull.simplex import Simplex
 
 
 class VoronoiTess(object):
@@ -51,15 +53,22 @@ class VoronoiTess(object):
         the actual coordinates.
     """
 
-    def __init__(self, points):
+    def __init__(self, points, add_bounding_box=False):
         """
         Args:
             points:
-            All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
-            [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+                All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
+                [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+            add_bounding_box:
+                If True, a hypercube corresponding to the extremes of each
+                coordinate will be added to the list of points.
         """
-        self.points = points
-        output = qvoronoi("o", points)
+        self.points = list(points)
+        if add_bounding_box:
+            coord_ranges = zip(np.amin(points, 0), np.amax(points, 0))
+            for coord in itertools.product(*coord_ranges):
+                self.points.append(coord)
+        output = qvoronoi("o", self.points)
         output.pop(0)
         nvertices, nregions, i = map(int, output.pop(0).split())
         self.vertices = [[float(f) for f in output[i].split()]
@@ -67,7 +76,7 @@ class VoronoiTess(object):
         self.regions = [[int(j) for j in output[i].split()[1:]]
                          for i in xrange(nvertices, nvertices+nregions)]
 
-        output = qvoronoi("Fv", points)
+        output = qvoronoi("Fv", self.points)
         output.pop(0)
         ridges = {}
         for line in output:
