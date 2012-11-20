@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-This module implements a DelaunayTriangulation class.
+This module implements a DelaunayTri class representing a Delaunay
+triangulation of a set of points.
 """
 
 from __future__ import division
