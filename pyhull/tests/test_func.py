@@ -36,7 +36,7 @@ class FuncCase(unittest.TestCase):
         self.assertEqual(['2\n', '4\n', '     0   -0.5 \n', '  -0.5      0 \n',
                           '   0.5      0 \n', '     0    0.5 \n'],
                          qvoronoi("p", data))
-        
+
 
 if __name__ == '__main__':
     unittest.main()

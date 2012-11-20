@@ -113,6 +113,39 @@ Usage
 =====
 
 A C extension has been written, but it is generally recommended that you
-ignore the direct C interface. Instead, user-friendly wrapper classes have
-been written. For example, pyhull.qconvex.ConvexHull implements ConvexHull
-object that represents the ConvexHull of a set of points.
+use the high-level wrapper functions and classes instead.
+
+Example usage of high-level functions:
+
+    >>> from pyhull import qconvex, qdelaunay, qvoronoi
+    >>>
+    >>> pts = [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5], [0,0]]
+    >>>
+    >>> qconvex("i", pts)
+    ['4\n', '0 2 \n', '1 0 \n', '2 3 \n', '3 1 \n']
+    >>>
+    >>> qdelaunay("i", pts)
+    ['4\n', '2 4 0 \n', '4 1 0 \n', '3 4 2 \n', '4 3 1 \n']
+    >>>
+    >>> qvoronoi("o", pts)
+    ['2\n', '5 5 1\n', '-10.101 -10.101 \n', '     0   -0.5 \n', '  -0.5      0 \n', '   0.5      0 \n', '     0    0.5 \n', '3 2 0 1\n', '3 4 0 2\n', '3 3 0 1\n', '3 4 0 3\n', '4 4 2 1 3\n']
+
+The return values are simply a list of string from the output.
+
+For more useful analysis outputs, please use the high-level classes in the
+convex_hull and delaunay modules. For example,
+
+    >>> from pyhull.convex_hull import ConvexHull
+    >>> hull = ConvexHull(pts)
+    >>> hull.vertices
+    [[0, 2], [1, 0], [2, 3], [3, 1]]
+    >>> hull.points
+    [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5], [0, 0]]
+    >>>
+    >>> from pyhull.delaunay import DelaunayTri
+    >>> tri = DelaunayTri(pts)
+    >>> tri.vertices
+    [[2, 4, 0], [4, 1, 0], [3, 4, 2], [4, 3, 1]]
+    >>> tri.points
+    [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5], [0, 0]]
+    >>>

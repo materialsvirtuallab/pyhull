@@ -21,6 +21,10 @@ class ConvexHull(object):
     """
     Convex hull for a set of points.
 
+    .. attribute: points
+
+        Original points supplied.
+
     .. attribute: vertices
 
         The vertices as a list of list of integer indices. E.g., [[0, 2], [1,
