@@ -15,7 +15,7 @@ the scipy.spatial package, but that code is extremely inefficient compared to
 Performance of pyhull
 =====================
 
-pyqhull is still in the early stages of development, but some performance
+pyhull is still in the early stages of development, but some performance
 metrics are already available.
 
 The table below indicates the time taken in seconds to generate the convex
