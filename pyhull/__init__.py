@@ -5,7 +5,7 @@ __version__ = "1.0"
 import pyhull._pyhull as hull
 
 
-def qhull_cmd(cmd, option, points):
+def qhull_cmd(cmd, options, points):
     """
     Generalized helper method to perform a qhull based command.
 
@@ -13,23 +13,26 @@ def qhull_cmd(cmd, option, points):
         cmd:
             Command to perform. Supported commands are qconvex,
             qdelaunay and qvoronoi.
-        option:
-            Option to be provided for qhull command. See specific methods for
+        options:
+            Options to be provided for qhull command. See specific methods for
             info on supported options.
         points:
             Sequence of points as input to qhull command.
     """
     prep_str = [str(len(points[0])), str(len(points))]
     prep_str.extend([' '.join([str(i) for i in row]) for row in points])
-    return getattr(hull, cmd)(option, "\n".join(prep_str))
+    toks = options.split()
+    if len(toks) == 1:
+        return getattr(hull, cmd)(options, "\n".join(prep_str))
+    else:
+        return getattr(hull, cmd)(toks[0], toks[1], "\n".join(prep_str))
 
-
-def qconvex(option, points):
+def qconvex(options, points):
     """
     Similar to qconvex command in command-line qhull.
 
     Args:
-        option:
+        options:
             An option string. See Qhull's qconvex help for info. Typically
             used options are:
             s - summary of results (default)
@@ -42,16 +45,16 @@ def qconvex(option, points):
     Returns:
         Output as a list of strings.
     """
-    return qhull_cmd("qconvex", option, points)
+    return qhull_cmd("qconvex", options, points)
 
 
-def qdelaunay(option, points):
+def qdelaunay(options, points):
     """
     Similar to qdelaunay command in command-line qhull.
 
     Args:
-        option:
-            An option string. See Qhull's qdelaunay help for info. Typically
+        options:
+            An options string. See Qhull's qdelaunay help for info. Typically
             used options are:
             s - summary of results (default)
             i - vertices incident to each Delaunay region
@@ -62,16 +65,16 @@ def qdelaunay(option, points):
     Returns:
         Output as a list of strings.
     """
-    return qhull_cmd("qdelaunay", option, points)
+    return qhull_cmd("qdelaunay", options, points)
 
 
-def qvoronoi(option, points):
+def qvoronoi(options, points):
     """
     Similar to qvoronoi command in command-line qhull.
 
     Args:
         option:
-            An option string. See Qhull's qvoronoi help for info. Typically
+            An options string. See Qhull's qvoronoi help for info. Typically
             used options are:
             s - summary of results
             p - Voronoi vertices
@@ -82,4 +85,4 @@ def qvoronoi(option, points):
     Returns:
         Output as a list of strings.
     """
-    return qhull_cmd("qvoronoi", option, points)
+    return qhull_cmd("qvoronoi", options, points)

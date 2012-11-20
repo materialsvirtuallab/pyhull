@@ -35,19 +35,28 @@ char * tmp_in_prefix = "pyhull.in.";
 char * tmp_out_prefix = "pyhull.out.";
 
 static PyObject* qconvex(PyObject *self, PyObject *args) {
-  int argc;
-  char *argv[2];
-  const char *argvar;
-  const char *data;
+
+  const char *arg1;
+  const char *arg2 = "";
+  const char *data = "";
   int curlong, totlong; /* used !qh_NOmem */
   int exitcode, numpoints, dim;
   coordT *points;
   boolT ismalloc;
-  if (!PyArg_ParseTuple(args, "ss", &argvar, &data))
+  if (!PyArg_ParseTuple(args, "s|ss", &arg1, &arg2, &data))
       return NULL;
-  argc=2;
-  argv[0] = argvar;
-  argv[1] = argvar;
+  char *argv[3];
+  int argc = 2;
+  argv[0] = arg1;
+  argv[1] = arg1;
+  if (strcmp(data, "") != 0)
+  {
+    argv[2] = arg2;
+    argc += 1;
+  }
+  else{
+    data = arg2;
+  }
 
   char *tmp_input_file = tempnam(NULL, tmp_in_prefix);
   char *tmp_output_file = tempnam(NULL, tmp_out_prefix);
@@ -124,19 +133,27 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
 }
 
 static PyObject* qdelaunay(PyObject *self, PyObject *args) {
-  int argc;
-  char *argv[2];
-  const char *argvar;
-  const char *data;
-  int curlong, totlong; /* used !qh_NOmem */
-  int exitcode, numpoints, dim;
-  coordT *points;
-  boolT ismalloc;
-  if (!PyArg_ParseTuple(args, "ss", &argvar, &data))
-      return NULL;
-  argc=2;
-  argv[0] = argvar;
-  argv[1] = argvar;
+  const char *arg1;
+    const char *arg2 = "";
+    const char *data = "";
+    int curlong, totlong; /* used !qh_NOmem */
+    int exitcode, numpoints, dim;
+    coordT *points;
+    boolT ismalloc;
+    if (!PyArg_ParseTuple(args, "s|ss", &arg1, &arg2, &data))
+        return NULL;
+    char *argv[3];
+    int argc = 2;
+    argv[0] = arg1;
+    argv[1] = arg1;
+    if (strcmp(data, "") != 0)
+    {
+      argv[2] = arg2;
+      argc += 1;
+    }
+    else{
+      data = arg2;
+    }
 
   char *tmp_input_file = tempnam(NULL, tmp_in_prefix);
   char *tmp_output_file = tempnam(NULL, tmp_out_prefix);
@@ -217,19 +234,27 @@ static PyObject* qdelaunay(PyObject *self, PyObject *args) {
 
 
 static PyObject* qvoronoi(PyObject *self, PyObject *args) {
-  int argc;
-  char *argv[2];
-  const char *argvar;
-  const char *data;
-  int curlong, totlong; /* used !qh_NOmem */
-  int exitcode, numpoints, dim;
-  coordT *points;
-  boolT ismalloc;
-  if (!PyArg_ParseTuple(args, "ss", &argvar, &data))
-      return NULL;
-  argc=2;
-  argv[0] = argvar;
-  argv[1] = argvar;
+  const char *arg1;
+    const char *arg2 = "";
+    const char *data = "";
+    int curlong, totlong; /* used !qh_NOmem */
+    int exitcode, numpoints, dim;
+    coordT *points;
+    boolT ismalloc;
+    if (!PyArg_ParseTuple(args, "s|ss", &arg1, &arg2, &data))
+        return NULL;
+    char *argv[3];
+    int argc = 2;
+    argv[0] = arg1;
+    argv[1] = arg1;
+    if (strcmp(data, "") != 0)
+    {
+      argv[2] = arg2;
+      argc += 1;
+    }
+    else{
+      data = arg2;
+    }
 
   char *tmp_input_file = tempnam(NULL, tmp_in_prefix);
   char *tmp_output_file = tempnam(NULL, tmp_out_prefix);

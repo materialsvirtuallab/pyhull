@@ -39,7 +39,7 @@ class ConvexHull(object):
                 [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
         """
         self.points = points
-        output = qconvex("i", points)
+        output = qconvex("i Qt", points)
         output.pop(0)
         self.vertices = [[int(i) for i in row.strip().split()]
                          for row in output]

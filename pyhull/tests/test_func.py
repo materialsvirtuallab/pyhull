@@ -11,6 +11,8 @@ class FuncCase(unittest.TestCase):
         data = [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
         self.assertEqual(['4\n', '0 2 \n', '1 0 \n', '2 3 \n', '3 1 \n'],
                          qconvex("i", data))
+        self.assertEqual(['4\n', '0 2 \n', '1 0 \n', '2 3 \n', '3 1 \n'],
+                         qconvex("i Qt", data))
         self.assertEqual(qconvex("n", data), ['3\n', '4\n',
                                               '    -0     -1   -0.5 \n',
                                               '    -1      0   -0.5 \n',
