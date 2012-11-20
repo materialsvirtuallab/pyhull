@@ -38,9 +38,12 @@ setup (name = 'pyhull',
        maintainer="Shyue Ping Ong",
        url="https://github.com/shyuep/pyhull",
        license="MIT",
-       description = 'pyhull is a port of Qhull to Python.',
+       description = 'A Python wrapper to Qhull (http://www.qhull.org/) for '
+                     'the computation of the convex hull, '
+                     'Delaunay triangulation and Voronoi diagram',
        keywords=["qhull", "convex", "hull", "computational",
-                 "geometry"],
+                 "geometry", "delaunay", "triangulation", "voronoi",
+                 "diagram"],
        install_requires=["numpy>=1.5"],
        classifiers=[
            "Programming Language :: Python :: 2.7",
