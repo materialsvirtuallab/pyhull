@@ -33,3 +33,11 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`voronoi` Module
+---------------------
+
+.. automodule:: pyhull.voronoi
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

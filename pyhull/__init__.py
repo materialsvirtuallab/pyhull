@@ -1,5 +1,5 @@
 __author__ = "Shyue Ping Ong"
-__version__ = "1.0"
+__version__ = "1.1"
 
 
 import pyhull._pyhull as hull

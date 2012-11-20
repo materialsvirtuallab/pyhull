@@ -32,7 +32,7 @@ https://github.com/shyuep/pyhull.
 """
 
 setup (name = 'pyhull',
-       version = '1.0',
+       version = '1.1',
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
        maintainer="Shyue Ping Ong",
