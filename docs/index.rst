@@ -114,16 +114,15 @@ The return values are simply a list of strings from the output.
 Performance of pyhull
 =====================
 
-pyhull is still in the early stages of development, but some performance
-metrics are already available. The table below indicates the time taken in
-seconds to generate the convex hull for a given number of points in a
-specified number of dimensions. The final column (Cmd-line qconvex) is the
-time taken to generate the data using a subprocess call to command line
-qconvex as a comparison for pyhull.
+The table below indicates the time taken in seconds to generate the convex
+hull for a given number of points in a specified number of dimensions. The
+final column (Cmd-line qconvex) is the time taken to generate the data using
+a subprocess call to command line qconvex as a comparison for pyhull.
 
-============ === ======== ======= ================
-No of points Dim scipy    pyhull  Cmd-line qconvex
-============ === ======== ======= ================
+============ === ======== ======= ========
+No of points Dim scipy    pyhull  Cmd-line
+                                  qconvex
+============ === ======== ======= ========
 100          3   0.00237  0.00209 0.01354
 100          4   0.00609  0.00333 0.01053
 100          5   0.03125  0.00834 0.01743
@@ -136,12 +135,12 @@ No of points Dim scipy    pyhull  Cmd-line qconvex
 2000         4   0.32277  0.02326 0.02742
 2000         5   2.38308  0.06664 0.06845
 2000         6   20.64062 0.41188 0.42673
-============ === ======== ======= ================
+============ === ======== ======= ========
 
-It is clear from the above table that even in its early alpha form,
-pyhull outperforms scipy.spatial for large number of points in higher
-dimensions. Also, pyhull is tested to be safe in terms of usage with Python
-multiprocessing, unlike a subprocess call to Qhull.
+It is clear from the above table that pyhull outperforms scipy.spatial for
+large number of points in higher dimensions. Also, pyhull is tested to be
+safe in terms of usage with Python multiprocessing, unlike a subprocess call
+to Qhull.
 
 Contributing
 ============
