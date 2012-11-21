@@ -7,7 +7,7 @@ package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.
 """
 
 __author__ = "Shyue Ping Ong"
-__version__ = "1.2b"
+__version__ = "1.2"
 __date__ = "Nov 20 2012"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
@@ -31,8 +31,7 @@ def qhull_cmd(cmd, options, points):
             Sequence of points as input to qhull command.
 
      Returns:
-        Output as a list of strings. E.g., ['4', '0 2 ', '1 0 ',
-        '2 3 ', '3 1 ']
+        Output as a list of strings. E.g., ['4', '0 2', '1 0', '2 3 ', '3 1']
     """
     prep_str = [str(len(points[0])), str(len(points))]
     prep_str.extend([' '.join([str(i) for i in row]) for row in points])
@@ -104,10 +103,8 @@ def qvoronoi(options, points):
 
     Returns:
         Output as a list of strings.
-        E.g., ['2', '5 5 1', '-10.101 -10.101 ',
-        '     0   -0.5 ', '  -0.5      0 ',
-        '   0.5      0 ', '     0    0.5 ',
-        '3 2 0 1', '3 4 0 2', '3 3 0 1',
+        E.g., ['2', '5 5 1', '-10.101 -10.101', '0   -0.5', '-0.5      0',
+        '0.5      0', '0    0.5', '3 2 0 1', '3 4 0 2', '3 3 0 1',
         '3 4 0 3', '4 4 2 1 3']
     """
     return [l.strip() for l in qhull_cmd("qvoronoi", options, points)]
