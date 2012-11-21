@@ -107,7 +107,7 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
 
      fseek(fout, 0, SEEK_SET);
      int count = 0;
-     int MAX_BUF_SIZE = 100;
+     int MAX_BUF_SIZE = 300;
      char buffer[MAX_BUF_SIZE];
      while(fgets(buffer, MAX_BUF_SIZE, fout)){
        count++;
@@ -207,7 +207,7 @@ static PyObject* qdelaunay(PyObject *self, PyObject *args) {
 
      fseek(fout, 0, SEEK_SET);
      int count = 0;
-     int MAX_BUF_SIZE = 100;
+     int MAX_BUF_SIZE = 300;
      char buffer[MAX_BUF_SIZE];
      while(fgets(buffer, MAX_BUF_SIZE, fout)){
        count++;
@@ -308,7 +308,7 @@ static PyObject* qvoronoi(PyObject *self, PyObject *args) {
 
      fseek(fout, 0, SEEK_SET);
      int count = 0;
-     int MAX_BUF_SIZE = 100;
+     int MAX_BUF_SIZE = 300;
      char buffer[MAX_BUF_SIZE];
      while(fgets(buffer, MAX_BUF_SIZE, fout)){
        count++;

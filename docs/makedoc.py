@@ -50,3 +50,5 @@ for f in glob.glob("*.rst"):
 
 p = subprocess.Popen(["make", "html"])
 output = p.communicate()[0]
+
+shutil.copyfile("favicon.png", os.path.join("..", "..", "docs", "pyhull", "html", "static", "favicon.png"))

@@ -8,7 +8,7 @@ dimensional space.
 from __future__ import division
 
 __author__ = "Shyue Ping Ong"
-__version__ = "0.1"
+__version__ = "2.0"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
 __date__ = "May 15, 2012"
@@ -94,4 +94,7 @@ class Simplex(object):
 
     @property
     def coords(self):
+        """
+        Returns a copy of the vertex coordinates in the simplex.
+        """
         return self._coords.copy()

@@ -8,7 +8,7 @@ triangulation of a set of points.
 from __future__ import division
 
 __author__ = "Shyue Ping Ong"
-__version__ = "0.1"
+__version__ = "1.1"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
 __status__ = "Beta"
