@@ -28,7 +28,8 @@ the scipy.spatial package, but that code is extremely inefficient compared to
 the original Qhull in C. Pyhull is much faster than the scipy.spatial package.
 
 For more details, please visit the pyhull GitHub page at
-https://github.com/shyuep/pyhull.
+https://github.com/shyuep/pyhull or the documentation page at
+http://packages.python.org/pyhull/.
 """
 
 setup (name = 'pyhull',

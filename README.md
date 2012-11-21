@@ -13,6 +13,9 @@ The only other known code which supports convex hulls in higher dimension is
 the scipy.spatial package, but that code is extremely inefficient compared to
 the original Qhull in C.
 
+For more information, visit the documentation page at
+http://packages.python.org/pyhull/.
+
 Performance of pyhull
 =====================
 
