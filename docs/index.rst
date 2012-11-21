@@ -15,11 +15,16 @@ Currently, there is no effective port of the qhull algorithm, especially for
 higher dimensions. While isolated packages exist for up to 3D convex hulls,
 no effective package exist for higher dimensions. The only other known code
 which supports convex hulls in higher dimension is the scipy.spatial package,
- but that code is extremely inefficient compared to the original Qhull in C.
- Pyhull is much faster than the scipy.spatial package.
+but that code is extremely inefficient compared to the original Qhull in C.
+Pyhull is much faster than the scipy.spatial package.
 
 Latest Change Log
 =================
+
+1. Minor update to support up to two arguments for low-level qhull calls.
+
+Version 1.0
+-----------
 
 1. v1.0 release with all functionality tested and working.
 
