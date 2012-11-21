@@ -9,7 +9,6 @@ Green lines - Delaunay triangulation.
 Blue lines - convex hull.
 Black lines - Voronoi tesselation.
 Dash black lines - Voronoi tesselation with points at infinity.
-
 """
 
 from __future__ import division
@@ -121,8 +120,7 @@ if dim == 2:
     plt.xlim((minc[0]-0.1, maxc[0]+0.1))
     plt.ylim((minc[1]-0.1, maxc[1]+0.1))
 
-font = {'family' : 'normal',
-        'weight' : 'bold',
+font = {'family' : 'Times New Roman',
         'size'   : 18}
 
 plt.rc('font', **font)

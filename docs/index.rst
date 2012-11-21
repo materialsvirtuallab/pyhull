@@ -94,6 +94,16 @@ respectively. For example,
     >>> v.regions
     [[2, 0, 1], [4, 0, 2], [3, 0, 1], [4, 0, 3], [4, 2, 1, 3]]
 
+.. figure:: _static/pyhull_demo.png
+   :width: 100%
+   :alt: pyhull output plot
+   :align: center
+
+   Plot of pyhull output on a set of 30 random 2D points. Red dots - points.
+   Green lines - Delaunay triangulation. Blue lines - convex hull. Black
+   lines - Voronoi tessellation. Dash black lines - Voronoi tessellation with
+   points at infinity.
+
 If you need more detailed output, consider using the lower-level
 interface functions that are modelled after standard command line syntax of
 various qhull programs:
