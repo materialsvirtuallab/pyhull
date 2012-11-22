@@ -1,6 +1,12 @@
 Change log
 ==========
 
+Version 1.2
+-----------
+1. Improve robustness of underlying C extension.
+2. Improve low level functions output.
+3. Cleanup of docs.
+
 Version 1.1
 -----------
 1. Minor update to support up to two arguments for low-level qhull calls.

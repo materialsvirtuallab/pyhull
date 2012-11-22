@@ -27,9 +27,8 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Improve robustness of underlying C extension.
-2. Improve low level functions output.
-3. Cleanup of docs.
+1. Minor additions of more properties and error checking.
+2. Improve documentation.
 
 :doc:`Older versions </changelog>`
 
