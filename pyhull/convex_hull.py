@@ -10,7 +10,7 @@ __author__ = "Shyue Ping Ong"
 __version__ = "1.1"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
-__status__ = "Beta"
+__status__ = "Production"
 __date__ = "Nov 19 2012"
 
 

@@ -54,11 +54,12 @@ setup (name = 'pyhull',
        install_requires=["numpy>=1.5"],
        classifiers=[
            "Programming Language :: Python :: 2.7",
-           "Development Status :: 4 - Beta",
+           "Development Status :: 5 - Production/Stable",
            "Intended Audience :: Science/Research",
            "License :: OSI Approved :: MIT License",
            "Operating System :: OS Independent",
-           "Topic :: Software Development :: Libraries :: Python Modules"
+           "Topic :: Software Development :: Libraries :: Python Modules",
+           "Topic :: Scientific/Engineering :: Mathematics"
        ],
        long_description=long_description,
        download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
