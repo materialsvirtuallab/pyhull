@@ -41,7 +41,7 @@ class DelaunayTri(object):
                 [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
         """
         self.points = points
-        output = qdelaunay("i", points)
+        output = qdelaunay("i Qt", points)
         output.pop(0)
         self.vertices = [[int(i) for i in row.strip().split()]
                          for row in output]
