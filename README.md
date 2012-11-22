@@ -19,9 +19,10 @@ triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
 points and higher dimensions should be accessible depending on your machine,
 but may take a significant amount of time.
 
-
 For more information, visit the documentation page at
-http://packages.python.org/pyhull/.
+http://packages.python.org/pyhull/. To report bugs,
+please use the pyhull's Github Issues page at
+https://github.com/shyuep/pyhull/issues.
 
 Performance of pyhull
 =====================

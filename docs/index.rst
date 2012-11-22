@@ -162,8 +162,8 @@ large number of points in higher dimensions. Also, pyhull is tested to be
 safe in terms of usage with Python multiprocessing, unlike a subprocess call
 to Qhull.
 
-Contributing
-============
+Bug reports / new features
+==========================
 
 1. Report issues and bugs. A simple way that anyone can contribute is simply to
    report bugs and issues to the developing team. You can submit an Issue in
