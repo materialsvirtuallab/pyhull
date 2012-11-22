@@ -59,35 +59,34 @@ if dim == 3:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-
 for pt in points:
     p, = plt.plot(pt[0], pt[1], 'ro') if dim == 2 \
         else plt.plot([pt[0]], [pt[1]], [pt[2]], 'ro')
 
-    legkeys.append(p)
-    legitems.append("Points")
+legkeys.append(p)
+legitems.append("Points")
 
-    d = DelaunayTri(points)
+d = DelaunayTri(points)
 
-    for s in d.simplices:
-        for data in itertools.combinations(s.coords, dim):
-            data = np.array(data)
-            p, = plt.plot(data[:,0], data[:,1], 'g-') if dim == 2 else\
-                ax.plot(data[:,0], data[:,1], data[:,2], 'g-')
+for s in d.simplices:
+    for data in itertools.combinations(s.coords, dim):
+        data = np.array(data)
+        p, = plt.plot(data[:,0], data[:,1], 'g-') if dim == 2 else\
+            ax.plot(data[:,0], data[:,1], data[:,2], 'g-')
 
-    legkeys.append(p)
-    legitems.append("Delaunay tri")
+legkeys.append(p)
+legitems.append("Delaunay tri")
 
-    d = ConvexHull(points)
+d = ConvexHull(points)
 
-    for s in d.simplices:
-        for data in itertools.combinations(s.coords, dim):
-            data = np.array(data)
-            p, = plt.plot(data[:,0], data[:,1], 'b-') if dim == 2 else\
-                ax.plot(data[:,0], data[:,1], data[:,2], 'b-')
+for s in d.simplices:
+    for data in itertools.combinations(s.coords, dim):
+        data = np.array(data)
+        p, = plt.plot(data[:,0], data[:,1], 'b-') if dim == 2 else\
+            ax.plot(data[:,0], data[:,1], data[:,2], 'b-')
 
-    legkeys.append(p)
-    legitems.append("Convex hull")
+legkeys.append(p)
+legitems.append("Convex hull")
 
 if dim == 2:
     d = VoronoiTess(points)
