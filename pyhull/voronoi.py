@@ -68,15 +68,14 @@ class VoronoiTess(object):
             coord_ranges = zip(np.amin(points, 0), np.amax(points, 0))
             for coord in itertools.product(*coord_ranges):
                 self.points.append(coord)
-        output = qvoronoi("o", self.points)
+        output = qvoronoi("o Fv", self.points)
         output.pop(0)
         nvertices, nregions, i = map(int, output.pop(0).split())
-        self.vertices = [[float(f) for f in output[i].split()]
+        self.vertices = [[float(f) for f in output.pop(0).split()]
                          for i in xrange(nvertices)]
-        self.regions = [[int(j) for j in output[i].split()[1:]]
-                         for i in xrange(nvertices, nvertices+nregions)]
+        self.regions = [[int(j) for j in output.pop(0).split()[1:]]
+                         for i in xrange(nregions)]
 
-        output = qvoronoi("Fv", self.points)
         output.pop(0)
         ridges = {}
         for line in output:
