@@ -103,6 +103,11 @@ respectively. For example,
     >>> v.regions
     [[2, 0, 1], [4, 0, 2], [3, 0, 1], [4, 0, 3], [4, 2, 1, 3]]
 
+The figure belows is a plot of the output from pyhull for a set of 30 random
+2D points. To see a sample of the code of how this graph is generated,
+check out the `pyhull_demo.py script on the Github page
+<https://github.com/shyuep/pyhull/blob/master/scripts/pyhull_demo.py>`_.
+
 .. figure:: _static/pyhull_demo.png
    :width: 100%
    :alt: pyhull output plot
