@@ -2,6 +2,8 @@ __author__ = 'shyue'
 
 import unittest
 
+import numpy as np
+
 from pyhull.delaunay import DelaunayTri
 
 
@@ -32,6 +34,14 @@ class DelaunayTriTestCase(unittest.TestCase):
                         0.005446551209538857]]
         self.spdelau = DelaunayTri(sphere_data)
 
+        #Make sure higher dim works.
+        points = np.random.randn(10, 5)
+        self.hddelau = DelaunayTri(points)
+
+        #Check that bad points raises an error.
+        bad_points = [[0,0], [0,1,0], [0,0]]
+        self.assertRaises(ValueError, DelaunayTri, bad_points)
+
     def test_vertices(self):
         expected_ans = [[3, 0, 1], [0, 2, 1], [4, 0, 3], [0, 4, 2]]
         self.assertEqual(self.delau.vertices, expected_ans)
@@ -44,6 +54,10 @@ class DelaunayTriTestCase(unittest.TestCase):
     def test_simplices(self):
         self.assertEqual(len(self.delau.simplices), 4)
         self.assertEqual(len(self.spdelau.simplices), 14)
+
+    def test_dim(self):
+        self.assertEqual(self.delau.dim, 2)
+        self.assertEqual(self.spdelau.dim, 3)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,8 @@
 __author__ = 'shyue'
 
 import unittest
+import numpy as np
+
 
 from pyhull.convex_hull import ConvexHull
 
@@ -31,6 +33,14 @@ class ConvexHullTestCase(unittest.TestCase):
                         0.005446551209538857]]
         self.sphull = ConvexHull(sphere_data)
 
+        #Make sure higher dim works.
+        points = np.random.randn(10, 5)
+        self.hdhull = ConvexHull(points)
+
+        #Check that bad points raises an error.
+        bad_points = [[0,0], [0,1,0], [0,0]]
+        self.assertRaises(ValueError, ConvexHull, bad_points)
+
     def test_vertices(self):
         expected_ans = [[0, 2], [1, 0], [2, 3], [3, 1]]
         self.assertEqual(self.hull.vertices, expected_ans)
@@ -49,6 +59,10 @@ class ConvexHullTestCase(unittest.TestCase):
     def test_simplices(self):
         self.assertEqual(len(self.hull.simplices), 4)
         self.assertEqual(len(self.sphull.simplices), 16)
+
+    def test_dim(self):
+        self.assertEqual(self.hull.dim, 2)
+        self.assertEqual(self.sphull.dim, 3)
 
 if __name__ == '__main__':
     unittest.main()

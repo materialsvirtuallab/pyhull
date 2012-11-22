@@ -21,6 +21,10 @@ class ConvexHull(object):
     """
     Convex hull for a set of points.
 
+    .. attribute: dim
+
+        Dimension of the points.
+
     .. attribute: points
 
         Original points supplied.
@@ -39,6 +43,10 @@ class ConvexHull(object):
                 [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
         """
         self.points = points
+        dim = map(len, self.points)
+        if max(dim) != min(dim):
+            raise ValueError("Input points must all have the same dimension!")
+        self.dim = dim[0]
         output = qconvex("i Qt", points)
         output.pop(0)
         self.vertices = [[int(i) for i in row.strip().split()]

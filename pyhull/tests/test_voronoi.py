@@ -2,6 +2,8 @@ __author__ = 'shyue'
 
 import unittest
 
+import numpy as np
+
 from pyhull.voronoi import VoronoiTess
 
 
@@ -32,6 +34,14 @@ class VoronoiTessTestCase(unittest.TestCase):
                         0.005446551209538857]]
         self.spvoro = VoronoiTess(sphere_data)
 
+        #Make sure higher dim works.
+        points = np.random.randn(10, 5)
+        self.hdvoro = VoronoiTess(points)
+
+        #Check that bad points raises an error.
+        bad_points = [[0,0], [0,1,0], [0,0]]
+        self.assertRaises(ValueError, VoronoiTess, bad_points)
+
     def test_vertices(self):
         expected_ans = [[-10.101, -10.101], [0.0, -0.5], [-0.5, 0.0],
                         [0.5, 0.0], [0.0, 0.5]]
@@ -51,6 +61,10 @@ class VoronoiTessTestCase(unittest.TestCase):
                         (2, 4): [0, 4], (0, 4): [3, 4], (0, 3): [1, 3],
                         (3, 4): [0, 3], (0, 2): [2, 4]}
         self.assertEqual(self.voro.ridges, expected_ans)
+
+    def test_dim(self):
+        self.assertEqual(self.voro.dim, 2)
+        self.assertEqual(self.spvoro.dim, 3)
 
 if __name__ == '__main__':
     unittest.main()

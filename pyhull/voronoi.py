@@ -25,6 +25,10 @@ class VoronoiTess(object):
     """
     Voronoi tessellation for a set of points.
 
+    .. attribute: dim
+
+        Dimension of the points.
+
     .. attribute: points
 
         Original points supplied.
@@ -33,9 +37,8 @@ class VoronoiTess(object):
 
         Vertices of the Voronoi tessellation as a list of coords.
         E.g., [[-10.101, -10.101], [0.0, -0.5], [-0.5, 0.0], [0.5, 0.0],
-        [0.0, 0.5]].
-        Note that the value -10.101 is used by qhull to represent a point at
-        infinity.
+        [0.0, 0.5]]. Note that the value -10.101 is used by qhull to
+        represent a point at infinity.
 
     .. attribute: regions
 
@@ -48,9 +51,11 @@ class VoronoiTess(object):
         indices to list of vertex indices.
         E.g., {(0, 1): [1, 2], (1, 2): [0, 2], (1, 3): [0, 1], (2, 4): [0, 4],
         (0, 4): [3, 4], (0, 3): [1, 3], (3, 4): [0, 3], (0, 2): [2, 4]}
-        The key is a tuple of length 2 indicating the adjacent points. The
-        values are a list of vertex indices. See the vertices attributes for
-        the actual coordinates.
+        The key is a tuple of length 2 indicating the indices of adjacent
+        points. The values are a list of vertex indices. Hence, (0, 1) : [1,
+        2] indicates a ridge that is between points[0] and points[1],
+        with vertices at vertices[1] and vertices[2]. See the points and
+        vertices attributes for the actual coordinates.
     """
 
     def __init__(self, points, add_bounding_box=False):
@@ -64,6 +69,10 @@ class VoronoiTess(object):
                 coordinate will be added to the list of points.
         """
         self.points = list(points)
+        dim = map(len, self.points)
+        if max(dim) != min(dim):
+            raise ValueError("Input points must all have the same dimension!")
+        self.dim = dim[0]
         if add_bounding_box:
             coord_ranges = zip(np.amin(points, 0), np.amax(points, 0))
             for coord in itertools.product(*coord_ranges):
