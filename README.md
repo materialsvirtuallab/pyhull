@@ -1,4 +1,4 @@
-pyhull
+Pyhull
 =======
 
 Pyhull is a Python wrapper to qhull (http://www.qhull.org/) for the
