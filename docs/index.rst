@@ -9,7 +9,7 @@ Introduction
 Pyhull is a Python wrapper to qhull (http://www.qhull.org/) for the
 computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
-interfaces to qhull.
+interfaces to qhull. It is currently based on the version 2012.1 of qhull.
 
 Currently, there is no effective port of the qhull algorithm, especially for
 higher dimensions. While isolated packages exist for up to 3D convex hulls,
@@ -34,15 +34,18 @@ Latest Change Log
 :doc:`Older versions </changelog>`
 
 Getting pyhull
-================
+==============
+
+Pyhull has been tested to install correctly on both BSD and POSIX systems
+(e.g., Mac OS X and most common Linux distros). It has not been tested on
+Windows as of yet. If anyone has tested it on Windows, let me know the results.
 
 Stable version
 --------------
 
-pyhull is now in the Python Package Index (`PyPI`_). The version on
-PyPI is always the latest stable release that will be hopefully, be relatively
-bug-free. If you have setuptools or pip installed installed,
-you can just type::
+Pyhull is now in the Python Package Index (`PyPI`_). The version on PyPI is
+always the latest stable release that will be relatively bug-free. If you
+have setuptools or pip installed installed, you can just type::
 
    easy_install pyhull
 
@@ -56,11 +59,10 @@ the latest stable source can be downloaded at the `PyPI`_ site as well.
 Developmental version
 ---------------------
 
-Alternatively, the bleeding edge developmental version is at the public
-pyhull's `Github repo <https://github.com/shyuep/pyhull/tarball/master>`_. The
-developmental version is likely to be more buggy, but may contain new
-features. Note that the GitHub versions include test files as well for
-unit testing.
+The bleeding edge developmental version is at the public pyhull's `Github
+repo <https://github.com/shyuep/pyhull/tarball/master>`_. The developmental
+version is likely to be more buggy, but may contain new features. Note that
+the GitHub versions include test files as well for unit testing.
 
 From the source, you can type::
 
@@ -131,17 +133,16 @@ various qhull programs:
 
 The return values are simply a list of strings from the output.
 
-Performance of pyhull
+Performance of Pyhull
 =====================
 
 The table below indicates the time taken in seconds to generate the convex
 hull for a given number of points in a specified number of dimensions. The
-final column (Cmd-line qconvex) is the time taken to generate the data using
+final column (Cmd line) is the time taken to generate the data using
 a subprocess call to command line qconvex as a comparison for pyhull.
 
 ============ === ======== ======= ========
-No of points Dim scipy    pyhull  Cmd-line
-                                  qconvex
+No of points Dim scipy    pyhull  Cmd line
 ============ === ======== ======= ========
 100          3   0.00237  0.00209 0.01354
 100          4   0.00609  0.00333 0.01053
@@ -160,7 +161,7 @@ No of points Dim scipy    pyhull  Cmd-line
 It is clear from the above table that pyhull outperforms scipy.spatial for
 large number of points in higher dimensions. Also, pyhull is tested to be
 safe in terms of usage with Python multiprocessing, unlike a subprocess call
-to Qhull.
+to qhull.
 
 Bug reports / new features
 ==========================

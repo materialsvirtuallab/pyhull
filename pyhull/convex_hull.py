@@ -13,9 +13,9 @@ __email__ = "shyuep@gmail.com"
 __status__ = "Production"
 __date__ = "Nov 19 2012"
 
-
 from pyhull import qconvex
 from pyhull.simplex import Simplex
+
 
 class ConvexHull(object):
     """
