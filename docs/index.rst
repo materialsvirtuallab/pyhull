@@ -18,6 +18,12 @@ which supports convex hulls in higher dimension is the scipy.spatial package,
 but that code is extremely inefficient compared to the original Qhull in C.
 Pyhull is much faster than the scipy.spatial package.
 
+Pyhull has been tested to scale to 10,000 7D points for convex hull
+calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
+triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
+points and higher dimensions should be accessible depending on your machine,
+but may take a significant amount of time.
+
 Latest Change Log
 =================
 
@@ -155,12 +161,6 @@ It is clear from the above table that pyhull outperforms scipy.spatial for
 large number of points in higher dimensions. Also, pyhull is tested to be
 safe in terms of usage with Python multiprocessing, unlike a subprocess call
 to Qhull.
-
-Pyhull has been tested to scale to 10,000 7D points for convex hull
-calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
-triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
-points and higher dimensions should be accessible depending on your machine,
-but may take a significant amount of time.
 
 Contributing
 ============
