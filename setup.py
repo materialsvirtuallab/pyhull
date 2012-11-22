@@ -15,7 +15,7 @@ extension = Extension('pyhull._pyhull',
 )
 
 long_description = """
-pyhull is a Python wrapper to Qhull (http://www.qhull.org/) for the
+Pyhull is a Python wrapper to Qhull (http://www.qhull.org/) for the
 computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
 interfaces to qhull.
