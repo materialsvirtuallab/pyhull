@@ -28,9 +28,9 @@ def pyhull_test(cls, npts, dim):
 
 if __name__ == "__main__":
     import timeit
-    classes = ["ConvexHull"]#, "DelaunayTri", "VoronoiTess"]
-    dims = [3, 4, 5, 6, 7]
-    numpts = [10 ** i for i in xrange(1, 5)]
+    classes = ["VoronoiTess"]
+    dims = [2, 3, 4]
+    numpts = [10, 100, 1000, 5000, 10000]
     stats = collections.defaultdict(dict)
     for cls, dim, npts in itertools.product(classes, dims, numpts):
         if not (cls in ["DelaunayTr", "VoronoiTess"] and dim == 7):
@@ -53,8 +53,13 @@ if __name__ == "__main__":
                 sym = symbols[classes.index(k)]
 
                 plt.plot([x[0] for x in data], [x[1] for x in data],
-                         '{}{}{}'.format(col, sty, sym),
-                         label="{} - {}D".format(k, dim))
-    plt.legend()
+                         '{}{}{}'.format(col, sty, sym), markersize=10,
+                         linewidth=3, label="{} - {}D".format(k, dim))
+    plt.legend(loc='upper left', prop={'size':20})
+
+    font = {'family': 'Times New Roman', 'size': 18}
+    plt.rc('font', **font)
+    plt.ylabel("Time (seconds)")
+    plt.xlabel("Number of points")
     plt.show()
 
