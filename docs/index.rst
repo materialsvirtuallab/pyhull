@@ -102,7 +102,7 @@ respectively. For example,
     >>> v.regions
     [[2, 0, 1], [4, 0, 2], [3, 0, 1], [4, 0, 3], [4, 2, 1, 3]]
 
-The figure belows is a plot of the output from pyhull for a set of 30 random
+The figure below is a plot of the output from pyhull for a set of 30 random
 2D points. To see a sample of the code of how this graph is generated,
 check out the `pyhull_demo.py script on the Github page
 <https://github.com/shyuep/pyhull/blob/master/scripts/pyhull_demo.py>`_.
@@ -165,6 +165,33 @@ It is clear from the above table that pyhull outperforms scipy.spatial for
 large number of points in higher dimensions. Also, pyhull is tested to be
 safe in terms of usage with Python multiprocessing, unlike a subprocess call
 to qhull.
+
+The figures below show the scaling of the ConvexHull, DelaunayTri and
+VoronoiTess classes with number of points and dimension of points. You may
+use the numbers below to estimate how long the code will take for your
+specific use cases.
+
+.. figure:: _static/scaling_convexhull.png
+   :width: 100%
+   :alt: Convex hull scaling
+   :align: center
+
+   Scaling of ConvexHull with number of points and dimension of points.
+
+.. figure:: _static/scaling_delaunaytri.png
+   :width: 100%
+   :alt: Delaunay triangulation scaling
+   :align: center
+
+   Scaling of DelaunayTri with number of points and dimension of points.
+
+
+.. figure:: _static/scaling_voronoitess.png
+   :width: 100%
+   :alt: Voronoi tessellation scaling
+   :align: center
+
+   Scaling of VoronoiTess with number of points and dimension of points.
 
 Bug reports / new features
 ==========================
