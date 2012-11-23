@@ -7,7 +7,7 @@ package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.
 """
 
 __author__ = "Shyue Ping Ong"
-__version__ = "1.2.1"
+__version__ = "1.3.0"
 __date__ = "Nov 20 2012"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
@@ -37,9 +37,10 @@ def qhull_cmd(cmd, options, points):
     prep_str.extend([' '.join([str(i) for i in row]) for row in points])
     toks = options.split()
     if len(toks) == 1:
-        return getattr(hull, cmd)(options, "\n".join(prep_str))
+        output = getattr(hull, cmd)(options, "\n".join(prep_str))
     else:
-        return getattr(hull, cmd)(toks[0], toks[1], "\n".join(prep_str))
+        output = getattr(hull, cmd)(toks[0], toks[1], "\n".join(prep_str))
+    return [l.strip() for l in output.strip().split("\n")]
 
 
 def qconvex(options, points):
@@ -61,7 +62,7 @@ def qconvex(options, points):
     Returns:
         Output as a list of strings. E.g., ['4', '0 2', '1 0', '2 3', '3 1']
     """
-    return [l.strip() for l in qhull_cmd("qconvex", options, points)]
+    return qhull_cmd("qconvex", options, points)
 
 
 def qdelaunay(options, points):
@@ -83,7 +84,7 @@ def qdelaunay(options, points):
         Output as a list of strings.
         E.g., ['4', '2 4 0', '4 1 0', '3 4 2', '4 3 1']
     """
-    return [l.strip() for l in qhull_cmd("qdelaunay", options, points)]
+    return qhull_cmd("qdelaunay", options, points)
 
 
 def qvoronoi(options, points):
@@ -107,4 +108,4 @@ def qvoronoi(options, points):
         '0.5      0', '0    0.5', '3 2 0 1', '3 4 0 2', '3 3 0 1',
         '3 4 0 3', '4 4 2 1 3']
     """
-    return [l.strip() for l in qhull_cmd("qvoronoi", options, points)]
+    return qhull_cmd("qvoronoi", options, points)

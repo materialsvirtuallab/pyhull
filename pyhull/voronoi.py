@@ -91,3 +91,4 @@ class VoronoiTess(object):
             val = map(int, line.split())
             ridges[tuple(val[1:3])] = val[3:]
         self.ridges = ridges
+
