@@ -27,7 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Completely rewritten IO system using memstreams instead of open temp files.
+1. Fix dangerous bug in fmemopen.c. String stream now works properly.
 
 :doc:`Older versions </changelog>`
 
