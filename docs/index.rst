@@ -27,8 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Revert to using file based IO until string stream based io bugs can be
-   worked out.
+1. Completely rewritten IO system using memstreams instead of open temp files.
 
 :doc:`Older versions </changelog>`
 
