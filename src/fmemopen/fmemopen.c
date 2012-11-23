@@ -1,92 +1,78 @@
-//
-// Copyright 2012 Jeff Verkoeyen
-// Originally ported from https://github.com/ingenuitas/python-tesseract/blob/master/fmemopen.c
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
+/*
+ * fmem.c : fmemopen() on top of BSD's funopen()
+ * 20081017 AF
+ */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/mman.h>
 
+#ifndef linux
 struct fmem {
-  size_t pos;
-  size_t size;
-  char *buffer;
+    size_t pos;
+    size_t size;
+    char *buffer;
 };
 typedef struct fmem fmem_t;
 
-static int readfn(void *handler, char *buf, int size) {
-  fmem_t *mem = handler;
-  size_t available = mem->size - mem->pos;
-  
-  if (size > available) {
-    size = available;
-  }
-  memcpy(buf, mem->buffer, sizeof(char) * size);
-  mem->pos += size;
-  
-  return size;
+static int readfn(void *handler, char *buf, int size)
+{
+    int count = 0;
+    fmem_t *mem = handler;
+    size_t available = mem->size - mem->pos;
+
+    if(size > available) size = available;
+    for(count=0; count < size; mem->pos++, count++)
+        buf[count] = mem->buffer[mem->pos];
+
+    return count;
 }
 
-static int writefn(void *handler, const char *buf, int size) {
-  fmem_t *mem = handler;
-  size_t available = mem->size - mem->pos;
+static int writefn(void *handler, const char *buf, int size)
+{
+    int count = 0;
+    fmem_t *mem = handler;
+    size_t available = mem->size - mem->pos;
 
-  if (size > available) {
-    size = available;
-  }
-  memcpy(mem->buffer, buf, sizeof(char) * size);
-  mem->pos += size;
+    if(size > available) size = available;
+    for(count=0; count < size; mem->pos++, count++)
+        mem->buffer[mem->pos] = buf[count];
 
-  return size;
+    return count; // ? count : size;
 }
 
-static fpos_t seekfn(void *handler, fpos_t offset, int whence) {
-  size_t pos;
-  fmem_t *mem = handler;
+static fpos_t seekfn(void *handler, fpos_t offset, int whence)
+{
+    size_t pos;
+    fmem_t *mem = handler;
 
-  switch (whence) {
-    case SEEK_SET: pos = offset; break;
-    case SEEK_CUR: pos = mem->pos + offset; break;
-    case SEEK_END: pos = mem->size + offset; break;
-    default: return -1;
-  }
+    switch(whence) {
+        case SEEK_SET: pos = offset; break;
+        case SEEK_CUR: pos = mem->pos + offset; break;
+        case SEEK_END: pos = mem->size + offset; break;
+        default: return -1;
+    }
 
-  if (pos > mem->size) {
-    return -1;
-  }
+    if(pos < 0 || pos > mem->size) return -1;
 
-  mem->pos = pos;
-  return (fpos_t)pos;
+    mem->pos = pos;
+    return (fpos_t) pos;
 }
 
-static int closefn(void *handler) {
-  free(handler);
-  return 0;
+static int closefn(void *handler)
+{
+    free(handler);
+    return 0;
 }
 
-FILE *fmemopen(void *buf, size_t size, const char *mode) {
-  // This data is released on fclose.
-  fmem_t* mem = (fmem_t *) malloc(sizeof(fmem_t));
+/* simple, but portable version of fmemopen for OS X / BSD */
+FILE *fmemopen(void *buf, size_t size, const char *mode)
+{
+    fmem_t *mem = (fmem_t *) malloc(sizeof(fmem_t));
 
-  // Zero-out the structure.
-  memset(mem, 0, sizeof(fmem_t));
-
-  mem->size = size;
-  mem->buffer = buf;
-
-  // funopen's man page: https://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man3/funopen.3.html
-  return funopen(mem, readfn, writefn, seekfn, closefn);
+    memset(mem, 0, sizeof(fmem_t));
+    mem->size = size, mem->buffer = buf;
+    return funopen(mem, readfn, writefn, seekfn, closefn);
 }
+#endif
