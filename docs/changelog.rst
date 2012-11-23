@@ -1,6 +1,11 @@
 Change log
 ==========
 
+Version 1.2.1
+-------------
+1. Minor additions of more properties and error checking.
+2. Improve documentation.
+
 Version 1.2
 -----------
 1. Improve robustness of underlying C extension.

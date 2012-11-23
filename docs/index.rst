@@ -27,8 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Minor additions of more properties and error checking.
-2. Improve documentation.
+1. Completely rewritten IO system using memstreams instead of open temp files.
 
 :doc:`Older versions </changelog>`
 
