@@ -9,7 +9,7 @@ Introduction
 Pyhull is a Python wrapper to qhull (http://www.qhull.org/) for the
 computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
-interfaces to qhull. It is currently based on the version 2012.1 of qhull.
+interfaces to qhull. It is currently based on the 2012.1 version of qhull.
 
 Currently, there is no effective port of the qhull algorithm, especially for
 higher dimensions. While isolated packages exist for up to 3D convex hulls,
