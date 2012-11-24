@@ -18,6 +18,8 @@ class FuncCase(unittest.TestCase):
                                               '-1      0   -0.5',
                                               '1     -0   -0.5',
                                               '0      1   -0.5'])
+        self.assertIsNotNone(qconvex('QR0 FA Pp', data))
+
 
     def test_qdelaunay(self):
         data = [[0,0], [-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]

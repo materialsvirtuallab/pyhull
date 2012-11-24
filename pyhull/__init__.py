@@ -35,11 +35,8 @@ def qhull_cmd(cmd, options, points):
     """
     prep_str = [str(len(points[0])), str(len(points))]
     prep_str.extend([' '.join([str(i) for i in row]) for row in points])
-    toks = options.split()
-    if len(toks) == 1:
-        output = getattr(hull, cmd)(options, "\n".join(prep_str))
-    else:
-        output = getattr(hull, cmd)(toks[0], toks[1], "\n".join(prep_str))
+    output = getattr(hull, cmd)(options, "\n".join(prep_str))
+    print output
     return [l.strip() for l in output.strip().split("\n")]
 
 
