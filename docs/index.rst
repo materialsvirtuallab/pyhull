@@ -108,7 +108,7 @@ check out the `pyhull_demo.py script on the Github page
 <https://github.com/shyuep/pyhull/blob/master/scripts/pyhull_demo.py>`_.
 
 .. figure:: _static/pyhull_demo.png
-   :width: 100%
+   :width: 500px
    :alt: pyhull output plot
    :align: center
 
@@ -172,14 +172,14 @@ use the numbers below to estimate how long the code will take for your
 specific use cases.
 
 .. figure:: _static/scaling_convexhull.png
-   :width: 100%
+   :width: 500px
    :alt: Convex hull scaling
    :align: center
 
    Scaling of ConvexHull with number of points and dimension of points.
 
 .. figure:: _static/scaling_delaunaytri.png
-   :width: 100%
+   :width: 500px
    :alt: Delaunay triangulation scaling
    :align: center
 
@@ -187,7 +187,7 @@ specific use cases.
 
 
 .. figure:: _static/scaling_voronoitess.png
-   :width: 100%
+   :width: 500px
    :alt: Voronoi tessellation scaling
    :align: center
 
