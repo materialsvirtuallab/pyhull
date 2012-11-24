@@ -1,6 +1,10 @@
 Change log
 ==========
 
+Version 1.3.2
+-------------
+1. Fix dangerous bug in fmemopen.c. String stream now works properly.
+
 Version 1.3
 -----------
 1. Completely rewritten IO system using memstreams instead of open temp files.

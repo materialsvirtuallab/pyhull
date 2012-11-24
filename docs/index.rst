@@ -27,7 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Fix dangerous bug in fmemopen.c. String stream now works properly.
+1. Update to support any reasonable number of arguments in low level functions.
 
 :doc:`Older versions </changelog>`
 
