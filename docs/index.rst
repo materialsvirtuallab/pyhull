@@ -27,7 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Update to support any reasonable number of arguments in low level functions.
+1. Minor update to remove stray debug print statement.
 
 :doc:`Older versions </changelog>`
 
