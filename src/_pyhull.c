@@ -1,9 +1,34 @@
+/*
+This file implements the basic interface to libqhull. Essentially,
+it is a port of the original qconvex, qdelaunay, qvoronoi sources from qhull
+(http://www.qhull.org) as a Python extension. Three methods are defined,
+essentially, qconvex, qdelaunay and qvoronoi.
+
+In the original qhull implementation, each command takes input in the form of
+"qhull_command [options] <stdin>" and the results are dumped to stdout. To
+minimize the impact on the underlying C code (so that future qhull versions
+can be incorporated easily), the implementation in this file is as follows:
+i) Obtain options and data from Python. The options are represented as a
+space-separated string (e.g., "i o") and the data is represented as a string
+(e.g., "2\n4\n-0.5   -0.5\n-0.5    0.5\n0.5   -0.5\n0.5    0.5\n"). The
+string format is the same format as that which the qhull commands expect from
+stdin. The conversion of actual Python number arrays to this string is done
+on the Python end because it is much easier.
+
+The data string is then converted to a FILE* string stream using fmemopen and
+a FILE* output stream is created using open_memstream (for BSD systems such
+as Mac OS, simulated versions using funopen are implemented). These are
+supplied in place of stdin and stdout. The resulting string output from the
+qhull command is then returned as a Python string.
+
+Author: Shyue Ping Ong
+Date: Nov 23 2012
+*/
+
 #include <Python.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include <math.h>
 #include "libqhull.h"
 #include "mem.h"
 #include "qset.h"
@@ -29,12 +54,12 @@ int isatty(int);  /* returns 1 if stdin is a tty
                    if "Undefined symbol" this can be deleted along with call in main() */
 #endif
 
-#ifdef __APPLE__
+/* Use simulated fmemopen and open_memstream for Mac systems.*/
+#if (defined(BSD) || __APPLE__)
 #include "fmemopen.h"
 #include "open_memstream.h"
 #endif
 
-/* duplicated in qconvex.htm */
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 
 static PyObject* qconvex(PyObject *self, PyObject *args) {
@@ -264,8 +289,6 @@ static PyObject* qvoronoi(PyObject *self, PyObject *args) {
      #endif
      fclose(fin);
      fclose(fout);
-     /* We need to know the number of lines in the file to allocate the PyList
-     object */
 
      return Py_BuildValue("s", bp);
   }

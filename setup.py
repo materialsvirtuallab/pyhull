@@ -15,7 +15,7 @@ if sys.platform.strip() == "darwin":
     sources += glob.glob(os.path.join("src", "fmemopen", "*.c"))
 extension = Extension('pyhull._pyhull',
                       include_dirs=include_dirs,
-                      sources=['_pyhull.c'] + sources
+                      sources=[os.path.join(src_dir, '_pyhull.c')] + sources
 )
 
 long_description = """
@@ -43,7 +43,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup (name = 'pyhull',
-       version = '1.3.1',
+       version = '1.3.2',
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
        maintainer="Shyue Ping Ong",
