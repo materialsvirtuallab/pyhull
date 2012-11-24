@@ -28,20 +28,18 @@ def serial_test(data):
     d = []
     for i in xrange(num_proc):
         d.append(get_vertices(data))
-    print "Serial {}".format(d[0][0])
     return d
 
 def parallel_test(data):
     p = Pool(4)
     all_data = p.map(get_vertices, [data] * num_proc)
-    for d in all_data:
-        print d[0]
+    print all([all_data[i] == all_data[0] for i in xrange(num_proc)])
 
 if __name__ == "__main__":
     import timeit
     global data
     for npts in [100, 1000]:
-        for dim in [3,4]:
+        for dim in [3, 4]:
             data = np.random.randn(npts,dim)
             t = timeit.timeit("serial_test(data)",
                               setup="from __main__ import serial_test, data",

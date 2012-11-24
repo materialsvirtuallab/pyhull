@@ -36,7 +36,6 @@ def qhull_cmd(cmd, options, points):
     prep_str = [str(len(points[0])), str(len(points))]
     prep_str.extend([' '.join([str(i) for i in row]) for row in points])
     output = getattr(hull, cmd)(options, "\n".join(prep_str))
-    print output
     return [l.strip() for l in output.strip().split("\n")]
 
 
