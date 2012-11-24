@@ -63,7 +63,7 @@ int isatty(int);  /* returns 1 if stdin is a tty
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 
 
-int splitString(char *s, char* toks[])
+int splitString(const char *s, char* toks[])
 {
     int i = 0;
     char *rest;
@@ -102,7 +102,6 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
     FILE* fin = fmemopen(data, strlen(data), "r");
     FILE* fout = open_memstream(&bp, &size);
 
-    PyObject* pydata;
     if ((fin != NULL) && (fout != NULL))
     {
         /* Now do the usual qhull code (modified from qconvex.c). */
@@ -164,7 +163,6 @@ static PyObject* qdelaunay(PyObject *self, PyObject *args) {
     FILE* fin = fmemopen(data, strlen(data), "r");
     FILE* fout = open_memstream(&bp, &size);
 
-    PyObject* pydata;
     if ((fin != NULL) && (fout != NULL))
     {
         /* Now do the usual qhull code (modified from qdelaunay.c). */
@@ -233,7 +231,6 @@ static PyObject* qvoronoi(PyObject *self, PyObject *args) {
     FILE* fin = fmemopen(data, strlen(data), "r");
     FILE* fout = open_memstream(&bp, &size);
 
-    PyObject* pydata;
     if ((fin != NULL) && (fout != NULL))
     {
         /* Now do the usual qhull code (modified from qvoronoi.c). */
