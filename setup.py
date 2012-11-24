@@ -43,7 +43,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup (name = 'pyhull',
-       version = '1.3.4',
+       version = '1.3.5',
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
        maintainer="Shyue Ping Ong",
