@@ -3,5 +3,3 @@ include distribute_setup.py
 recursive-include pyhull *.py
 recursive-include src *
 prune **/tests
-prune **/**/tests
-prune **/**/**/tests
