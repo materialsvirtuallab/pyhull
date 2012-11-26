@@ -27,7 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Minor update to remove stray debug print statement.
+1. Bug fix for non-Mac Linux systems.
 
 :doc:`Older versions </changelog>`
 
