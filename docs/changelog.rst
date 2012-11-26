@@ -1,6 +1,10 @@
 Change log
 ==========
 
+v1.3.5
+------
+1. Minor update to remove stray debug print statement.
+
 v1.3.3
 ------
 1. Update to support any reasonable number of arguments in low level functions.

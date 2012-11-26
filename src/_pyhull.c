@@ -63,25 +63,6 @@ int isatty(int);  /* returns 1 if stdin is a tty
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 
 
-int splitString(const char *s, char* toks[])
-{
-    int i = 0;
-    char *rest;
-    char *token;
-    /* Defensively copy the string first */
-    char tempstr[20];
-    strcpy(tempstr, s);
-    char* ptr = tempstr;
-
-    while(token = strtok_r(ptr, " ", &rest)) {
-        toks[i+1] = token;
-        ptr = rest;
-        i += 1;
-    }
-	return i;
-}
-
-
 static PyObject* qconvex(PyObject *self, PyObject *args) {
     const char *arg;
     const char *data;
@@ -91,9 +72,22 @@ static PyObject* qconvex(PyObject *self, PyObject *args) {
     boolT ismalloc;
     if (!PyArg_ParseTuple(args, "ss", &arg, &data))
         return NULL;
-    char *argv[10];
-    int argc = splitString(arg, argv) + 1;
+    char* argv[10];
+    int argc = 1;
+    char *rest;
+    char *token;
+    /* Defensively copy the string first */
+    char tempstr[30];
+    strcpy(tempstr, arg);
+    char* ptr = tempstr;
+
+    while(token = strtok_r(ptr, " ", &rest)) {
+        argv[argc] = token;
+        ptr = rest;
+        argc  += 1;
+    }
     argv[0] = "qconvex";
+
     char *bp;
     size_t size;
 
@@ -152,8 +146,21 @@ static PyObject* qdelaunay(PyObject *self, PyObject *args) {
     boolT ismalloc;
     if (!PyArg_ParseTuple(args, "ss", &arg, &data))
         return NULL;
-    char *argv[10];
-    int argc = splitString(arg, argv) + 1;
+    char* argv[10];
+    int argc = 1;
+    char *rest;
+    char *token;
+    /* Defensively copy the string first */
+    char tempstr[30];
+    strcpy(tempstr, arg);
+    char* ptr = tempstr;
+
+    while(token = strtok_r(ptr, " ", &rest)) {
+        argv[argc] = token;
+        ptr = rest;
+        argc  += 1;
+    }
+
     argv[0] = "qdelaunay";
     char *bp;
     size_t size;
@@ -220,7 +227,19 @@ static PyObject* qvoronoi(PyObject *self, PyObject *args) {
     if (!PyArg_ParseTuple(args, "ss", &arg, &data))
         return NULL;
     char *argv[10];
-    int argc = splitString(arg, argv) + 1;
+    int argc = 1;
+    char *rest;
+    char *token;
+    /* Defensively copy the string first */
+    char tempstr[30];
+    strcpy(tempstr, arg);
+    char* ptr = tempstr;
+
+    while(token = strtok_r(ptr, " ", &rest)) {
+        argv[argc] = token;
+        ptr = rest;
+        argc  += 1;
+    }
     argv[0] = "qvoronoi";
 
     char *bp;
