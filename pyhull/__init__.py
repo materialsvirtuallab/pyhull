@@ -13,6 +13,7 @@ __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
 
 import pyhull._pyhull as hull
+import string
 
 
 def qhull_cmd(cmd, options, points):
@@ -34,9 +35,9 @@ def qhull_cmd(cmd, options, points):
         Output as a list of strings. E.g., ['4', '0 2', '1 0', '2 3 ', '3 1']
     """
     prep_str = [str(len(points[0])), str(len(points))]
-    prep_str.extend([' '.join([str(i) for i in row]) for row in points])
+    prep_str.extend([' '.join(map(str, row)) for row in points])
     output = getattr(hull, cmd)(options, "\n".join(prep_str))
-    return [l.strip() for l in output.strip().split("\n")]
+    return map(string.strip, output.strip().split("\n"))
 
 
 def qconvex(options, points):
