@@ -86,7 +86,7 @@ class Simplex(object):
                                                    self.space_dim),
                   "Vertices:"]
         for coord in self._coords:
-            output.append("\t({})".format(", ".join([str(i) for i in coord])))
+            output.append("\t({})".format(", ".join(map(str, coord))))
         return "\n".join(output)
 
     def __str__(self):
