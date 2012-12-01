@@ -49,8 +49,7 @@ class ConvexHull(object):
         self.dim = dim[0]
         output = qconvex("i Qt", points)
         output.pop(0)
-        self.vertices = [[int(i) for i in row.strip().split()]
-                         for row in output]
+        self.vertices = [map(int, row.strip().split()) for row in output]
 
     @property
     def simplices(self):

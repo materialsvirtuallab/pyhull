@@ -80,10 +80,10 @@ class VoronoiTess(object):
         output = qvoronoi("o Fv", self.points)
         output.pop(0)
         nvertices, nregions, i = map(int, output.pop(0).split())
-        self.vertices = [[float(f) for f in output.pop(0).split()]
+        self.vertices = [map(float, output.pop(0).split())
                          for i in xrange(nvertices)]
-        self.regions = [[int(j) for j in output.pop(0).split()[1:]]
-                         for i in xrange(nregions)]
+        self.regions = [map(int, output.pop(0).split()[1:])
+                        for i in xrange(nregions)]
 
         output.pop(0)
         ridges = {}
