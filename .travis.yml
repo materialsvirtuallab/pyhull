@@ -4,5 +4,7 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests, e.g. python setup.py test
-before_script: python setup.py install
+before_script:
+  - python setup.py install
+  - mv pyhull tests
 script: nosetests
