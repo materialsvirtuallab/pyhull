@@ -42,16 +42,16 @@ https://github.com/shyuep/pyhull or the documentation page at
 http://packages.python.org/pyhull/.
 """
 
-setup (name = 'pyhull',
-       version = '1.3.7',
+setup (name = "pyhull",
+       version = "1.3.7",
        author="Shyue Ping Ong",
        author_email="shyuep@gmail.com",
        maintainer="Shyue Ping Ong",
        url="https://github.com/shyuep/pyhull",
        license="MIT",
-       description = 'A Python wrapper to Qhull (http://www.qhull.org/) for '
-                     'the computation of the convex hull, '
-                     'Delaunay triangulation and Voronoi diagram',
+       description = "A Python wrapper to Qhull (http://www.qhull.org/) for "
+                     "the computation of the convex hull, "
+                     "Delaunay triangulation and Voronoi diagram",
        keywords=["qhull", "convex", "hull", "computational",
                  "geometry", "delaunay", "triangulation", "voronoi",
                  "diagram"],
