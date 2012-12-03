@@ -1,6 +1,10 @@
 Change log
 ==========
 
+v1.3.6
+------
+1. Bug fix for non-Mac Linux systems.
+
 v1.3.5
 ------
 1. Minor update to remove stray debug print statement.

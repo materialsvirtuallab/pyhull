@@ -27,7 +27,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Bug fix for non-Mac Linux systems.
+1. Minor efficiency improvements.
 
 :doc:`Older versions </changelog>`
 
