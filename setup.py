@@ -15,8 +15,7 @@ if sys.platform.strip() == "darwin":
     sources += glob.glob(os.path.join("src", "fmemopen", "*.c"))
 extension = Extension('pyhull._pyhull',
                       include_dirs=include_dirs,
-                      sources=[os.path.join(src_dir, '_pyhull.c')] + sources
-)
+                      sources=[os.path.join(src_dir, '_pyhull.c')] + sources)
 
 long_description = """
 Pyhull is a Python wrapper to Qhull (http://www.qhull.org/) for the
@@ -42,31 +41,31 @@ https://github.com/shyuep/pyhull or the documentation page at
 http://packages.python.org/pyhull/.
 """
 
-setup (name = "pyhull",
-       version = "1.3.7",
-       author="Shyue Ping Ong",
-       author_email="shyuep@gmail.com",
-       maintainer="Shyue Ping Ong",
-       url="https://github.com/shyuep/pyhull",
-       license="MIT",
-       description = "A Python wrapper to Qhull (http://www.qhull.org/) for "
-                     "the computation of the convex hull, "
-                     "Delaunay triangulation and Voronoi diagram",
-       keywords=["qhull", "convex", "hull", "computational",
-                 "geometry", "delaunay", "triangulation", "voronoi",
-                 "diagram"],
-       install_requires=["numpy>=1.5"],
-       classifiers=[
-           "Programming Language :: Python :: 2.7",
-           "Development Status :: 5 - Production/Stable",
-           "Intended Audience :: Science/Research",
-           "License :: OSI Approved :: MIT License",
-           "Operating System :: OS Independent",
-           "Topic :: Software Development :: Libraries :: Python Modules",
-           "Topic :: Scientific/Engineering :: Mathematics"
-       ],
-       long_description=long_description,
-       download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
-       packages=find_packages(),
-       ext_modules = [extension]
+setup(name="pyhull",
+      version="1.3.7",
+      author="Shyue Ping Ong",
+      author_email="shyuep@gmail.com",
+      maintainer="Shyue Ping Ong",
+      url="https://github.com/shyuep/pyhull",
+      license="MIT",
+      description="A Python wrapper to Qhull (http://www.qhull.org/) for "
+                  "the computation of the convex hull, "
+                  "Delaunay triangulation and Voronoi diagram",
+      keywords=["qhull", "convex", "hull", "computational",
+                "geometry", "delaunay", "triangulation", "voronoi",
+                "diagram"],
+      install_requires=["numpy>=1.5"],
+      classifiers=[
+          "Programming Language :: Python :: 2.7",
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Science/Research",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: OS Independent",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Topic :: Scientific/Engineering :: Mathematics"
+      ],
+      long_description=long_description,
+      download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
+      packages=find_packages(),
+      ext_modules=[extension]
 )
