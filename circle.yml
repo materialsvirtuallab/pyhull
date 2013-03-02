@@ -1,3 +1,7 @@
 dependencies:
   override:
     - python setup.py install
+test:
+  override:
+    - mv pyhull hull
+    - nosetests
