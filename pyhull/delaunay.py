@@ -37,19 +37,26 @@ class DelaunayTri(object):
         indices. E.g., [[0, 2], [1, 0], [2, 3], [3, 1]]
     """
 
-    def __init__(self, points):
+    def __init__(self, points, joggle=False):
         """
         Args:
             points:
                 All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
                 [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+            joggle:
+                Use qhull option to joggle inputs until simplical result is 
+                obtained instead of merging facets.
         """
         self.points = points
         dim = map(len, self.points)
         if max(dim) != min(dim):
             raise ValueError("Input points must all have the same dimension!")
         self.dim = dim[0]
-        output = qdelaunay("i Qt", points)
+        if joggle:
+            options = "i QJ"
+        else:
+            options = "i Qt"
+        output = qdelaunay(options, points)
         output.pop(0)
         self.vertices = [map(int, row.strip().split()) for row in output]
 

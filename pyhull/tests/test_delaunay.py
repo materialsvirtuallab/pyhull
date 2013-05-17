@@ -58,6 +58,13 @@ class DelaunayTriTestCase(unittest.TestCase):
     def test_dim(self):
         self.assertEqual(self.delau.dim, 2)
         self.assertEqual(self.spdelau.dim, 3)
+        
+    def test_joggle(self):
+        joggled_delau = DelaunayTri(self.delau.points, joggle=True)
+        expected_ans = set([(0, 1, 3), (0, 1, 2), (0, 3, 4), (0, 2, 4)])
+        ans = set([tuple(sorted(x)) for x in joggled_delau.vertices])
+        self.assertEqual(ans, expected_ans)
+
 
 if __name__ == '__main__':
     unittest.main()
