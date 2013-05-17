@@ -49,6 +49,19 @@ class ConvexHullTestCase(unittest.TestCase):
                         [5, 2, 9], [3, 2, 5], [4, 3, 5], [7, 4, 5], [3, 4, 0],
                         [4, 7, 0]]
         self.assertEqual(self.sphull.vertices, expected_ans)
+        
+    def test_joggle(self):
+        joggled_hull = ConvexHull(self.hull.points, joggle=True)
+        expected_ans = set([(0, 2), (1, 0), (2, 3), (3, 1)])
+        ans = set([tuple(x) for x in joggled_hull.vertices])
+        self.assertEqual(ans, expected_ans)
+        joggled_sphull = ConvexHull(self.sphull.points, joggle=True)
+        expected_ans = set([(1, 5, 9), (6, 3, 0), (6, 8, 9), (8, 1, 9), (8, 6, 0),
+                            (1, 8, 0), (7, 1, 0), (7, 5, 1), (2, 6, 9), (2, 3, 6),
+                            (5, 2, 9), (3, 2, 5), (4, 3, 5), (7, 4, 5), (3, 4, 0),
+                            (4, 7, 0)])
+        ans = set([tuple(x) for x in joggled_sphull.vertices])
+        self.assertEqual(ans, expected_ans)
 
     def test_redundant_points(self):
         data = self.hull.points
