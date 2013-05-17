@@ -47,7 +47,7 @@ def makedoc():
                     fid.write("".join(newoutput))
 
         local("make html")
-        local("cp favicon.png ../../docs/pymatgen/html/static")
+        local("cp favicon.png ../../docs/pyhull/html/static")
 
 def publish():
     local("python setup.py release")
@@ -56,7 +56,7 @@ def test():
     local("nosetests")
 
 def setver():
-    from pymatgen import __version__
+    from pyhull import __version__
     local("sed s/version=.*,/version=\\\"{}\\\",/ setup.py > newsetup".format(__version__))
     local("mv newsetup setup.py")
 
