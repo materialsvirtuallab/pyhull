@@ -42,7 +42,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.3.7",
+      version="1.3.8",
       author="Shyue Ping Ong",
       author_email="shyuep@gmail.com",
       maintainer="Shyue Ping Ong",
@@ -65,7 +65,5 @@ setup(name="pyhull",
           "Topic :: Scientific/Engineering :: Mathematics"
       ],
       long_description=long_description,
-      download_url="https://github.com/shyuep/pyhull/archive/master.tar.gz",
       packages=find_packages(),
-      ext_modules=[extension]
-)
+      ext_modules=[extension])
