@@ -169,7 +169,25 @@ No of points Dim scipy    pyhull  Cmd line
 2000         6   20.64062 0.41188 0.42673
 ============ === ======== ======= ========
 
+Here are new benchmarks for pyhull against scipy 0.12.0, which supports the
+direct computation of the convex hull.
 
+===== === ======= =======
+Npts  Dim scipy   pyhull
+===== === ======= =======
+  100   3 0.00044 0.00120
+  100   4 0.00062 0.00215
+  100   5 0.00347 0.00838
+  100   6 0.01382 0.03698
+ 1000   3 0.00051 0.00778
+ 1000   4 0.00194 0.01226
+ 1000   5 0.01417 0.04079
+ 1000   6 0.14036 0.20594
+ 2000   3 0.00072 0.01772
+ 2000   4 0.00392 0.02941
+ 2000   5 0.02350 0.07712
+ 2000   6 0.25601 0.36650
+===== === ======= =======
 
 The figures below show the scaling of the ConvexHull, DelaunayTri and
 VoronoiTess classes with number of points and dimension of points. You may
