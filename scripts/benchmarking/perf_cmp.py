@@ -32,20 +32,20 @@ if __name__ == "__main__":
     global data
     output = ["<table>", "<tr><th>Number of points</th>",
               "<th>Dim</th><th>scipy</th>",
-              "<th>pyhull</th><th>Cmd-line qconvex</th>"]
+              "<th>pyhull</th>"]
     for npts in [100, 1000, 2000]:
         for dim in [3, 4, 5, 6]:
-            output.append("<tr>")
-            output.append("<td>{}</td><td>{}</td>".format(npts, dim))
+            row = []
+            row.append("{:5d}".format(npts))
+            row.append("{:3d}".format(dim))
             data = np.random.randn(npts, dim)
             t = timeit.timeit("scipy_test(data)",
                               setup="from __main__ import scipy_test, data",
                               number=1)
-            output.append("<td>{:.5f}</td>".format(t))
+            row.append("{:.5f}".format(t))
             t = timeit.timeit("pyhull_test(data)",
                               setup="from __main__ import pyhull_test, data",
                               number=1)
-            output.append("<td>{:.5f}</td>".format(t))
-            output.append("</tr>")
-    output.append("</table>")
+            row.append("{:.5f}".format(t))
+            print " ".join(row)
     print "\n".join(output)

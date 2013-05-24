@@ -11,18 +11,24 @@ computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
 interfaces to qhull. It is currently based on the 2012.1 version of qhull.
 
-Currently, there is no effective port of the qhull algorithm, especially for
-higher dimensions. While isolated packages exist for up to 3D convex hulls,
-no effective package exist for higher dimensions. The only other known code
-which supports convex hulls in higher dimensions is the scipy.spatial package,
-but that code is extremely inefficient compared to the original Qhull in C.
-Pyhull is much faster than the scipy.spatial package.
-
 Pyhull has been tested to scale to 10,000 7D points for convex hull
 calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
 triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
 points and higher dimensions should be accessible depending on your machine,
 but may take a significant amount of time.
+
+.. note::
+
+    At the time of development of pyhull, the scipy.spatial package was the
+    only other package that supports the computation of higher dimensional
+    convex hulls. However, the version of scipy at that time (scipy 0.11.0)
+    only supported the computation of Delaunay triangulation and the convex
+    hull was computed from the Delaunay triangulation, which is slower and less
+    reliable than directly computing the convex hull. As of version 0.12.0,
+    scipy now supports the direct computation of convex hulls and is in fact
+    ~50% faster than pyhull for larger hulls. I will still make pyhull
+    available for the simple reason that the scipy package is fairly large
+    and not everyone wants to install such a large package for computing hulls.
 
 Latest Change Log
 =================
@@ -141,8 +147,10 @@ Performance of Pyhull
 
 The table below indicates the time taken in seconds to generate the convex
 hull for a given number of points in a specified number of dimensions. The
-final column (Cmd line) is the time taken to generate the data using
-a subprocess call to command line qconvex as a comparison for pyhull.
+final col (Cmd-line qconvex) is the time taken to generate the data using a
+subprocess call to command line qconvex as a comparison for pyhull. Note that
+these are based on older versions of scipy (< 0.12.0) where the hull is
+computed by first performing the Delaunay triangulation.
 
 ============ === ======== ======= ========
 No of points Dim scipy    pyhull  Cmd line
@@ -161,10 +169,7 @@ No of points Dim scipy    pyhull  Cmd line
 2000         6   20.64062 0.41188 0.42673
 ============ === ======== ======= ========
 
-It is clear from the above table that pyhull outperforms scipy.spatial for
-large number of points in higher dimensions. Also, pyhull is tested to be
-safe in terms of usage with Python multiprocessing, unlike a subprocess call
-to qhull.
+
 
 The figures below show the scaling of the ConvexHull, DelaunayTri and
 VoronoiTess classes with number of points and dimension of points. You may

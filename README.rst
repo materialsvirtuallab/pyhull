@@ -41,155 +41,42 @@ subprocess call to command line qconvex as a comparison for pyhull. Note that
 these are based on older versions of scipy (< 0.12.0) where the hull is
 computed by first performing the Delaunay triangulation.
 
-<table>
-<tr>
-<th>Number of points</th>
-<th>Dim</th>
-<th>scipy < 0.12.0</th>
-<th>pyhull</th>
-<th>Cmd-line qconvex</th>
-<tr>
-<td>100</td><td>3</td>
-<td>0.00237</td>
-<td>0.00209</td>
-<td>0.01354</td>
-</tr>
-<tr>
-<td>100</td><td>4</td>
-<td>0.00609</td>
-<td>0.00333</td>
-<td>0.01053</td>
-</tr>
-<tr>
-<td>100</td><td>5</td>
-<td>0.03125</td>
-<td>0.00834</td>
-<td>0.01743</td>
-</tr>
-<tr>
-<td>100</td><td>6</td>
-<td>0.16662</td>
-<td>0.04627</td>
-<td>0.05048</td>
-</tr>
-<tr>
-<td>1000</td><td>3</td>
-<td>0.02543</td>
-<td>0.01166</td>
-<td>0.01398</td>
-</tr>
-<tr>
-<td>1000</td><td>4</td>
-<td>0.15308</td>
-<td>0.01438</td>
-<td>0.01741</td>
-</tr>
-<tr>
-<td>1000</td><td>5</td>
-<td>1.04724</td>
-<td>0.05105</td>
-<td>0.05279</td>
-</tr>
-<tr>
-<td>1000</td><td>6</td>
-<td>7.45985</td>
-<td>0.25104</td>
-<td>0.29058</td>
-</tr>
-<tr>
-<td>2000</td><td>3</td>
-<td>0.05124</td>
-<td>0.01968</td>
-<td>0.02431</td>
-</tr>
-<tr>
-<td>2000</td><td>4</td>
-<td>0.32277</td>
-<td>0.02326</td>
-<td>0.02742</td>
-</tr>
-<tr>
-<td>2000</td><td>5</td>
-<td>2.38308</td>
-<td>0.06664</td>
-<td>0.06845</td>
-</tr>
-<tr>
-<td>2000</td><td>6</td>
-<td>20.64062</td>
-<td>0.41188</td>
-<td>0.42673</td>
-</tr>
-</table>
+============ === ======== ======= ========
+No of points Dim scipy    pyhull  Cmd line
+============ === ======== ======= ========
+100          3   0.00237  0.00209 0.01354
+100          4   0.00609  0.00333 0.01053
+100          5   0.03125  0.00834 0.01743
+100          6   0.16662  0.04627 0.05048
+1000         3   0.02543  0.01166 0.01398
+1000         4   0.15308  0.01438 0.01741
+1000         5   1.04724  0.05105 0.05279
+1000         6   7.45985  0.25104 0.29058
+2000         3   0.05124  0.01968 0.02431
+2000         4   0.32277  0.02326 0.02742
+2000         5   2.38308  0.06664 0.06845
+2000         6   20.64062 0.41188 0.42673
+============ === ======== ======= ========
 
 Here are new benchmarks for pyhull against scipy 0.12.0, which supports the
 direct computation of the convex hull.
 
-<table>
-<tr><th>Number of points</th>
-<th>Dim</th><th>scipy 0.12.0</th>
-<th>pyhull</th>
-<tr>
-<td>100</td><td>3</td>
-<td>0.00159</td>
-<td>0.00862</td>
-</tr>
-<tr>
-<td>100</td><td>4</td>
-<td>0.00066</td>
-<td>0.00283</td>
-</tr>
-<tr>
-<td>100</td><td>5</td>
-<td>0.00316</td>
-<td>0.01007</td>
-</tr>
-<tr>
-<td>100</td><td>6</td>
-<td>0.01799</td>
-<td>0.03719</td>
-</tr>
-<tr>
-<td>1000</td><td>3</td>
-<td>0.00055</td>
-<td>0.00794</td>
-</tr>
-<tr>
-<td>1000</td><td>4</td>
-<td>0.00160</td>
-<td>0.01846</td>
-</tr>
-<tr>
-<td>1000</td><td>5</td>
-<td>0.02195</td>
-<td>0.04349</td>
-</tr>
-<tr>
-<td>1000</td><td>6</td>
-<td>0.16199</td>
-<td>0.33463</td>
-</tr>
-<tr>
-<td>2000</td><td>3</td>
-<td>0.00120</td>
-<td>0.02853</td>
-</tr>
-<tr>
-<td>2000</td><td>4</td>
-<td>0.00411</td>
-<td>0.04272</td>
-</tr>
-<tr>
-<td>2000</td><td>5</td>
-<td>0.03741</td>
-<td>0.13446</td>
-</tr>
-<tr>
-<td>2000</td><td>6</td>
-<td>0.46699</td>
-<td>0.36975</td>
-</tr>
-</table>
+===== === ======= =======
+Npts  Dim scipy   pyhull
+===== === ======= =======
+  100   3 0.00044 0.00120
+  100   4 0.00062 0.00215
+  100   5 0.00347 0.00838
+  100   6 0.01382 0.03698
+ 1000   3 0.00051 0.00778
+ 1000   4 0.00194 0.01226
+ 1000   5 0.01417 0.04079
+ 1000   6 0.14036 0.20594
+ 2000   3 0.00072 0.01772
+ 2000   4 0.00392 0.02941
+ 2000   5 0.02350 0.07712
+ 2000   6 0.25601 0.36650
+===== === ======= =======
 
 Usage
 =====
