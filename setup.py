@@ -23,13 +23,6 @@ computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
 interfaces to qhull.
 
-Currently, there is no effective port of the qhull algorithm,
-especially for higher dimensions. While isolated packages exist
-for up to 3D convex hulls, no effective package exist for higher dimensions.
-The only other known code which supports convex hulls in higher dimensions is
-the scipy.spatial package, but that code is extremely inefficient compared to
-the original Qhull in C. Pyhull is much faster than the scipy.spatial package.
-
 Pyhull has been tested to scale to 10,000 7D points for convex hull
 calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
 triangulations and Voronoi tesselations (~ 100 seconds). Higher number of

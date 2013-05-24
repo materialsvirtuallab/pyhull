@@ -15,20 +15,16 @@ __date__ = "11/19/12"
 
 import numpy as np
 
-from scipy.spatial import Delaunay
-from pyhull.convex_hull import ConvexHull
-from pymatgen.command_line.qhull_caller import qconvex
+from scipy.spatial import ConvexHull as CHullSci
+from pyhull.convex_hull import ConvexHull as CHullPyhull
 
 def scipy_test(data):
-    return Delaunay(data).convex_hull
+    return CHullSci(data)
 
 
 def pyhull_test(data):
-    return ConvexHull(data)
+    return CHullPyhull(data)
 
-
-def pymatgen_ext_test(data):
-    return qconvex(data)
 
 if __name__ == "__main__":
     import timeit
@@ -48,10 +44,6 @@ if __name__ == "__main__":
             output.append("<td>{:.5f}</td>".format(t))
             t = timeit.timeit("pyhull_test(data)",
                               setup="from __main__ import pyhull_test, data",
-                              number=1)
-            output.append("<td>{:.5f}</td>".format(t))
-            t = timeit.timeit("pymatgen_ext_test(data)",
-                              setup="from __main__ import pymatgen_ext_test, data",
                               number=1)
             output.append("<td>{:.5f}</td>".format(t))
             output.append("</tr>")

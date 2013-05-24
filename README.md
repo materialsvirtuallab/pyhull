@@ -7,13 +7,6 @@ computation of the convex hull, Delaunay triangulation and Voronoi diagram.
 It is written as a Python C extension, with both high-level and low-level
 interfaces to qhull. It is currently based on the 2012.1 version of qhull.
 
-Currently, there is no effective port of the qhull algorithm, especially for
-higher dimensions. While isolated packages exist for up to 3D convex hulls,
-no effective package exist for higher dimensions. The only other known code
-which supports convex hulls in higher dimensions is the scipy.spatial package,
-but that code is extremely inefficient compared to the original Qhull in C.
-Pyhull is much faster than the scipy.spatial package.
-
 Pyhull has been tested to scale to 10,000 7D points for convex hull
 calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
 triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
@@ -25,19 +18,34 @@ http://packages.python.org/pyhull/. To report bugs,
 please use the pyhull's Github Issues page at
 https://github.com/shyuep/pyhull/issues.
 
+.. note::
+
+    At the time of development of pyhull, the scipy.spatial package was the
+    only other package that supports the computation of higher dimensional
+    convex hulls. However, the version of scipy at that time (scipy 0.11.0)
+    only supported the computation of Delaunay triangulation and the convex
+    hull was computed from the Delaunay triangulation, which is slower and less
+    reliable than directly computing the convex hull. As of version 0.12.0,
+    scipy now supports the direct computation of convex hulls and is in fact
+    ~50% faster than pyhull for larger hulls. I will still make pyhull
+    available for the simple reason that the scipy package is fairly large
+    and not everyone wants to install such a large package for computing hulls.
+
 Performance of pyhull
 =====================
 
 The table below indicates the time taken in seconds to generate the convex
 hull for a given number of points in a specified number of dimensions. The
 final col (Cmd-line qconvex) is the time taken to generate the data using a
-subprocess call to command line qconvex as a comparison for pyhull.
+subprocess call to command line qconvex as a comparison for pyhull. Note that
+these are based on older versions of scipy (< 0.12.0) where the hull is
+computed by first performing the Delaunay triangulation.
 
 <table>
 <tr>
 <th>Number of points</th>
 <th>Dim</th>
-<th>scipy</th>
+<th>scipy < 0.12.0</th>
 <th>pyhull</th>
 <th>Cmd-line qconvex</th>
 <tr>
@@ -114,10 +122,74 @@ subprocess call to command line qconvex as a comparison for pyhull.
 </tr>
 </table>
 
-It is clear from the above table that even in its early alpha form,
-pyhull outperforms scipy.spatial for large number of points in higher
-dimensions. Also, pyhull is tested to be safe in terms of usage with Python
-multiprocessing, unlike a subprocess call to Qhull.
+Here are new benchmarks for pyhull against scipy 0.12.0, which supports the
+direct computation of the convex hull.
+
+<table>
+<tr><th>Number of points</th>
+<th>Dim</th><th>scipy 0.12.0</th>
+<th>pyhull</th>
+<tr>
+<td>100</td><td>3</td>
+<td>0.00159</td>
+<td>0.00862</td>
+</tr>
+<tr>
+<td>100</td><td>4</td>
+<td>0.00066</td>
+<td>0.00283</td>
+</tr>
+<tr>
+<td>100</td><td>5</td>
+<td>0.00316</td>
+<td>0.01007</td>
+</tr>
+<tr>
+<td>100</td><td>6</td>
+<td>0.01799</td>
+<td>0.03719</td>
+</tr>
+<tr>
+<td>1000</td><td>3</td>
+<td>0.00055</td>
+<td>0.00794</td>
+</tr>
+<tr>
+<td>1000</td><td>4</td>
+<td>0.00160</td>
+<td>0.01846</td>
+</tr>
+<tr>
+<td>1000</td><td>5</td>
+<td>0.02195</td>
+<td>0.04349</td>
+</tr>
+<tr>
+<td>1000</td><td>6</td>
+<td>0.16199</td>
+<td>0.33463</td>
+</tr>
+<tr>
+<td>2000</td><td>3</td>
+<td>0.00120</td>
+<td>0.02853</td>
+</tr>
+<tr>
+<td>2000</td><td>4</td>
+<td>0.00411</td>
+<td>0.04272</td>
+</tr>
+<tr>
+<td>2000</td><td>5</td>
+<td>0.03741</td>
+<td>0.13446</td>
+</tr>
+<tr>
+<td>2000</td><td>6</td>
+<td>0.46699</td>
+<td>0.36975</td>
+</tr>
+</table>
 
 Usage
 =====
