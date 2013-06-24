@@ -33,7 +33,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Minor efficiency improvements.
+1. Fix pip install for pyhull.
 
 :doc:`Older versions </changelog>`
 
