@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+"""
+Created on May 15, 2012
+"""
+
+from __future__ import division
+
+__author__ = "Will Richards"
+__copyright__ = "Copyright 2012, The Materials Project"
+__version__ = "0.1"
+__maintainer__ = "Will Richards"
+__email__ = "wrichard@mit.edu"
+__date__ = "August 2, 2013"
+
+import unittest
+import numpy as np
+
+from pyhull.halfspace import Halfspace, HalfspaceIntersection
+
+
+class HalfspaceTest(unittest.TestCase):
+    
+    def test_halfspace(self):
+        h1 = Halfspace.from_hyperplane([[0,1,0], [1,0,0]], [1,1,-100], [2,2,2], True)
+        self.assertTrue(all(h1.normal == [0,0,-1]))
+        self.assertEqual(h1.offset, -100)
+        h2 = Halfspace.from_hyperplane([[0,1,0], [1,0,0]], [1,1,-100], [2,2,2], False)
+        self.assertEqual(h2.offset, 100)
+        
+    def test_intersection(self):
+        h1 = Halfspace.from_hyperplane([[1,0,0], [0,1,0]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h2 = Halfspace.from_hyperplane([[0,1,0], [0,0,1]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h3 = Halfspace.from_hyperplane([[0,0,1], [1,0,0]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h4 = Halfspace.from_hyperplane([[-1,0,1], [0,-1,1]], [1,1,0], [0.9, 0.9, 0.9], True)
+        
+        hi = HalfspaceIntersection([h1, h2, h3, h4], [0.9, 0.9, 0.9])
+        
+        self.assertTrue(np.allclose(np.sum(hi.vertices, axis = 0), [3,3,3]))
+        
+        h5 = Halfspace.from_hyperplane([[1,0,0], [0,1,0]], [1,2,2], [0.9, 0.9, 0.9], True)
+        hi = HalfspaceIntersection([h5, h2, h3, h4], [0.9, 0.9, 0.9])
+        self.assertTrue(np.allclose(np.sum(hi.vertices, axis = 0), [2,2,6]))
+        
+    def test_infinite_vertex(self):
+        h1 = Halfspace.from_hyperplane([[1,0,0], [0,1,0]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h2 = Halfspace.from_hyperplane([[0,1,0], [0,0,1]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h3 = Halfspace.from_hyperplane([[0,0,1], [1,0,0]], [1,1,1], [0.9, 0.9, 0.9], True)
+        h4 = Halfspace.from_hyperplane([[1,0,0], [0,1,0]], [2,2,2], [0.9, 0.9, 0.9], True)
+        
+        hi = HalfspaceIntersection([h1, h2, h3, h4], [0.9, 0.9, 0.9])
+        self.assertTrue(np.allclose(np.sum(hi.vertices, axis = 0), [np.inf,np.inf,np.inf]))
