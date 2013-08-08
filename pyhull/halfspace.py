@@ -2,8 +2,10 @@ from __future__ import division
 from pyhull import qhalf
 import numpy as np
 
-
 class Halfspace(object):
+    '''
+    A halfspace defined by dot(normal, coords) + offset <= 0 
+    '''
     def __init__(self, normal, offset):
         self.normal = normal
         self.offset = offset
