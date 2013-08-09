@@ -31,7 +31,7 @@ class Halfspace(object):
         else:
             if not internal:
                 normal *= -1
-        offset = -np.inner(origin, normal)
+        offset = -np.dot(origin, normal)
         return Halfspace(normal, offset)
     
 class HalfspaceIntersection(object):
