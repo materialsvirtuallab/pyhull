@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 
-"""
-Created on May 15, 2012
-"""
-
 from __future__ import division
 
 __author__ = "Will Richards"
-__copyright__ = "Copyright 2012, The Materials Project"
-__version__ = "0.1"
+__version__ = "2.0"
 __maintainer__ = "Will Richards"
 __email__ = "wrichard@mit.edu"
 __date__ = "August 2, 2013"

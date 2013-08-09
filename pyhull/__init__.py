@@ -114,19 +114,18 @@ def qhalf(options, halfspaces, interior_point):
     Args:
         option:
             An options string. Up to two options separated by spaces
-            are supported. See Qhull's qvoronoi help for info. Typically
+            are supported. See Qhull's qhalf help for info. Typically
             used options are:
             Fp
         halfspaces:
-            Sequence of halfspaces as input.
+            List of Halfspaces as input.
         interior_point:
             An interior point (see qhalf documentation)
 
     Returns:
         Output as a list of strings.
-        E.g., ['2', '5 5 1', '-10.101 -10.101', '0   -0.5', '-0.5      0',
-        '0.5      0', '0    0.5', '3 2 0 1', '3 4 0 2', '3 3 0 1',
-        '3 4 0 3', '4 4 2 1 3']
+        E.g., ['3', '4', '     1      1         0 ', '     1     -1      2 ',
+        '    -1      1      2 ', '     1      1      2 ']
     """
     points = [list(h.normal) + [h.offset] for h in halfspaces]
     input = [[len(interior_point), 1]]

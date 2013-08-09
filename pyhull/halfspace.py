@@ -1,5 +1,19 @@
+#!/usr/bin/env python
+
+"""
+This module defines classes for computing halfspace intersections
+"""
+
 from __future__ import division
+
+__author__ = "Will Richards"
+__version__ = "2.0"
+__maintainer__ = "Will Richards"
+__email__ = "wrichard@mit.edu"
+__date__ = "August 2, 2013"
+
 from pyhull import qhalf
+
 import numpy as np
 
 class Halfspace(object):
@@ -7,6 +21,13 @@ class Halfspace(object):
     A halfspace defined by dot(normal, coords) + offset <= 0 
     '''
     def __init__(self, normal, offset):
+        """
+        Args:
+            normal:
+                vector normal to hyperplane
+            offset:
+                offset of hyperplane from origin
+        """
         self.normal = normal
         self.offset = offset
     
@@ -15,6 +36,19 @@ class Halfspace(object):
         
     @staticmethod
     def from_hyperplane(basis, origin, point, internal = True):
+        """
+        Returns a Halfspace defined by a list of vectors parallel to the bounding
+        hyperplane.
+        Args:
+            basis:
+                basis for the hyperplane (array with vector rows)
+            origin:
+                point on the hyperplane
+            point:
+                point not on the hyperplane
+            internal:
+                whether point is inside the halfspace
+        """
         basis = np.array(basis)
         assert basis.shape[0] + 1 == basis.shape[1]
         
@@ -35,6 +69,10 @@ class Halfspace(object):
         return Halfspace(normal, offset)
     
 class HalfspaceIntersection(object):
+    """
+    Uses qhalf to calculate the vertex representation of the intersection
+    of a set of halfspaces
+    """
     def __init__(self, halfspaces, interior_point):
         self.halfspaces = halfspaces
         output = qhalf('Fp', halfspaces, interior_point)
