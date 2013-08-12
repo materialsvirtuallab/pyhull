@@ -25,6 +25,14 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`halfspace` Module
+-----------------------
+
+.. automodule:: pyhull.halfspace
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`simplex` Module
 ---------------------
 
