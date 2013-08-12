@@ -4,7 +4,7 @@ import glob
 import os
 import sys
 from distribute_setup import use_setuptools
-use_setuptools()
+use_setuptools(version="0.6.34")
 from setuptools import setup, Extension, find_packages
 
 src_dir = "src"
@@ -35,7 +35,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.4.0",
+      version="1.4.1",
       author="Shyue Ping Ong",
       author_email="shyuep@gmail.com",
       maintainer="Shyue Ping Ong",
