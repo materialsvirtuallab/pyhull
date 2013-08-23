@@ -63,7 +63,7 @@ int isatty(int);  /* returns 1 if stdin is a tty
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 char qhalf_hidden_options[]=" d n v Qbb QbB Qf Qg Qm Qr QR Qv Qx Qz TR E V Fa FA FC FD FS Ft FV Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 
-__attribute__((visibility("default"))) static PyObject* qconvex(PyObject *self, PyObject *args) {
+__attribute__((visibility("default"))) static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     const char *arg;
     const char *data;
     int curlong, totlong; /* used !qh_NOmem */
@@ -137,7 +137,7 @@ __attribute__((visibility("default"))) static PyObject* qconvex(PyObject *self, 
     }
 }
 
-__attribute__((visibility("default"))) static PyObject* qdelaunay(PyObject *self, PyObject *args) {
+__attribute__((visibility("default"))) static PyObject* py_qdelaunay(PyObject *self, PyObject *args) {
     const char *arg;
     const char *data;
     int curlong, totlong; /* used !qh_NOmem */
@@ -217,7 +217,7 @@ __attribute__((visibility("default"))) static PyObject* qdelaunay(PyObject *self
 }
 
 
-__attribute__((visibility("default"))) static PyObject* qvoronoi(PyObject *self, PyObject *args) {
+__attribute__((visibility("default"))) static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
     const char *arg;
     const char *data;
     int curlong, totlong; /* used !qh_NOmem */
@@ -296,7 +296,7 @@ __attribute__((visibility("default"))) static PyObject* qvoronoi(PyObject *self,
     }
 }
 
-__attribute__((visibility("default"))) static PyObject* qhalf(PyObject *self, PyObject *args) {
+__attribute__((visibility("default"))) static PyObject* py_qhalf(PyObject *self, PyObject *args) {
     const char *arg;
     const char *data;
     int curlong, totlong; /* used !qh_NOmem */
@@ -381,10 +381,10 @@ __attribute__((visibility("default"))) static PyObject* qhalf(PyObject *self, Py
 
 
 __attribute__((visibility("default"))) static PyMethodDef QhullMethods[] = {
-    {"qconvex", qconvex, METH_VARARGS, "qconvex"},
-    {"qdelaunay", qdelaunay, METH_VARARGS, "qdelaunay"},
-    {"qvoronoi", qvoronoi, METH_VARARGS, "qvoronoi"},
-    {"qhalf", qhalf, METH_VARARGS, "qhalf"},
+    {"qconvex", py_qconvex, METH_VARARGS, "qconvex"},
+    {"qdelaunay", py_qdelaunay, METH_VARARGS, "qdelaunay"},
+    {"qvoronoi", py_qvoronoi, METH_VARARGS, "qvoronoi"},
+    {"qhalf", py_qhalf, METH_VARARGS, "qhalf"},
     {NULL, NULL, 0, NULL}
 };
 
