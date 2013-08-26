@@ -75,15 +75,61 @@ class HalfspaceIntersection(object):
     """
     def __init__(self, halfspaces, interior_point):
         self.halfspaces = halfspaces
-        output = qhalf('Fp', halfspaces, interior_point)
-        pts = []
-        for l in output[2:]:
-            pt = []
-            for c in l.split():
-                c = float(c)
-                if c != 10.101 and c != -10.101:
-                    pt.append(c)
-                else:
-                    pt.append(np.inf)
-            pts.append(pt)
-        self.vertices = np.array(pts)
+        self.interior_point = interior_point
+        self._v_out = None
+        self._fbv_out = None
+        self._fbh_out = None
+
+    @property
+    def vertices(self):
+        """
+        Returns the vertices of the halfspace intersection
+        """
+        if self._v_out is None:
+            output = qhalf('Fp', self.halfspaces, self.interior_point)
+            pts = []
+            for l in output[2:]:
+                pt = []
+                for c in l.split():
+                    c = float(c)
+                    if c != 10.101 and c != -10.101:
+                        pt.append(c)
+                    else:
+                        pt.append(np.inf)
+                pts.append(pt)
+            self._v_out = np.array(pts)
+        return self._v_out
+
+    @property
+    def facets_by_vertex(self):
+        """
+        Returns a list of non-redundant halfspace indices for each vertex
+        e.g:
+            facets_by_vertex[0] is the list of indices of halfspaces incident to 
+            vertex 0
+        """
+        if self._fbv_out is None:
+            output = qhalf('Fv', self.halfspaces, self.interior_point)
+            facets = []
+            for l in output[1:]:
+                facets.append(map(int, l.split()[1:]))
+            self._fbv_out = facets
+        return self._fbv_out
+
+    @property
+    def facets_by_halfspace(self):
+        """
+        Returns a list of vertex indices for each halfspace
+        e.g:
+            facets_by_halfspace[0] is the list of indices ov vertices incident to 
+            halfspace 0
+        """
+        if self._fbh_out is None:
+            output = qhalf('FN', self.halfspaces, self.interior_point)
+            facets = []
+            for l in output[1:]:
+                facets.append(map(int, l.split()[1:]))
+            self._fbh_out = facets
+        return self._fbh_out
+
+    
