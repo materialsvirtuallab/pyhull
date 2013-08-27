@@ -17,9 +17,9 @@ from pyhull import qhalf
 import numpy as np
 
 class Halfspace(object):
-    '''
-    A halfspace defined by dot(normal, coords) + offset <= 0 
-    '''
+    """
+    A halfspace defined by dot(normal, coords) + offset <= 0
+    """
     def __init__(self, normal, offset):
         """
         Args:
@@ -30,15 +30,16 @@ class Halfspace(object):
         """
         self.normal = normal
         self.offset = offset
-    
+
     def __str__(self):
         return "Halfspace, normal: {}, offset: {}".format(self.normal, self.offset)
-        
+
     @staticmethod
     def from_hyperplane(basis, origin, point, internal = True):
         """
-        Returns a Halfspace defined by a list of vectors parallel to the bounding
-        hyperplane.
+        Returns a Halfspace defined by a list of vectors parallel to the
+        bounding hyperplane.
+
         Args:
             basis:
                 basis for the hyperplane (array with vector rows)
@@ -51,10 +52,10 @@ class Halfspace(object):
         """
         basis = np.array(basis)
         assert basis.shape[0] + 1 == basis.shape[1]
-        
+
         big_basis = np.zeros((basis.shape[1], basis.shape[1]))
         big_basis[:basis.shape[0],:basis.shape[1]] = basis
-        
+
         u, s, vh = np.linalg.svd(big_basis)
         null_mask = (s <= 1e-8)
         normal = np.compress(null_mask, vh, axis=0)[0]
@@ -67,7 +68,7 @@ class Halfspace(object):
                 normal *= -1
         offset = -np.dot(origin, normal)
         return Halfspace(normal, offset)
-    
+
 class HalfspaceIntersection(object):
     """
     Uses qhalf to calculate the vertex representation of the intersection
@@ -104,9 +105,8 @@ class HalfspaceIntersection(object):
     def facets_by_vertex(self):
         """
         Returns a list of non-redundant halfspace indices for each vertex
-        e.g:
-            facets_by_vertex[0] is the list of indices of halfspaces incident to 
-            vertex 0
+        e.g: facets_by_vertex[0] is the list of indices of halfspaces
+        incident to vertex 0
         """
         if self._fbv_out is None:
             output = qhalf('Fv', self.halfspaces, self.interior_point)
@@ -120,9 +120,8 @@ class HalfspaceIntersection(object):
     def facets_by_halfspace(self):
         """
         Returns a list of vertex indices for each halfspace
-        e.g:
-            facets_by_halfspace[0] is the list of indices ov vertices incident to 
-            halfspace 0
+        e.g: facets_by_halfspace[0] is the list of indices ov vertices
+        incident to halfspace 0
         """
         if self._fbh_out is None:
             output = qhalf('FN', self.halfspaces, self.interior_point)
@@ -132,4 +131,4 @@ class HalfspaceIntersection(object):
             self._fbh_out = facets
         return self._fbh_out
 
-    
+
