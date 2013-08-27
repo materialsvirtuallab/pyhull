@@ -35,9 +35,9 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.4.1",
-      author="Shyue Ping Ong",
-      author_email="shyuep@gmail.com",
+      version="1.4.2",
+      author="Shyue Ping Ong, William Davidson Richards",
+      author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",
       url="https://github.com/shyuep/pyhull",
       license="MIT",

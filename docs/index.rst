@@ -33,7 +33,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-1. Fix pip install for pyhull.
+1. Add qhalf for pyhull (William Davidson Richards).
 
 :doc:`Older versions </changelog>`
 
