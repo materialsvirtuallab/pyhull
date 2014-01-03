@@ -1,5 +1,4 @@
-include *.md *.c *.py
-include distribute_setup.py
+include *.md *.c *.py ez_setup.py
 recursive-include pyhull *.py
 recursive-include src *
 prune **/tests

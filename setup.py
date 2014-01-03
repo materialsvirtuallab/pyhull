@@ -3,8 +3,8 @@ __author__ = 'shyue'
 import glob
 import os
 import sys
-from distribute_setup import use_setuptools
-use_setuptools(version="0.6.34")
+from ez_setup import use_setuptools
+use_setuptools()
 from setuptools import setup, Extension, find_packages
 
 src_dir = "src"
