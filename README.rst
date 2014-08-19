@@ -1,6 +1,5 @@
 Pyhull
 =======
-[![Build Status](https://travis-ci.org/shyuep/pyhull.png)](https://travis-ci.org/shyuep/pyhull)
 
 Pyhull is a Python wrapper to qhull (http://www.qhull.org/) for the
 computation of the convex hull, Delaunay triangulation and Voronoi diagram.
