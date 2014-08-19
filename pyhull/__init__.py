@@ -108,6 +108,7 @@ def qvoronoi(options, points):
     """
     return qhull_cmd("qvoronoi", options, points)
 
+
 def qhalf(options, halfspaces, interior_point):
     """
     Similar to qvoronoi command in command-line qhull.
