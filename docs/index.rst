@@ -36,7 +36,7 @@ Latest Change Log
 v1.4.4
 ------
 1. Fix the precision loss in conversion from floats to string in qhull_cmd
-   (Reported by Konrad Cchneider).
+   (Reported by Konrad Schneider).
 
 v1.4.3
 -------
