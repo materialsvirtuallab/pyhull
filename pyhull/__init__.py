@@ -7,8 +7,8 @@ package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.
 """
 
 __author__ = "Shyue Ping Ong"
-__version__ = "1.4.3"
-__date__ = "Aug 26 2013"
+__version__ = "1.4.4"
+__date__ = "Aug 19 2014"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
 
@@ -35,7 +35,8 @@ def qhull_cmd(cmd, options, points):
         Output as a list of strings. E.g., ['4', '0 2', '1 0', '2 3 ', '3 1']
     """
     prep_str = [str(len(points[0])), str(len(points))]
-    prep_str.extend([' '.join(map(str, row)) for row in points])
+    #This complicated expression ensures correction precision in conversion.
+    prep_str.extend([' '.join(["%.17f" % i for i in row]) for row in points])
     output = getattr(hull, cmd)(options, "\n".join(prep_str))
     return map(string.strip, output.strip().split("\n"))
 

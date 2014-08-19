@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 This module implements a ConvexHull class.
 """
@@ -37,13 +35,13 @@ class ConvexHull(object):
 
     def __init__(self, points, joggle=False):
         """
+        Initializes a ConvexHull from points.
+
         Args:
-            points:
-                All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
-                [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-            joggle:
-                Use qhull option to joggle inputs until simplical result is 
-                obtained instead of merging facets.
+            points ([[float]]): All the points as a sequence of sequences.
+                e.g., [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+            joggle (bool): Use qhull option to joggle inputs until simplical
+                result is obtained instead of merging facets.
         """
         self.points = points
         dim = map(len, self.points)

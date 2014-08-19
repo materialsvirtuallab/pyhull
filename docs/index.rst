@@ -33,6 +33,13 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.4.4
+------
+1. Fix the precision loss in conversion from floats to string in qhull_cmd
+   (Reported by Konrad Cchneider).
+
+v1.4.3
+-------
 1. Add qhalf for pyhull (William Davidson Richards).
 
 :doc:`Older versions </changelog>`

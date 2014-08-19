@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 This module implements a VoronoiTess class representing a Voronoi tessellation
 of a set of points.
@@ -60,13 +58,14 @@ class VoronoiTess(object):
 
     def __init__(self, points, add_bounding_box=False):
         """
+        Initializes a VoronoiTess from points.
+
         Args:
-            points:
-                All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
-                [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-            add_bounding_box:
-                If True, a hypercube corresponding to the extremes of each
-                coordinate will be added to the list of points.
+            points ([[float]]): All the points as a sequence of sequences.
+                e.g., [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+            add_bounding_box (bool): If True, a hypercube corresponding to
+                the extremes of each coordinate will be added to the list of
+                points.
         """
         self.points = list(points)
         dim = map(len, self.points)

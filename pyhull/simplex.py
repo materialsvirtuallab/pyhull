@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 This module defines a class representing an arbitrary Simplex in arbitrary
 dimensional space.
@@ -25,10 +23,11 @@ class Simplex(object):
 
     def __init__(self, coords):
         """
+        Initializes a Simplex from coordinates.
+
         Args:
-            coords:
-                Coords of the vertices of the simplex. E.g.,
-                [[1,2,3],[2,4,5],[6,7,8]].
+            coords ([[float]]): Coords of the vertices of the simplex. E.g.,
+                [[1, 2, 3], [2, 4, 5], [6, 7, 8]].
         """
         self.simplex_dim = len(coords) - 1
         self.space_dim = len(coords[0])
@@ -60,10 +59,8 @@ class Simplex(object):
         1e-8 by default) for numerical errors.
 
         Args:
-            point:
-                Point to test
-            tolerance:
-                Tolerance to test if point is in simplex.
+            point ([float]): Point to test
+            tolerance (float): Tolerance to test if point is in simplex.
         """
         origin = self._coords[0]
         bary_coords = np.array([self._coords[i] - origin

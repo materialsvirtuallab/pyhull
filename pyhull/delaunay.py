@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 This module implements a DelaunayTri class representing a Delaunay
 triangulation of a set of points.
@@ -39,13 +37,13 @@ class DelaunayTri(object):
 
     def __init__(self, points, joggle=False):
         """
+        Initializes a DelaunayTri from points.
+
         Args:
-            points:
-                All the points as a sequence of sequences. e.g., [[-0.5, -0.5],
-                [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
-            joggle:
-                Use qhull option to joggle inputs until simplical result is 
-                obtained instead of merging facets.
+            points ([[float]]): All the points as a sequence of sequences.
+                e.g., [[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5]]
+            joggle (bool): Use qhull option to joggle inputs until simplical
+                result is obtained instead of merging facets.
         """
         self.points = points
         dim = map(len, self.points)

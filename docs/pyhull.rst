@@ -1,15 +1,16 @@
-pyhull Package
+pyhull package
 ==============
 
-:mod:`pyhull` Package
----------------------
+Subpackages
+-----------
 
-.. automodule:: pyhull.__init__
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. toctree::
 
-:mod:`convex_hull` Module
+
+Submodules
+----------
+
+pyhull.convex_hull module
 -------------------------
 
 .. automodule:: pyhull.convex_hull
@@ -17,7 +18,7 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`delaunay` Module
+pyhull.delaunay module
 ----------------------
 
 .. automodule:: pyhull.delaunay
@@ -25,7 +26,7 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`halfspace` Module
+pyhull.halfspace module
 -----------------------
 
 .. automodule:: pyhull.halfspace
@@ -33,7 +34,7 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`simplex` Module
+pyhull.simplex module
 ---------------------
 
 .. automodule:: pyhull.simplex
@@ -41,7 +42,7 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`voronoi` Module
+pyhull.voronoi module
 ---------------------
 
 .. automodule:: pyhull.voronoi
@@ -49,3 +50,11 @@ pyhull Package
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: pyhull
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -45,20 +45,20 @@ class DelaunayTriTestCase(unittest.TestCase):
     def test_vertices(self):
         expected_ans = [[3, 0, 1], [0, 2, 1], [4, 0, 3], [0, 4, 2]]
         self.assertEqual(self.delau.vertices, expected_ans)
-        expected_ans = [[8, 3, 6, 0], [4, 8, 1, 0], [7, 4, 1, 0], [8, 2, 3, 0],
-                        [2, 4, 3, 0], [4, 2, 8, 0], [2, 8, 6, 9], [2, 8, 3, 6],
-                        [8, 2, 1, 9], [2, 4, 8, 1], [2, 5, 4, 1], [5, 2, 4, 3],
-                        [4, 5, 7, 1], [2, 5, 1, 9]]
+        expected_ans = [[1, 3, 6, 0], [1, 8, 6, 9], [8, 1, 6, 0], [2, 5, 1, 9],
+                        [2, 5, 3, 1], [2, 1, 6, 9], [3, 2, 1, 6], [7, 3, 1, 0],
+                        [5, 7, 3, 1], [7, 4, 3, 0], [7, 4, 5, 3]]
+        print self.spdelau.vertices
         self.assertEqual(self.spdelau.vertices, expected_ans)
 
     def test_simplices(self):
         self.assertEqual(len(self.delau.simplices), 4)
-        self.assertEqual(len(self.spdelau.simplices), 14)
+        self.assertEqual(len(self.spdelau.simplices), 11)
 
     def test_dim(self):
         self.assertEqual(self.delau.dim, 2)
         self.assertEqual(self.spdelau.dim, 3)
-        
+
     def test_joggle(self):
         joggled_delau = DelaunayTri(self.delau.points, joggle=True)
         expected_ans = set([(0, 1, 3), (0, 1, 2), (0, 3, 4), (0, 2, 4)])

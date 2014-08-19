@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 This module defines classes for computing halfspace intersections
 """
@@ -22,11 +20,11 @@ class Halfspace(object):
     """
     def __init__(self, normal, offset):
         """
+        Initializes a Halfspace.
+
         Args:
-            normal:
-                vector normal to hyperplane
-            offset:
-                offset of hyperplane from origin
+            normal: vector normal to hyperplane
+            offset: offset of hyperplane from origin
         """
         self.normal = normal
         self.offset = offset
@@ -41,14 +39,10 @@ class Halfspace(object):
         bounding hyperplane.
 
         Args:
-            basis:
-                basis for the hyperplane (array with vector rows)
-            origin:
-                point on the hyperplane
-            point:
-                point not on the hyperplane
-            internal:
-                whether point is inside the halfspace
+            basis: basis for the hyperplane (array with vector rows)
+            origin: point on the hyperplane
+            point: point not on the hyperplane
+            internal: whether point is inside the halfspace
         """
         basis = np.array(basis)
         assert basis.shape[0] + 1 == basis.shape[1]
