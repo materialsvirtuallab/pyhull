@@ -7,7 +7,7 @@ package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.
 """
 
 __author__ = "Shyue Ping Ong"
-__version__ = "1.4.4"
+__version__ = "1.4.5"
 __date__ = "Aug 19 2014"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
@@ -130,11 +130,11 @@ def qhalf(options, halfspaces, interior_point):
         '    -1      1      2 ', '     1      1      2 ']
     """
     points = [list(h.normal) + [h.offset] for h in halfspaces]
-    input = [[len(interior_point), 1]]
-    input.append(interior_point)
-    input.append([len(points[0])])
-    input.append([len(points)])
-    input.extend(points)
-    prep_str = [" ".join(map(str, line)) for line in input]
+    data = [[len(interior_point), 1]]
+    data.append(["%.17f" % i for i in interior_point])
+    data.append([len(points[0])])
+    data.append([len(points)])
+    data.extend([["%.17f" % i for i in row] for row in points])
+    prep_str = [" ".join(map(str, line)) for line in data]
     output = getattr(hull, "qhalf")(options, "\n".join(prep_str))
     return map(string.strip, output.strip().split("\n"))

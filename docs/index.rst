@@ -33,6 +33,11 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.4.5
+------
+1. More precision fixes and bad code naming fixes.
+   (Reported by Konrad Schneider).
+
 v1.4.4
 ------
 1. Fix the precision loss in conversion from floats to string in qhull_cmd
