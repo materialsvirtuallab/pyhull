@@ -33,6 +33,11 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.4.6
+------
+1. Minor improvement to use the proper way to preserve float precision using
+   repr.
+
 v1.4.5
 ------
 1. More precision fixes and bad code naming fixes.
