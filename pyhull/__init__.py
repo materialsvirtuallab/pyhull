@@ -35,8 +35,7 @@ def qhull_cmd(cmd, options, points):
         Output as a list of strings. E.g., ['4', '0 2', '1 0', '2 3 ', '3 1']
     """
     prep_str = [str(len(points[0])), str(len(points))]
-    #This complicated expression ensures correction precision in conversion.
-    prep_str.extend([' '.join(["%.17f" % i for i in row]) for row in points])
+    prep_str.extend([' '.join(map(repr, row)) for row in points])
     output = getattr(hull, cmd)(options, "\n".join(prep_str))
     return map(string.strip, output.strip().split("\n"))
 
@@ -131,10 +130,10 @@ def qhalf(options, halfspaces, interior_point):
     """
     points = [list(h.normal) + [h.offset] for h in halfspaces]
     data = [[len(interior_point), 1]]
-    data.append(["%.17f" % i for i in interior_point])
+    data.append(map(repr, interior_point))
     data.append([len(points[0])])
     data.append([len(points)])
-    data.extend([["%.17f" % i for i in row] for row in points])
+    data.extend([map(repr, row) for row in points])
     prep_str = [" ".join(map(str, line)) for line in data]
     output = getattr(hull, "qhalf")(options, "\n".join(prep_str))
     return map(string.strip, output.strip().split("\n"))
