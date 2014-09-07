@@ -19,7 +19,7 @@ import glob
 from fabric.api import local, lcd
 from fabric.state import env
 
-def makedoc():
+def make_doc():
     with lcd("docs"):
         local("sphinx-apidoc -o . -f ../pyhull")
         local("rm pyhull*tests.rst")
@@ -63,5 +63,5 @@ def setver():
 def release():
     setver()
     test()
-    makedoc()
+    make_doc()
     publish()
