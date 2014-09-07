@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; pyhull 1.4.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/proBlue.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="top" title="pyhull 1.4.6 documentation" href="#" />
+ 
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36487970-1']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">pyhull 1.4.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Pyhull is a Python wrapper to qhull (<a class="reference external" href="http://www.qhull.org/">http://www.qhull.org/</a>) for the
+computation of the convex hull, Delaunay triangulation and Voronoi diagram.
+It is written as a Python C extension, with both high-level and low-level
+interfaces to qhull. It is currently based on the 2012.1 version of qhull.</p>
+<p>Pyhull has been tested to scale to 10,000 7D points for convex hull
+calculations (results in ~ 10 seconds), and 10,000 6D points for Delaunay
+triangulations and Voronoi tesselations (~ 100 seconds). Higher number of
+points and higher dimensions should be accessible depending on your machine,
+but may take a significant amount of time.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At the time of development of pyhull, the scipy.spatial package was the
+only other package that supports the computation of higher dimensional
+convex hulls. However, the version of scipy at that time (scipy 0.11.0)
+only supported the computation of Delaunay triangulation and the convex
+hull was computed from the Delaunay triangulation, which is slower and less
+reliable than directly computing the convex hull. As of version 0.12.0,
+scipy now supports the direct computation of convex hulls and is in fact
+~50% faster than pyhull for larger hulls. I will still make pyhull
+available for the simple reason that the scipy package is fairly large
+and not everyone wants to install such a large package for computing hulls.</p>
+</div>
+</div>
+<div class="section" id="latest-change-log">
+<h1>Latest Change Log<a class="headerlink" href="#latest-change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v1-4-6">
+<h2>v1.4.6<a class="headerlink" href="#v1-4-6" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Minor improvement to use the proper way to preserve float precision using
+repr.</li>
+</ol>
+</div>
+<div class="section" id="v1-4-5">
+<h2>v1.4.5<a class="headerlink" href="#v1-4-5" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>More precision fixes and bad code naming fixes.
+(Reported by Konrad Schneider).</li>
+</ol>
+</div>
+<div class="section" id="v1-4-4">
+<h2>v1.4.4<a class="headerlink" href="#v1-4-4" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Fix the precision loss in conversion from floats to string in qhull_cmd
+(Reported by Konrad Schneider).</li>
+</ol>
+</div>
+<div class="section" id="v1-4-3">
+<h2>v1.4.3<a class="headerlink" href="#v1-4-3" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Add qhalf for pyhull (William Davidson Richards).</li>
+</ol>
+<p><a class="reference internal" href="changelog.html"><em>Older versions</em></a></p>
+</div>
+</div>
+<div class="section" id="getting-pyhull">
+<h1>Getting pyhull<a class="headerlink" href="#getting-pyhull" title="Permalink to this headline">¶</a></h1>
+<p>Pyhull has been tested to install correctly on both BSD and POSIX systems
+(e.g., Mac OS X and most common Linux distros). It has not been tested on
+Windows as of yet. If anyone has tested it on Windows, let me know the results.</p>
+<div class="section" id="stable-version">
+<h2>Stable version<a class="headerlink" href="#stable-version" title="Permalink to this headline">¶</a></h2>
+<p>Pyhull is now in the Python Package Index (<a class="reference external" href="http://pypi.python.org/pypi/pyhull">PyPI</a>). The version on PyPI is
+always the latest stable release that will be relatively bug-free. If you
+have setuptools or pip installed installed, you can just type:</p>
+<div class="highlight-python"><div class="highlight"><pre>easy_install pyhull
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install pyhull
+</pre></div>
+</div>
+<p>to install pyhull with most of the dependencies set up. Otherwise,
+the latest stable source can be downloaded at the <a class="reference external" href="http://pypi.python.org/pypi/pyhull">PyPI</a> site as well.</p>
+</div>
+<div class="section" id="developmental-version">
+<h2>Developmental version<a class="headerlink" href="#developmental-version" title="Permalink to this headline">¶</a></h2>
+<p>The bleeding edge developmental version is at the public pyhull&#8217;s <a class="reference external" href="https://github.com/shyuep/pyhull/tarball/master">Github
+repo</a>. The developmental
+version is likely to be more buggy, but may contain new features. Note that
+the GitHub versions include test files as well for unit testing.</p>
+<p>From the source, you can type:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install
+</pre></div>
+</div>
+<p>or to install the package in developmental mode:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py develop
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-pyhull">
+<h1>Using pyhull<a class="headerlink" href="#using-pyhull" title="Permalink to this headline">¶</a></h1>
+<p>It is generally recommended that you use the high-level wrapper functions and
+classes in pyhull.</p>
+<p>For useful analysis outputs, please use the high-level ConvexHull, DelaunayTri
+and VoronoiTess classes in the convex_hull, delaunay and voronoi modules
+respectively. For example,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhull.convex_hull</span> <span class="kn">import</span> <span class="n">ConvexHull</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span>
+<span class="go">[[0, 2], [1, 0], [2, 3], [3, 1]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hull</span><span class="o">.</span><span class="n">points</span>
+<span class="go">[[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5], [0, 0]]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhull.delaunay</span> <span class="kn">import</span> <span class="n">DelaunayTri</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tri</span> <span class="o">=</span> <span class="n">DelaunayTri</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tri</span><span class="o">.</span><span class="n">vertices</span>
+<span class="go">[[2, 4, 0], [4, 1, 0], [3, 4, 2], [4, 3, 1]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tri</span><span class="o">.</span><span class="n">points</span>
+<span class="go">[[-0.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [0.5, 0.5], [0, 0]]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhull.voronoi</span> <span class="kn">import</span> <span class="n">VoronoiTess</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">VoronoiTess</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vertices</span>
+<span class="go">[[-10.101, -10.101], [0.0, -0.5], [-0.5, 0.0], [0.5, 0.0], [0.0, 0.5]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">regions</span>
+<span class="go">[[2, 0, 1], [4, 0, 2], [3, 0, 1], [4, 0, 3], [4, 2, 1, 3]]</span>
+</pre></div>
+</div>
+<p>The figure below is a plot of the output from pyhull for a set of 30 random
+2D points. To see a sample of the code of how this graph is generated,
+check out the <a class="reference external" href="https://github.com/shyuep/pyhull/blob/master/scripts/pyhull_demo.py">pyhull_demo.py script on the Github page</a>.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/pyhull_demo.png"><img alt="pyhull output plot" src="_images/pyhull_demo.png" style="width: 500px;" /></a>
+<p class="caption">Plot of pyhull output on a set of 30 random 2D points. Red dots - points.
+Green lines - Delaunay triangulation. Blue lines - convex hull. Black
+lines - Voronoi tessellation. Dash black lines - Voronoi tessellation with
+points at infinity.</p>
+</div>
+<p>If you need more detailed output, consider using the lower-level
+interface functions that are modelled after standard command line syntax of
+various qhull programs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhull</span> <span class="kn">import</span> <span class="n">qconvex</span><span class="p">,</span> <span class="n">qdelaunay</span><span class="p">,</span> <span class="n">qvoronoi</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qconvex</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="go">[&#39;4&#39;, &#39;0 2&#39;, &#39;1 0&#39;, &#39;2 3 &#39;, &#39;3 1&#39;]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qdelaunay</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="go">[&#39;4&#39;, &#39;2 4 0&#39;, &#39;4 1 0&#39;, &#39;3 4 2&#39;, &#39;4 3 1&#39;]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qvoronoi</span><span class="p">(</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">pts</span><span class="p">)</span>
+<span class="go">[&#39;2&#39;, &#39;5 5 1&#39;, &#39;-10.101 -10.101&#39;, &#39;0   -0.5&#39;, &#39;-0.5      0&#39;, &#39;0.5      0&#39;, &#39;0    0.5&#39;, &#39;3 2 0 1&#39;, &#39;3 4 0 2&#39;, &#39;3 3 0 1&#39;, &#39;3 4 0 3&#39;, &#39;4 4 2 1 3&#39;]</span>
+</pre></div>
+</div>
+<p>The return values are simply a list of strings from the output.</p>
+</div>
+<div class="section" id="performance-of-pyhull">
+<h1>Performance of Pyhull<a class="headerlink" href="#performance-of-pyhull" title="Permalink to this headline">¶</a></h1>
+<p>The table below indicates the time taken in seconds to generate the convex
+hull for a given number of points in a specified number of dimensions. The
+final col (Cmd-line qconvex) is the time taken to generate the data using a
+subprocess call to command line qconvex as a comparison for pyhull. Note that
+these are based on older versions of scipy (&lt; 0.12.0) where the hull is
+computed by first performing the Delaunay triangulation.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="8%" />
+<col width="21%" />
+<col width="18%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">No of points</th>
+<th class="head">Dim</th>
+<th class="head">scipy</th>
+<th class="head">pyhull</th>
+<th class="head">Cmd line</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>100</td>
+<td>3</td>
+<td>0.00237</td>
+<td>0.00209</td>
+<td>0.01354</td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>4</td>
+<td>0.00609</td>
+<td>0.00333</td>
+<td>0.01053</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>5</td>
+<td>0.03125</td>
+<td>0.00834</td>
+<td>0.01743</td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>6</td>
+<td>0.16662</td>
+<td>0.04627</td>
+<td>0.05048</td>
+</tr>
+<tr class="row-even"><td>1000</td>
+<td>3</td>
+<td>0.02543</td>
+<td>0.01166</td>
+<td>0.01398</td>
+</tr>
+<tr class="row-odd"><td>1000</td>
+<td>4</td>
+<td>0.15308</td>
+<td>0.01438</td>
+<td>0.01741</td>
+</tr>
+<tr class="row-even"><td>1000</td>
+<td>5</td>
+<td>1.04724</td>
+<td>0.05105</td>
+<td>0.05279</td>
+</tr>
+<tr class="row-odd"><td>1000</td>
+<td>6</td>
+<td>7.45985</td>
+<td>0.25104</td>
+<td>0.29058</td>
+</tr>
+<tr class="row-even"><td>2000</td>
+<td>3</td>
+<td>0.05124</td>
+<td>0.01968</td>
+<td>0.02431</td>
+</tr>
+<tr class="row-odd"><td>2000</td>
+<td>4</td>
+<td>0.32277</td>
+<td>0.02326</td>
+<td>0.02742</td>
+</tr>
+<tr class="row-even"><td>2000</td>
+<td>5</td>
+<td>2.38308</td>
+<td>0.06664</td>
+<td>0.06845</td>
+</tr>
+<tr class="row-odd"><td>2000</td>
+<td>6</td>
+<td>20.64062</td>
+<td>0.41188</td>
+<td>0.42673</td>
+</tr>
+</tbody>
+</table>
+<p>Here are new benchmarks for pyhull against scipy 0.12.0, which supports the
+direct computation of the convex hull.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="14%" />
+<col width="32%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Npts</th>
+<th class="head">Dim</th>
+<th class="head">scipy</th>
+<th class="head">pyhull</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>100</td>
+<td>3</td>
+<td>0.00044</td>
+<td>0.00120</td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>4</td>
+<td>0.00062</td>
+<td>0.00215</td>
+</tr>
+<tr class="row-even"><td>100</td>
+<td>5</td>
+<td>0.00347</td>
+<td>0.00838</td>
+</tr>
+<tr class="row-odd"><td>100</td>
+<td>6</td>
+<td>0.01382</td>
+<td>0.03698</td>
+</tr>
+<tr class="row-even"><td>1000</td>
+<td>3</td>
+<td>0.00051</td>
+<td>0.00778</td>
+</tr>
+<tr class="row-odd"><td>1000</td>
+<td>4</td>
+<td>0.00194</td>
+<td>0.01226</td>
+</tr>
+<tr class="row-even"><td>1000</td>
+<td>5</td>
+<td>0.01417</td>
+<td>0.04079</td>
+</tr>
+<tr class="row-odd"><td>1000</td>
+<td>6</td>
+<td>0.14036</td>
+<td>0.20594</td>
+</tr>
+<tr class="row-even"><td>2000</td>
+<td>3</td>
+<td>0.00072</td>
+<td>0.01772</td>
+</tr>
+<tr class="row-odd"><td>2000</td>
+<td>4</td>
+<td>0.00392</td>
+<td>0.02941</td>
+</tr>
+<tr class="row-even"><td>2000</td>
+<td>5</td>
+<td>0.02350</td>
+<td>0.07712</td>
+</tr>
+<tr class="row-odd"><td>2000</td>
+<td>6</td>
+<td>0.25601</td>
+<td>0.36650</td>
+</tr>
+</tbody>
+</table>
+<p>The figures below show the scaling of the ConvexHull, DelaunayTri and
+VoronoiTess classes with number of points and dimension of points. You may
+use the numbers below to estimate how long the code will take for your
+specific use cases.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/scaling_convexhull.png"><img alt="Convex hull scaling" src="_images/scaling_convexhull.png" style="width: 500px;" /></a>
+<p class="caption">Scaling of ConvexHull with number of points and dimension of points.</p>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/scaling_delaunaytri.png"><img alt="Delaunay triangulation scaling" src="_images/scaling_delaunaytri.png" style="width: 500px;" /></a>
+<p class="caption">Scaling of DelaunayTri with number of points and dimension of points.</p>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/scaling_voronoitess.png"><img alt="Voronoi tessellation scaling" src="_images/scaling_voronoitess.png" style="width: 500px;" /></a>
+<p class="caption">Scaling of VoronoiTess with number of points and dimension of points.</p>
+</div>
+</div>
+<div class="section" id="bug-reports-new-features">
+<h1>Bug reports / new features<a class="headerlink" href="#bug-reports-new-features" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>Report issues and bugs. A simple way that anyone can contribute is simply to
+report bugs and issues to the developing team. You can submit an Issue in
+our <a class="reference external" href="https://github.com/shyuep/pyhull/issues">github page</a>.</li>
+<li>Submitting new code. Another way to contribute is to submit new
+code/bugfixes to pyhull. While you can always zip your code and email it
+to the maintainer of pyhull, the best way for anyone to develop pyhull
+is by adopting the collaborative Github workflow.</li>
+</ol>
+</div>
+<div class="section" id="api-reference-docs">
+<h1>API/Reference Docs<a class="headerlink" href="#api-reference-docs" title="Permalink to this headline">¶</a></h1>
+<p>The API docs are generated using Sphinx auto-doc and outlines the purpose of all
+modules and classes, and the expected argument and returned objects for most
+methods. They are available at this link below</p>
+<p><a class="reference internal" href="modules.html"><em>pyhull API docs</em></a>.</p>
+</div>
+<div class="section" id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<p>Pyhull is released under the MIT License. The terms of the license are as
+follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>The MIT License (MIT)
+Copyright (c) 2011-2012 MIT
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre></div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a></li>
+<li><a class="reference internal" href="#latest-change-log">Latest Change Log</a><ul>
+<li><a class="reference internal" href="#v1-4-6">v1.4.6</a></li>
+<li><a class="reference internal" href="#v1-4-5">v1.4.5</a></li>
+<li><a class="reference internal" href="#v1-4-4">v1.4.4</a></li>
+<li><a class="reference internal" href="#v1-4-3">v1.4.3</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-pyhull">Getting pyhull</a><ul>
+<li><a class="reference internal" href="#stable-version">Stable version</a></li>
+<li><a class="reference internal" href="#developmental-version">Developmental version</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-pyhull">Using pyhull</a></li>
+<li><a class="reference internal" href="#performance-of-pyhull">Performance of Pyhull</a></li>
+<li><a class="reference internal" href="#bug-reports-new-features">Bug reports / new features</a></li>
+<li><a class="reference internal" href="#api-reference-docs">API/Reference Docs</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">pyhull 1.4.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Shyue Ping Ong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+<div class="footer">This page uses <a href="http://analytics.google.com/">
+Google Analytics</a> to collect statistics. You can disable it by blocking
+the JavaScript coming from www.google-analytics.com.
+<script type="text/javascript">
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+  </body>
+</html>

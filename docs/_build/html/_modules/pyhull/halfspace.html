@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyhull.halfspace &mdash; pyhull 1.4.6 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/proBlue.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.4.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="top" title="pyhull 1.4.6 documentation" href="../../index.html" />
+    <link rel="up" title="pyhull" href="../pyhull.html" />
+ 
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36487970-1']);
+  _gaq.push(['_trackPageview']);
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../pyhull.html" accesskey="U">pyhull</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyhull.halfspace</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines classes for computing halfspace intersections</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Will Richards&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;2.0&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s">&quot;Will Richards&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s">&quot;wrichard@mit.edu&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&quot;August 2, 2013&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pyhull</span> <span class="kn">import</span> <span class="n">qhalf</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="Halfspace"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.Halfspace">[docs]</a><span class="k">class</span> <span class="nc">Halfspace</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A halfspace defined by dot(normal, coords) + offset &lt;= 0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes a Halfspace.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            normal: vector normal to hyperplane</span>
+<span class="sd">            offset: offset of hyperplane from origin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="n">normal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Halfspace, normal: {}, offset: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Halfspace.from_hyperplane"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.Halfspace.from_hyperplane">[docs]</a>    <span class="k">def</span> <span class="nf">from_hyperplane</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">internal</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a Halfspace defined by a list of vectors parallel to the</span>
+<span class="sd">        bounding hyperplane.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            basis: basis for the hyperplane (array with vector rows)</span>
+<span class="sd">            origin: point on the hyperplane</span>
+<span class="sd">            point: point not on the hyperplane</span>
+<span class="sd">            internal: whether point is inside the halfspace</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">big_basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">big_basis</span><span class="p">[:</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],:</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">basis</span>
+
+        <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">big_basis</span><span class="p">)</span>
+        <span class="n">null_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="mf">1e-8</span><span class="p">)</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">null_mask</span><span class="p">,</span> <span class="n">vh</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">origin</span><span class="p">),</span> <span class="n">normal</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">internal</span><span class="p">:</span>
+                <span class="n">normal</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">internal</span><span class="p">:</span>
+                <span class="n">normal</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">normal</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Halfspace</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="HalfspaceIntersection"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.HalfspaceIntersection">[docs]</a><span class="k">class</span> <span class="nc">HalfspaceIntersection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses qhalf to calculate the vertex representation of the intersection</span>
+<span class="sd">    of a set of halfspaces</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">halfspaces</span><span class="p">,</span> <span class="n">interior_point</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span> <span class="o">=</span> <span class="n">halfspaces</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span> <span class="o">=</span> <span class="n">interior_point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_v_out</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="HalfspaceIntersection.vertices"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.HalfspaceIntersection.vertices">[docs]</a>    <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the vertices of the halfspace intersection</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_v_out</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">qhalf</span><span class="p">(</span><span class="s">&#39;Fp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span><span class="p">)</span>
+            <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">:]:</span>
+                <span class="n">pt</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="mf">10.101</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">10.101</span><span class="p">:</span>
+                        <span class="n">pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+                <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_v_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_v_out</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="HalfspaceIntersection.facets_by_vertex"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.HalfspaceIntersection.facets_by_vertex">[docs]</a>    <span class="k">def</span> <span class="nf">facets_by_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of non-redundant halfspace indices for each vertex</span>
+<span class="sd">        e.g: facets_by_vertex[0] is the list of indices of halfspaces</span>
+<span class="sd">        incident to vertex 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">qhalf</span><span class="p">(</span><span class="s">&#39;Fv&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span><span class="p">)</span>
+            <span class="n">facets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span> <span class="o">=</span> <span class="n">facets</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="HalfspaceIntersection.facets_by_halfspace"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.HalfspaceIntersection.facets_by_halfspace">[docs]</a>    <span class="k">def</span> <span class="nf">facets_by_halfspace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of vertex indices for each halfspace</span>
+<span class="sd">        e.g: facets_by_halfspace[0] is the list of indices ov vertices</span>
+<span class="sd">        incident to halfspace 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">qhalf</span><span class="p">(</span><span class="s">&#39;FN&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span><span class="p">)</span>
+            <span class="n">facets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span> <span class="o">=</span> <span class="n">facets</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../pyhull.html" >pyhull</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Shyue Ping Ong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+<div class="footer">This page uses <a href="http://analytics.google.com/">
+Google Analytics</a> to collect statistics. You can disable it by blocking
+the JavaScript coming from www.google-analytics.com.
+<script type="text/javascript">
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ?
+              'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+</div>
+
+  </body>
+</html>

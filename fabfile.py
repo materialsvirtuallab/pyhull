@@ -47,7 +47,7 @@ def makedoc():
                     fid.write("".join(newoutput))
 
         local("make html")
-        local("cp favicon.png ../../docs/pyhull/html/static")
+        local("cp favicon.png _build/html/static")
 
 def publish():
     local("python setup.py release")
