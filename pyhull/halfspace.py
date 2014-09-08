@@ -107,7 +107,7 @@ class HalfspaceIntersection(object):
             output = qhalf('Fv', self.halfspaces, self.interior_point)
             facets = []
             for l in output[1:]:
-                facets.append(map(int, l.split()[1:]))
+                facets.append([int(i) for i in l.split()[1:]])
             self._fbv_out = facets
         return self._fbv_out
 
@@ -122,7 +122,7 @@ class HalfspaceIntersection(object):
             output = qhalf('FN', self.halfspaces, self.interior_point)
             facets = []
             for l in output[1:]:
-                facets.append(list(map(int, l.split()[1:])))
+                facets.append([int(i) for i in l.split()[1:]])
             self._fbh_out = facets
         return self._fbh_out
 
