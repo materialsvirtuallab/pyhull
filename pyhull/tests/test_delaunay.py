@@ -48,7 +48,6 @@ class DelaunayTriTestCase(unittest.TestCase):
         expected_ans = [[1, 3, 6, 0], [1, 8, 6, 9], [8, 1, 6, 0], [2, 5, 1, 9],
                         [2, 5, 3, 1], [2, 1, 6, 9], [3, 2, 1, 6], [7, 3, 1, 0],
                         [5, 7, 3, 1], [7, 4, 3, 0], [7, 4, 5, 3]]
-        print self.spdelau.vertices
         self.assertEqual(self.spdelau.vertices, expected_ans)
 
     def test_simplices(self):

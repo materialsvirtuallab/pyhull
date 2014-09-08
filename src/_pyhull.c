@@ -313,22 +313,22 @@ __attribute__((visibility("default"))) static PyObject* py_qhalf(PyObject *self,
     char tempstr[30];
     strcpy(tempstr, arg);
     char* ptr = tempstr;
-    
+
     while(token = strtok_r(ptr, " ", &rest)) {
         argv[argc] = token;
         ptr = rest;
         argc  += 1;
     }
     argv[0] = "qhalf";
-    
+
     char *bp;
     size_t size;
-    
+
     /* Because qhull uses stdin and stdout streams for io, we need to create
      FILE* stream to simulate these io streams.*/
     FILE* fin = fmemopen(data, strlen(data), "r");
     FILE* fout = open_memstream(&bp, &size);
-    
+
     if ((fin != NULL) && (fout != NULL))
     {
         /* Now do the usual qhull code (modified from qvoronoi.c). */
@@ -370,7 +370,7 @@ __attribute__((visibility("default"))) static PyObject* py_qhalf(PyObject *self,
 #endif
         fclose(fin);
         fclose(fout);
-        
+
         return Py_BuildValue("s", bp);
     }
     else
@@ -389,7 +389,65 @@ __attribute__((visibility("default"))) static PyMethodDef QhullMethods[] = {
 };
 
 
-__attribute__((visibility("default"))) void init_pyhull(void)
-{
-    (void) Py_InitModule("_pyhull", QhullMethods);
+struct module_state {
+    PyObject *error;
+};
+
+#if PY_MAJOR_VERSION >= 3
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+#else
+#define GETSTATE(m) (&_state)
+static struct module_state _state;
+#endif
+
+static PyObject *
+error_out(PyObject *m) {
+    struct module_state *st = GETSTATE(m);
+    PyErr_SetString(st->error, "something bad happened");
+    return NULL;
 }
+
+#if PY_MAJOR_VERSION >= 3
+
+static int _pyhull_traverse(PyObject *m, visitproc visit, void *arg) {
+    Py_VISIT(GETSTATE(m)->error);
+    return 0;
+}
+
+static int _pyhull_clear(PyObject *m) {
+    Py_CLEAR(GETSTATE(m)->error);
+    return 0;
+}
+
+
+static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "_pyhull",
+        NULL,
+        sizeof(struct module_state),
+        QhullMethods,
+        NULL,
+        _pyhull_traverse,
+        _pyhull_clear,
+        NULL
+};
+
+#define INITERROR return NULL
+
+__attribute__((visibility("default"))) PyMODINIT_FUNC PyInit__pyhull(void)
+
+#else
+#define INITERROR return
+
+__attribute__((visibility("default"))) void init_pyhull(void)
+#endif
+{
+#if PY_MAJOR_VERSION >= 3
+    PyObject *module = PyModule_Create(&moduledef);
+    return module;
+#else
+    (void) Py_InitModule("_pyhull", QhullMethods);
+#endif
+
+}
+
