@@ -33,24 +33,9 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-v1.4.6
+v1.5.0
 ------
-1. Minor improvement to use the proper way to preserve float precision using
-   repr.
-
-v1.4.5
-------
-1. More precision fixes and bad code naming fixes.
-   (Reported by Konrad Schneider).
-
-v1.4.4
-------
-1. Fix the precision loss in conversion from floats to string in qhull_cmd
-   (Reported by Konrad Schneider).
-
-v1.4.3
--------
-1. Add qhalf for pyhull (William Davidson Richards).
+1. Pyhull is now completely compatible with Python versions 2.7-3.4.
 
 :doc:`Older versions </changelog>`
 

@@ -1,6 +1,25 @@
 Change log
 ==========
 
+v1.4.6
+------
+1. Minor improvement to use the proper way to preserve float precision using
+   repr.
+
+v1.4.5
+------
+1. More precision fixes and bad code naming fixes.
+   (Reported by Konrad Schneider).
+
+v1.4.4
+------
+1. Fix the precision loss in conversion from floats to string in qhull_cmd
+   (Reported by Konrad Schneider).
+
+v1.4.3
+-------
+1. Add qhalf for pyhull (William Davidson Richards).
+
 v1.3.6
 ------
 1. Bug fix for non-Mac Linux systems.
