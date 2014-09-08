@@ -44,7 +44,7 @@ class ConvexHull(object):
                 result is obtained instead of merging facets.
         """
         self.points = points
-        dim = map(len, self.points)
+        dim = [len(i) for i in self.points]
         if max(dim) != min(dim):
             raise ValueError("Input points must all have the same dimension!")
         self.dim = dim[0]
