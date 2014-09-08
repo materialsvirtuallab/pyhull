@@ -136,4 +136,4 @@ def qhalf(options, halfspaces, interior_point):
     data.extend([map(repr, row) for row in points])
     prep_str = [" ".join(map(str, line)) for line in data]
     output = getattr(hull, "qhalf")(options, "\n".join(prep_str))
-    return map(str.strip, output.strip().split("\n"))
+    return list(map(str.strip, output.strip().split("\n")))
