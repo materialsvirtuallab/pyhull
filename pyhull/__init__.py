@@ -13,7 +13,6 @@ __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
 
 import pyhull._pyhull as hull
-import string
 
 
 def qhull_cmd(cmd, options, points):
@@ -37,7 +36,7 @@ def qhull_cmd(cmd, options, points):
     prep_str = [str(len(points[0])), str(len(points))]
     prep_str.extend([' '.join(map(repr, row)) for row in points])
     output = getattr(hull, cmd)(options, "\n".join(prep_str))
-    return map(string.strip, output.strip().split("\n"))
+    return list(map(str.strip, output.strip().split("\n")))
 
 
 def qconvex(options, points):
@@ -136,4 +135,4 @@ def qhalf(options, halfspaces, interior_point):
     data.extend([map(repr, row) for row in points])
     prep_str = [" ".join(map(str, line)) for line in data]
     output = getattr(hull, "qhalf")(options, "\n".join(prep_str))
-    return map(string.strip, output.strip().split("\n"))
+    return map(str.strip, output.strip().split("\n"))
