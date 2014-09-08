@@ -51,6 +51,8 @@ setup(name="pyhull",
       install_requires=["numpy>=1.5"],
       classifiers=[
           "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3.3",
+          "Programming Language :: Python :: 3.4",
           "Development Status :: 5 - Production/Stable",
           "Intended Audience :: Science/Research",
           "License :: OSI Approved :: MIT License",
