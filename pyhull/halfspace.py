@@ -63,6 +63,7 @@ class Halfspace(object):
         offset = -np.dot(origin, normal)
         return Halfspace(normal, offset)
 
+
 class HalfspaceIntersection(object):
     """
     Uses qhalf to calculate the vertex representation of the intersection
@@ -121,7 +122,7 @@ class HalfspaceIntersection(object):
             output = qhalf('FN', self.halfspaces, self.interior_point)
             facets = []
             for l in output[1:]:
-                facets.append(map(int, l.split()[1:]))
+                facets.append(list(map(int, l.split()[1:])))
             self._fbh_out = facets
         return self._fbh_out
 

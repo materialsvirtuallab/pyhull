@@ -32,7 +32,7 @@ class SimplexTest(unittest.TestCase):
     def test_in_simplex(self):
         self.assertTrue(self.simplex.in_simplex([0.1, 0.1, 0.1]))
         self.assertFalse(self.simplex.in_simplex([0.6, 0.6, 0.6]))
-        for i in xrange(10):
+        for i in range(10):
             coord = np.random.random_sample(size=(3)) / 3
             self.assertTrue(self.simplex.in_simplex(coord))
 
