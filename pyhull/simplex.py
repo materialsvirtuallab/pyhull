@@ -64,7 +64,7 @@ class Simplex(object):
         """
         origin = self._coords[0]
         bary_coords = np.array([self._coords[i] - origin
-                                for i in xrange(1, self.simplex_dim + 1)])
+                                for i in range(1, self.simplex_dim + 1)])
         shifted_point = np.array(point) - origin
         coeffs = np.linalg.solve(bary_coords.transpose(), shifted_point)
         return (coeffs >= -tolerance).all() and sum(coeffs) <= (1 + tolerance)
