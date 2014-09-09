@@ -36,7 +36,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.4.6",
+      version="1.5.0",
       author="Shyue Ping Ong, William Davidson Richards",
       author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",
@@ -48,9 +48,10 @@ setup(name="pyhull",
       keywords=["qhull", "convex", "hull", "computational",
                 "geometry", "delaunay", "triangulation", "voronoi",
                 "diagram"],
-      install_requires=["numpy>=1.5"],
+      install_requires=["numpy"],
       classifiers=[
           "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3.2",
           "Programming Language :: Python :: 3.3",
           "Programming Language :: Python :: 3.4",
           "Development Status :: 5 - Production/Stable",

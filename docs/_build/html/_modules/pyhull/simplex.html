@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyhull.simplex &mdash; pyhull 1.4.6 documentation</title>
+    <title>pyhull.simplex &mdash; pyhull 1.5.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/proBlue.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.4.6',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="top" title="pyhull 1.4.6 documentation" href="../../index.html" />
+    <link rel="top" title="pyhull 1.5.0 documentation" href="../../index.html" />
     <link rel="up" title="pyhull" href="../pyhull.html" />
  
 <script type="text/javascript">
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li>
           <li><a href="../pyhull.html" accesskey="U">pyhull</a> &raquo;</li> 
       </ul>
@@ -122,7 +122,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">origin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">bary_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">origin</span>
-                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplex_dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplex_dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
         <span class="n">shifted_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">-</span> <span class="n">origin</span>
         <span class="n">coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">bary_coords</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">shifted_point</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">coeffs</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">tolerance</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">sum</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tolerance</span><span class="p">)</span>
@@ -186,7 +186,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li>
           <li><a href="../pyhull.html" >pyhull</a> &raquo;</li> 
       </ul>

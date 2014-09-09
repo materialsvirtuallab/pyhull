@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyhull &mdash; pyhull 1.4.6 documentation</title>
+    <title>pyhull &mdash; pyhull 1.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/proBlue.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.4.6',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-    <link rel="top" title="pyhull 1.4.6 documentation" href="../index.html" />
+    <link rel="top" title="pyhull 1.5.0 documentation" href="../index.html" />
     <link rel="up" title="Module code" href="index.html" />
  
 <script type="text/javascript">
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -64,13 +64,13 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Shyue Ping Ong&quot;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;1.4.6&quot;</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s">&quot;Aug 28 2014&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;1.5.0&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s">&quot;Sep 7 2014&quot;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s">&quot;Shyue Ping Ong&quot;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s">&quot;shyuep@gmail.com&quot;</span>
 
+
 <span class="kn">import</span> <span class="nn">pyhull._pyhull</span> <span class="kn">as</span> <span class="nn">hull</span>
-<span class="kn">import</span> <span class="nn">string</span>
 
 
 <div class="viewcode-block" id="qhull_cmd"><a class="viewcode-back" href="../pyhull.html#pyhull.qhull_cmd">[docs]</a><span class="k">def</span> <span class="nf">qhull_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
@@ -94,7 +94,7 @@
     <span class="n">prep_str</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">))]</span>
     <span class="n">prep_str</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
     <span class="n">output</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">hull</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)(</span><span class="n">options</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prep_str</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)))</span>
 
 </div>
 <div class="viewcode-block" id="qconvex"><a class="viewcode-back" href="../pyhull.html#pyhull.qconvex">[docs]</a><span class="k">def</span> <span class="nf">qconvex</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
@@ -193,7 +193,7 @@
     <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
     <span class="n">prep_str</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
     <span class="n">output</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">hull</span><span class="p">,</span> <span class="s">&quot;qhalf&quot;</span><span class="p">)(</span><span class="n">options</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prep_str</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)))</span></div>
 </pre></div>
 
           </div>
@@ -227,7 +227,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

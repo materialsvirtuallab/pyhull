@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyhull.halfspace &mdash; pyhull 1.4.6 documentation</title>
+    <title>pyhull.halfspace &mdash; pyhull 1.5.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/proBlue.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.4.6',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
-    <link rel="top" title="pyhull 1.4.6 documentation" href="../../index.html" />
+    <link rel="top" title="pyhull 1.5.0 documentation" href="../../index.html" />
     <link rel="up" title="pyhull" href="../pyhull.html" />
  
 <script type="text/javascript">
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li>
           <li><a href="../pyhull.html" accesskey="U">pyhull</a> &raquo;</li> 
       </ul>
@@ -120,6 +120,7 @@
                 <span class="n">normal</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">normal</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Halfspace</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+
 </div></div>
 <div class="viewcode-block" id="HalfspaceIntersection"><a class="viewcode-back" href="../../pyhull.html#pyhull.halfspace.HalfspaceIntersection">[docs]</a><span class="k">class</span> <span class="nc">HalfspaceIntersection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -164,7 +165,7 @@
             <span class="n">output</span> <span class="o">=</span> <span class="n">qhalf</span><span class="p">(</span><span class="s">&#39;Fv&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span><span class="p">)</span>
             <span class="n">facets</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]))</span>
+                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span> <span class="o">=</span> <span class="n">facets</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbv_out</span>
 </div>
@@ -179,7 +180,7 @@
             <span class="n">output</span> <span class="o">=</span> <span class="n">qhalf</span><span class="p">(</span><span class="s">&#39;FN&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">halfspaces</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior_point</span><span class="p">)</span>
             <span class="n">facets</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]))</span>
+                <span class="n">facets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span> <span class="o">=</span> <span class="n">facets</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fbh_out</span>
 </pre></div></div></div>
@@ -215,7 +216,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">pyhull 1.4.6 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">pyhull 1.5.0 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li>
           <li><a href="../pyhull.html" >pyhull</a> &raquo;</li> 
       </ul>
