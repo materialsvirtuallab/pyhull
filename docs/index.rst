@@ -33,7 +33,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-v1.5.1
+v1.5.2
 ------
 1. Fix minor issues with compilation on Linux systems because Py3.4+ enables
    -Werror=declaration-after-statement by default.
