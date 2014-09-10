@@ -241,6 +241,7 @@ static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
     coordT *points;
     boolT ismalloc;
     char *bp;
+    size_t size;
     FILE* fin;
     FILE* fout;
 
@@ -257,8 +258,6 @@ static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
         argc  += 1;
     }
     argv[0] = "qvoronoi";
-
-    size_t size;
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
