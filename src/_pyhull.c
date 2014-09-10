@@ -70,16 +70,23 @@ static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     int exitcode, numpoints, dim;
     coordT *points;
     boolT ismalloc;
-    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
-        return NULL;
     char* argv[10];
     int argc = 1;
     char *rest;
     char *token;
     /* Defensively copy the string first */
     char tempstr[30];
+    char* ptr;
+    char *bp;
+    size_t size;
+    FILE* fin;
+    FILE* fout;
+
+    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
+        return NULL;
+
     strcpy(tempstr, arg);
-    char* ptr = tempstr;
+    ptr = tempstr;
 
     while(token = strtok_r(ptr, " ", &rest)) {
         argv[argc] = token;
@@ -88,13 +95,10 @@ static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     }
     argv[0] = "qconvex";
 
-    char *bp;
-    size_t size;
-
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
-    FILE* fin = fmemopen(data, strlen(data), "r");
-    FILE* fout = open_memstream(&bp, &size);
+    fin = fmemopen(data, strlen(data), "r");
+    fout = open_memstream(&bp, &size);
 
     if ((fin != NULL) && (fout != NULL))
     {
@@ -145,16 +149,22 @@ static PyObject* py_qdelaunay(PyObject *self, PyObject *args) {
     int exitcode, numpoints, dim;
     coordT *points;
     boolT ismalloc;
-    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
-        return NULL;
     char* argv[10];
     int argc = 1;
     char *rest;
     char *token;
     /* Defensively copy the string first */
     char tempstr[30];
+    char* ptr;
+    char *bp;
+    size_t size;
+    FILE* fin;
+    FILE* fout;
+
+    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
+        return NULL;
     strcpy(tempstr, arg);
-    char* ptr = tempstr;
+    ptr = tempstr;
 
     while(token = strtok_r(ptr, " ", &rest)) {
         argv[argc] = token;
@@ -163,13 +173,12 @@ static PyObject* py_qdelaunay(PyObject *self, PyObject *args) {
     }
 
     argv[0] = "qdelaunay";
-    char *bp;
-    size_t size;
+
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
-    FILE* fin = fmemopen(data, strlen(data), "r");
-    FILE* fout = open_memstream(&bp, &size);
+    fin = fmemopen(data, strlen(data), "r");
+    fout = open_memstream(&bp, &size);
 
     if ((fin != NULL) && (fout != NULL))
     {
@@ -223,18 +232,24 @@ static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
     const char *data;
     int curlong, totlong; /* used !qh_NOmem */
     int exitcode, numpoints, dim;
-    coordT *points;
-    boolT ismalloc;
-    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
-        return NULL;
     char *argv[10];
     int argc = 1;
     char *rest;
     char *token;
-    /* Defensively copy the string first */
     char tempstr[30];
+    char* ptr;
+    coordT *points;
+    boolT ismalloc;
+    char *bp;
+    FILE* fin;
+    FILE* fout;
+
+    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
+        return NULL;
+
+    /* Defensively copy the string first */
     strcpy(tempstr, arg);
-    char* ptr = tempstr;
+    ptr = tempstr;
 
     while(token = strtok_r(ptr, " ", &rest)) {
         argv[argc] = token;
@@ -243,13 +258,12 @@ static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
     }
     argv[0] = "qvoronoi";
 
-    char *bp;
     size_t size;
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
-    FILE* fin = fmemopen(data, strlen(data), "r");
-    FILE* fout = open_memstream(&bp, &size);
+    fin = fmemopen(data, strlen(data), "r");
+    fout = open_memstream(&bp, &size);
 
     if ((fin != NULL) && (fout != NULL))
     {
@@ -305,16 +319,22 @@ static PyObject* py_qhalf(PyObject *self, PyObject *args) {
     int exitcode, numpoints, dim;
     coordT *points;
     boolT ismalloc;
-    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
-        return NULL;
     char *argv[10];
     int argc = 1;
     char *rest;
     char *token;
     /* Defensively copy the string first */
     char tempstr[30];
-    strcpy(tempstr, arg);
     char* ptr = tempstr;
+    char *bp;
+    size_t size;
+    FILE* fin;
+    FILE* fout;
+
+    if (!PyArg_ParseTuple(args, "ss", &arg, &data))
+        return NULL;
+
+    strcpy(tempstr, arg);
 
     while(token = strtok_r(ptr, " ", &rest)) {
         argv[argc] = token;
@@ -323,13 +343,10 @@ static PyObject* py_qhalf(PyObject *self, PyObject *args) {
     }
     argv[0] = "qhalf";
 
-    char *bp;
-    size_t size;
-
     /* Because qhull uses stdin and stdout streams for io, we need to create
      FILE* stream to simulate these io streams.*/
-    FILE* fin = fmemopen(data, strlen(data), "r");
-    FILE* fout = open_memstream(&bp, &size);
+    fin = fmemopen(data, strlen(data), "r");
+    fout = open_memstream(&bp, &size);
 
     if ((fin != NULL) && (fout != NULL))
     {
@@ -401,13 +418,6 @@ struct module_state {
 #define GETSTATE(m) (&_state)
 static struct module_state _state;
 #endif
-
-static PyObject *
-error_out(PyObject *m) {
-    struct module_state *st = GETSTATE(m);
-    PyErr_SetString(st->error, "something bad happened");
-    return NULL;
-}
 
 #if PY_MAJOR_VERSION >= 3
 
