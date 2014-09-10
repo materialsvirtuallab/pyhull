@@ -15,8 +15,7 @@ if sys.platform.strip() == "darwin":
     sources += glob.glob(os.path.join("src", "fmemopen", "*.c"))
 extension = Extension('pyhull._pyhull',
                       include_dirs=include_dirs,
-                      sources=[os.path.join(src_dir, '_pyhull.c')] + sources,
-                      extra_compile_args=['-fvisibility=hidden'])
+                      sources=[os.path.join(src_dir, '_pyhull.c')] + sources)
 
 long_description = """
 Pyhull is a Python wrapper to Qhull (http://www.qhull.org/) for the
