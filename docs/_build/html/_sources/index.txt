@@ -33,6 +33,12 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.5.1
+------
+1. Fix minor issues with compilation on Linux systems because Py3.4+ enables
+   -Werror=declaration-after-statement by default.
+2. Upgrade ez_setup.py script.
+
 v1.5.0
 ------
 1. Pyhull is now completely compatible with Python versions 2.7-3.4.
