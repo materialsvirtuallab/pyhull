@@ -33,8 +33,19 @@ class SimplexTest(unittest.TestCase):
         self.assertTrue(self.simplex.in_simplex([0.1, 0.1, 0.1]))
         self.assertFalse(self.simplex.in_simplex([0.6, 0.6, 0.6]))
         for i in range(10):
-            coord = np.random.random_sample(size=(3)) / 3
+            coord = np.random.random_sample(size=3) / 3
             self.assertTrue(self.simplex.in_simplex(coord))
+
+    def test_2dtriangle(self):
+        s = Simplex([[0, 1], [1, 1], [1, 0]])
+        np.testing.assert_almost_equal(s.bary_coords([0.5, 0.5]), [0.5, 0, 0.5])
+        np.testing.assert_almost_equal(s.bary_coords([0.5, 1]), [0.5, 0.5, 0])
+        np.testing.assert_almost_equal(s.bary_coords([0.5, 0.75]), [0.5, 0.25, 0.25])
+        np.testing.assert_almost_equal(s.bary_coords([0.75, 0.75]), [0.25, 0.5, 0.25])
+
+        s = Simplex([[1, 1], [1, 0]])
+        self.assertRaises(ValueError, s.bary_coords, [0.5, 0.5])
+
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

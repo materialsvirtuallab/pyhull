@@ -29,13 +29,20 @@ class Simplex(object):
             coords ([[float]]): Coords of the vertices of the simplex. E.g.,
                 [[1, 2, 3], [2, 4, 5], [6, 7, 8]].
         """
-        self.simplex_dim = len(coords) - 1
-        self.space_dim = len(coords[0])
-        for c in coords:
-            if len(c) != self.space_dim:
-                raise ValueError("All coords must have the same space "
-                                 "dimension.")
         self._coords = np.array(coords)
+        self.space_dim, self.simplex_dim = self._coords.shape
+        self.origin = self._coords[-1]
+        if self.space_dim == self.simplex_dim + 1:
+            # precompute attributes for calculating bary_coords
+            self.T = self._coords[:-1] - self.origin
+            self.T_inv = np.linalg.inv(self.T)
+
+    def bary_coords(self, point):
+        try:
+            c = np.dot((point - self.origin), self.T_inv)
+            return np.concatenate([c, [1 - np.sum(c)]])
+        except AttributeError:
+            raise ValueError('Simplex is not full-dimensional')
 
     def in_simplex(self, point, tolerance=1e-8):
         """
@@ -46,28 +53,14 @@ class Simplex(object):
         simplex from this origin by subtracting all other vertices from the
         origin. We then project the point into this coordinate system and
         determine the linear decomposition coefficients in this coordinate
-        system.  If the coeffs satisfy that all coeffs >= 0 and
-        sum(coeffs) <= 1, the composition is in the facet.
-
-        For example, take a tetrahedron. For a tetrahedron, let's label
-        the vertices as O, A, B anc C.  Let's call our point coordinate as X.
-        We form the composition matrix M with vectors OA, OB and OB, transponse
-        it, and solve for M'.a = OX where a are the coefficients.
-
-        If (a >= 0).all() and sum(a) <= 1, X is in the tetrahedron.
-        Note that in reality, the test needs to provide a tolerance (set to
-        1e-8 by default) for numerical errors.
+        system.  If the coeffs satisfy that all coeffs >= 0, the composition
+        is in the facet.
 
         Args:
             point ([float]): Point to test
             tolerance (float): Tolerance to test if point is in simplex.
         """
-        origin = self._coords[0]
-        bary_coords = np.array([self._coords[i] - origin
-                                for i in range(1, self.simplex_dim + 1)])
-        shifted_point = np.array(point) - origin
-        coeffs = np.linalg.solve(bary_coords.transpose(), shifted_point)
-        return (coeffs >= -tolerance).all() and sum(coeffs) <= (1 + tolerance)
+        return (self.bary_coords(point) >= -tolerance).all()
 
     def __eq__(self, other):
         for p in itertools.permutations(self._coords):
@@ -76,7 +69,7 @@ class Simplex(object):
         return False
 
     def __hash__(self):
-        return 7
+        return len(self._coords)
 
     def __repr__(self):
         output = ["{}-simplex in {}D space".format(self.simplex_dim,
