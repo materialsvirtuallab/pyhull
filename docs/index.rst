@@ -33,6 +33,11 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.5.3
+------
+1. Improve Simplex properties and performance.
+
+
 v1.5.2
 ------
 1. Fix minor issues with compilation on Linux systems because Py3.4+ enables
