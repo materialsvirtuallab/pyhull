@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; pyhull 1.5.3 documentation</title>
+    <title>Introduction &mdash; pyhull 1.5.4 documentation</title>
     
     <link rel="stylesheet" href="_static/proBlue.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5.3',
+        VERSION:     '1.5.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
-    <link rel="top" title="pyhull 1.5.3 documentation" href="#" />
+    <link rel="top" title="pyhull 1.5.4 documentation" href="#" />
  
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -33,8 +33,8 @@
 </script>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="#">pyhull 1.5.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pyhull 1.5.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
@@ -79,6 +79,12 @@ and not everyone wants to install such a large package for computing hulls.</p>
 </div>
 <div class="section" id="latest-change-log">
 <h1>Latest Change Log<a class="headerlink" href="#latest-change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="v1-5-4">
+<h2>v1.5.4<a class="headerlink" href="#v1-5-4" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Fix minor compilation problems for Qhull on some systems.</li>
+</ol>
+</div>
 <div class="section" id="v1-5-3">
 <h2>v1.5.3<a class="headerlink" href="#v1-5-3" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -170,12 +176,12 @@ respectively. For example,</p>
 <p>The figure below is a plot of the output from pyhull for a set of 30 random
 2D points. To see a sample of the code of how this graph is generated,
 check out the <a class="reference external" href="https://github.com/shyuep/pyhull/blob/master/scripts/pyhull_demo.py">pyhull_demo.py script on the Github page</a>.</p>
-<div class="figure align-center">
+<div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="_images/pyhull_demo.png"><img alt="pyhull output plot" src="_images/pyhull_demo.png" style="width: 500px;" /></a>
-<p class="caption">Plot of pyhull output on a set of 30 random 2D points. Red dots - points.
+<p class="caption"><span class="caption-text">Plot of pyhull output on a set of 30 random 2D points. Red dots - points.
 Green lines - Delaunay triangulation. Blue lines - convex hull. Black
 lines - Voronoi tessellation. Dash black lines - Voronoi tessellation with
-points at infinity.</p>
+points at infinity.</span></p>
 </div>
 <p>If you need more detailed output, consider using the lower-level
 interface functions that are modelled after standard command line syntax of
@@ -378,17 +384,17 @@ direct computation of the convex hull.</p>
 VoronoiTess classes with number of points and dimension of points. You may
 use the numbers below to estimate how long the code will take for your
 specific use cases.</p>
-<div class="figure align-center">
+<div class="figure align-center" id="id2">
 <a class="reference internal image-reference" href="_images/scaling_convexhull.png"><img alt="Convex hull scaling" src="_images/scaling_convexhull.png" style="width: 500px;" /></a>
-<p class="caption">Scaling of ConvexHull with number of points and dimension of points.</p>
+<p class="caption"><span class="caption-text">Scaling of ConvexHull with number of points and dimension of points.</span></p>
 </div>
-<div class="figure align-center">
+<div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="_images/scaling_delaunaytri.png"><img alt="Delaunay triangulation scaling" src="_images/scaling_delaunaytri.png" style="width: 500px;" /></a>
-<p class="caption">Scaling of DelaunayTri with number of points and dimension of points.</p>
+<p class="caption"><span class="caption-text">Scaling of DelaunayTri with number of points and dimension of points.</span></p>
 </div>
-<div class="figure align-center">
+<div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="_images/scaling_voronoitess.png"><img alt="Voronoi tessellation scaling" src="_images/scaling_voronoitess.png" style="width: 500px;" /></a>
-<p class="caption">Scaling of VoronoiTess with number of points and dimension of points.</p>
+<p class="caption"><span class="caption-text">Scaling of VoronoiTess with number of points and dimension of points.</span></p>
 </div>
 </div>
 <div class="section" id="bug-reports-new-features">
@@ -440,9 +446,9 @@ SOFTWARE.
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
 </div>
 
@@ -450,12 +456,13 @@ SOFTWARE.
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction</a></li>
 <li><a class="reference internal" href="#latest-change-log">Latest Change Log</a><ul>
+<li><a class="reference internal" href="#v1-5-4">v1.5.4</a></li>
 <li><a class="reference internal" href="#v1-5-3">v1.5.3</a></li>
 <li><a class="reference internal" href="#v1-5-2">v1.5.2</a></li>
 <li><a class="reference internal" href="#v1-5-0">v1.5.0</a></li>
@@ -474,12 +481,14 @@ SOFTWARE.
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -496,7 +505,7 @@ SOFTWARE.
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -505,13 +514,13 @@ SOFTWARE.
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="#">pyhull 1.5.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pyhull 1.5.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
 
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, Shyue Ping Ong.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
 <div class="footer">This page uses <a href="http://analytics.google.com/">
 Google Analytics</a> to collect statistics. You can disable it by blocking

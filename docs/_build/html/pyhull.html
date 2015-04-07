@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyhull package &mdash; pyhull 1.5.3 documentation</title>
+    <title>pyhull package &mdash; pyhull 1.5.4 documentation</title>
     
     <link rel="stylesheet" href="_static/proBlue.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5.3',
+        VERSION:     '1.5.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
-    <link rel="top" title="pyhull 1.5.3 documentation" href="index.html" />
+    <link rel="top" title="pyhull 1.5.4 documentation" href="index.html" />
  
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -33,8 +33,8 @@
 </script>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">pyhull 1.5.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyhull 1.5.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="pyhull-package">
 <h1>pyhull package<a class="headerlink" href="#pyhull-package" title="Permalink to this headline">¶</a></h1>
@@ -69,8 +69,8 @@
 <p>This module implements a ConvexHull class.</p>
 <dl class="class">
 <dt id="pyhull.convex_hull.ConvexHull">
-<em class="property">class </em><tt class="descname">ConvexHull</tt><big>(</big><em>points</em>, <em>joggle=False</em><big>)</big><a class="reference internal" href="_modules/pyhull/convex_hull.html#ConvexHull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.convex_hull.ConvexHull" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">ConvexHull</code><span class="sig-paren">(</span><em>points</em>, <em>joggle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/convex_hull.html#ConvexHull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.convex_hull.ConvexHull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Convex hull for a set of points.</p>
 <p>Initializes a ConvexHull from points.</p>
 <dl class="docutils">
@@ -85,7 +85,7 @@
 </dl>
 <dl class="attribute">
 <dt id="pyhull.convex_hull.ConvexHull.simplices">
-<tt class="descname">simplices</tt><a class="reference internal" href="_modules/pyhull/convex_hull.html#ConvexHull.simplices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.convex_hull.ConvexHull.simplices" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simplices</code><a class="headerlink" href="#pyhull.convex_hull.ConvexHull.simplices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the simplices of the convex hull.</p>
 </dd></dl>
 
@@ -98,8 +98,8 @@
 triangulation of a set of points.</p>
 <dl class="class">
 <dt id="pyhull.delaunay.DelaunayTri">
-<em class="property">class </em><tt class="descname">DelaunayTri</tt><big>(</big><em>points</em>, <em>joggle=False</em><big>)</big><a class="reference internal" href="_modules/pyhull/delaunay.html#DelaunayTri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.delaunay.DelaunayTri" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">DelaunayTri</code><span class="sig-paren">(</span><em>points</em>, <em>joggle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/delaunay.html#DelaunayTri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.delaunay.DelaunayTri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Delaunay triangulation for a set of points.</p>
 <p>Initializes a DelaunayTri from points.</p>
 <dl class="docutils">
@@ -114,7 +114,7 @@ triangulation of a set of points.</p>
 </dl>
 <dl class="attribute">
 <dt id="pyhull.delaunay.DelaunayTri.simplices">
-<tt class="descname">simplices</tt><a class="reference internal" href="_modules/pyhull/delaunay.html#DelaunayTri.simplices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.delaunay.DelaunayTri.simplices" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simplices</code><a class="headerlink" href="#pyhull.delaunay.DelaunayTri.simplices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the simplices of the triangulation.</p>
 </dd></dl>
 
@@ -126,8 +126,8 @@ triangulation of a set of points.</p>
 <p>This module defines classes for computing halfspace intersections</p>
 <dl class="class">
 <dt id="pyhull.halfspace.Halfspace">
-<em class="property">class </em><tt class="descname">Halfspace</tt><big>(</big><em>normal</em>, <em>offset</em><big>)</big><a class="reference internal" href="_modules/pyhull/halfspace.html#Halfspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.Halfspace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">Halfspace</code><span class="sig-paren">(</span><em>normal</em>, <em>offset</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/halfspace.html#Halfspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.Halfspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A halfspace defined by dot(normal, coords) + offset &lt;= 0</p>
 <p>Initializes a Halfspace.</p>
 <dl class="docutils">
@@ -137,7 +137,7 @@ offset: offset of hyperplane from origin</dd>
 </dl>
 <dl class="staticmethod">
 <dt id="pyhull.halfspace.Halfspace.from_hyperplane">
-<em class="property">static </em><tt class="descname">from_hyperplane</tt><big>(</big><em>basis</em>, <em>origin</em>, <em>point</em>, <em>internal=True</em><big>)</big><a class="reference internal" href="_modules/pyhull/halfspace.html#Halfspace.from_hyperplane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.Halfspace.from_hyperplane" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">from_hyperplane</code><span class="sig-paren">(</span><em>basis</em>, <em>origin</em>, <em>point</em>, <em>internal=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/halfspace.html#Halfspace.from_hyperplane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.Halfspace.from_hyperplane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a Halfspace defined by a list of vectors parallel to the
 bounding hyperplane.</p>
 <dl class="docutils">
@@ -153,13 +153,13 @@ internal: whether point is inside the halfspace</dd>
 
 <dl class="class">
 <dt id="pyhull.halfspace.HalfspaceIntersection">
-<em class="property">class </em><tt class="descname">HalfspaceIntersection</tt><big>(</big><em>halfspaces</em>, <em>interior_point</em><big>)</big><a class="reference internal" href="_modules/pyhull/halfspace.html#HalfspaceIntersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">HalfspaceIntersection</code><span class="sig-paren">(</span><em>halfspaces</em>, <em>interior_point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/halfspace.html#HalfspaceIntersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Uses qhalf to calculate the vertex representation of the intersection
 of a set of halfspaces</p>
 <dl class="attribute">
 <dt id="pyhull.halfspace.HalfspaceIntersection.facets_by_halfspace">
-<tt class="descname">facets_by_halfspace</tt><a class="reference internal" href="_modules/pyhull/halfspace.html#HalfspaceIntersection.facets_by_halfspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.facets_by_halfspace" title="Permalink to this definition">¶</a></dt>
+<code class="descname">facets_by_halfspace</code><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.facets_by_halfspace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of vertex indices for each halfspace
 e.g: facets_by_halfspace[0] is the list of indices ov vertices
 incident to halfspace 0</p>
@@ -167,7 +167,7 @@ incident to halfspace 0</p>
 
 <dl class="attribute">
 <dt id="pyhull.halfspace.HalfspaceIntersection.facets_by_vertex">
-<tt class="descname">facets_by_vertex</tt><a class="reference internal" href="_modules/pyhull/halfspace.html#HalfspaceIntersection.facets_by_vertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.facets_by_vertex" title="Permalink to this definition">¶</a></dt>
+<code class="descname">facets_by_vertex</code><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.facets_by_vertex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of non-redundant halfspace indices for each vertex
 e.g: facets_by_vertex[0] is the list of indices of halfspaces
 incident to vertex 0</p>
@@ -175,7 +175,7 @@ incident to vertex 0</p>
 
 <dl class="attribute">
 <dt id="pyhull.halfspace.HalfspaceIntersection.vertices">
-<tt class="descname">vertices</tt><a class="reference internal" href="_modules/pyhull/halfspace.html#HalfspaceIntersection.vertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.vertices" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vertices</code><a class="headerlink" href="#pyhull.halfspace.HalfspaceIntersection.vertices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the vertices of the halfspace intersection</p>
 </dd></dl>
 
@@ -188,8 +188,8 @@ incident to vertex 0</p>
 dimensional space.</p>
 <dl class="class">
 <dt id="pyhull.simplex.Simplex">
-<em class="property">class </em><tt class="descname">Simplex</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">Simplex</code><span class="sig-paren">(</span><em>coords</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A generalized simplex object. See <a class="reference external" href="http://en.wikipedia.org/wiki/Simplex">http://en.wikipedia.org/wiki/Simplex</a>.</p>
 <p>Initializes a Simplex from coordinates.</p>
 <dl class="docutils">
@@ -202,18 +202,18 @@ dimensional space.</p>
 </dl>
 <dl class="method">
 <dt id="pyhull.simplex.Simplex.bary_coords">
-<tt class="descname">bary_coords</tt><big>(</big><em>point</em><big>)</big><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex.bary_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex.bary_coords" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bary_coords</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex.bary_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex.bary_coords" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyhull.simplex.Simplex.coords">
-<tt class="descname">coords</tt><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex.coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex.coords" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coords</code><a class="headerlink" href="#pyhull.simplex.Simplex.coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of the vertex coordinates in the simplex.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyhull.simplex.Simplex.in_simplex">
-<tt class="descname">in_simplex</tt><big>(</big><em>point</em>, <em>tolerance=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex.in_simplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex.in_simplex" title="Permalink to this definition">¶</a></dt>
+<code class="descname">in_simplex</code><span class="sig-paren">(</span><em>point</em>, <em>tolerance=1e-08</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/simplex.html#Simplex.in_simplex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.simplex.Simplex.in_simplex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if a point is in the simplex using the standard barycentric
 coordinate system algorithm.</p>
 <p>Taking an arbitrary vertex as an origin, we compute the basis for the
@@ -238,8 +238,8 @@ tolerance (float): Tolerance to test if point is in simplex.</dd>
 of a set of points.</p>
 <dl class="class">
 <dt id="pyhull.voronoi.VoronoiTess">
-<em class="property">class </em><tt class="descname">VoronoiTess</tt><big>(</big><em>points</em>, <em>add_bounding_box=False</em><big>)</big><a class="reference internal" href="_modules/pyhull/voronoi.html#VoronoiTess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.voronoi.VoronoiTess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><code class="descname">VoronoiTess</code><span class="sig-paren">(</span><em>points</em>, <em>add_bounding_box=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull/voronoi.html#VoronoiTess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.voronoi.VoronoiTess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Voronoi tessellation for a set of points.</p>
 <p>Initializes a VoronoiTess from points.</p>
 <dl class="docutils">
@@ -264,7 +264,7 @@ computation of the convex hull, Delaunay triangulation and Voronoi diagram.</p>
 package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.</p>
 <dl class="function">
 <dt id="pyhull.qconvex">
-<tt class="descname">qconvex</tt><big>(</big><em>options</em>, <em>points</em><big>)</big><a class="reference internal" href="_modules/pyhull.html#qconvex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qconvex" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qconvex</code><span class="sig-paren">(</span><em>options</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull.html#qconvex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qconvex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar to qconvex command in command-line qhull.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -288,7 +288,7 @@ p - vertex coordinates (includes coplanar points if &#8216;Qc&#8217;)</dd>
 
 <dl class="function">
 <dt id="pyhull.qdelaunay">
-<tt class="descname">qdelaunay</tt><big>(</big><em>options</em>, <em>points</em><big>)</big><a class="reference internal" href="_modules/pyhull.html#qdelaunay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qdelaunay" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qdelaunay</code><span class="sig-paren">(</span><em>options</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull.html#qdelaunay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qdelaunay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar to qdelaunay command in command-line qhull.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -312,7 +312,7 @@ E.g., [&#8216;4&#8217;, &#8216;2 4 0&#8217;, &#8216;4 1 0&#8217;, &#8216;3 4 2&#
 
 <dl class="function">
 <dt id="pyhull.qhalf">
-<tt class="descname">qhalf</tt><big>(</big><em>options</em>, <em>halfspaces</em>, <em>interior_point</em><big>)</big><a class="reference internal" href="_modules/pyhull.html#qhalf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qhalf" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qhalf</code><span class="sig-paren">(</span><em>options</em>, <em>halfspaces</em>, <em>interior_point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull.html#qhalf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qhalf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar to qvoronoi command in command-line qhull.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -337,7 +337,7 @@ E.g., [&#8216;3&#8217;, &#8216;4&#8217;, &#8216;     1      1         0 &#8216;,
 
 <dl class="function">
 <dt id="pyhull.qhull_cmd">
-<tt class="descname">qhull_cmd</tt><big>(</big><em>cmd</em>, <em>options</em>, <em>points</em><big>)</big><a class="reference internal" href="_modules/pyhull.html#qhull_cmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qhull_cmd" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qhull_cmd</code><span class="sig-paren">(</span><em>cmd</em>, <em>options</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull.html#qhull_cmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qhull_cmd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generalized helper method to perform a qhull based command.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -364,7 +364,7 @@ are supported.</dd>
 
 <dl class="function">
 <dt id="pyhull.qvoronoi">
-<tt class="descname">qvoronoi</tt><big>(</big><em>options</em>, <em>points</em><big>)</big><a class="reference internal" href="_modules/pyhull.html#qvoronoi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qvoronoi" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qvoronoi</code><span class="sig-paren">(</span><em>options</em>, <em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyhull.html#qvoronoi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyhull.qvoronoi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar to qvoronoi command in command-line qhull.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -395,7 +395,7 @@ E.g., [&#8216;2&#8217;, &#8216;5 5 1&#8217;, &#8216;-10.101 -10.101&#8217;, &#82
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -412,12 +412,14 @@ E.g., [&#8216;2&#8217;, &#8216;5 5 1&#8217;, &#8216;-10.101 -10.101&#8217;, &#82
 </li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pyhull.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyhull.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -434,7 +436,7 @@ E.g., [&#8216;2&#8217;, &#8216;5 5 1&#8217;, &#8216;-10.101 -10.101&#8217;, &#82
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -443,13 +445,13 @@ E.g., [&#8216;2&#8217;, &#8216;5 5 1&#8217;, &#8216;-10.101 -10.101&#8217;, &#82
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">pyhull 1.5.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pyhull 1.5.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
 
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, Shyue Ping Ong.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
 <div class="footer">This page uses <a href="http://analytics.google.com/">
 Google Analytics</a> to collect statistics. You can disable it by blocking

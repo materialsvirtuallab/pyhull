@@ -33,6 +33,10 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v1.5.4
+------
+1. Fix minor compilation problems for Qhull on some systems.
+
 v1.5.3
 ------
 1. Improve Simplex properties and performance.
