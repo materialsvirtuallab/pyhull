@@ -46,6 +46,9 @@ class SimplexTest(unittest.TestCase):
         s = Simplex([[1, 1], [1, 0]])
         self.assertRaises(ValueError, s.bary_coords, [0.5, 0.5])
 
+    def test_volume(self):
+        # Should be value of a right tetrahedron.
+        self.assertAlmostEqual(self.simplex.volume, 1/6)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

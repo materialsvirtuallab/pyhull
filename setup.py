@@ -29,7 +29,7 @@ points and higher dimensions should be accessible depending on your machine,
 but may take a significant amount of time.
 
 For more details or to report bugs, please visit the pyhull GitHub page at
-https://github.com/shyuep/pyhull or the documentation page at
+https://github.com/materialsvirtuallab/pyhull or the documentation page at
 http://packages.python.org/pyhull/.
 """
 
@@ -38,7 +38,7 @@ setup(name="pyhull",
       author="Shyue Ping Ong, William Davidson Richards",
       author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",
-      url="https://github.com/shyuep/pyhull",
+      url="https://github.com/materialsvirtuallab/pyhull",
       license="MIT",
       description="A Python wrapper to Qhull (http://www.qhull.org/) for "
                   "the computation of the convex hull, "

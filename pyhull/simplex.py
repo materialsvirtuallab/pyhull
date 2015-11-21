@@ -12,6 +12,7 @@ __email__ = "shyuep@gmail.com"
 __date__ = "May 15, 2012"
 
 import itertools
+import math
 
 import numpy as np
 
@@ -19,15 +20,23 @@ import numpy as np
 class Simplex(object):
     """
     A generalized simplex object. See http://en.wikipedia.org/wiki/Simplex.
+
+    .. attribute: space_dim
+
+        Dimension of the space. Usually, this is 1 more than the simplex_dim.
+
+    .. attribute: simplex_dim
+
+        Dimension of the simplex coordinate space.
     """
 
     def __init__(self, coords):
         """
-        Initializes a Simplex from coordinates.
+        Initializes a Simplex from vertex coordinates.
 
         Args:
             coords ([[float]]): Coords of the vertices of the simplex. E.g.,
-                [[1, 2, 3], [2, 4, 5], [6, 7, 8]].
+                [[1, 2, 3], [2, 4, 5], [6, 7, 8], [8, 9, 10].
         """
         self._coords = np.array(coords)
         self.space_dim, self.simplex_dim = self._coords.shape
@@ -36,6 +45,13 @@ class Simplex(object):
             # precompute attributes for calculating bary_coords
             self.T = self._coords[:-1] - self.origin
             self.T_inv = np.linalg.inv(self.T)
+
+    @property
+    def volume(self):
+        """
+        Volume of the simplex.
+        """
+        return abs(np.linalg.det(self.T)) / math.factorial(self.simplex_dim)
 
     def bary_coords(self, point):
         try:

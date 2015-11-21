@@ -81,7 +81,7 @@ Developmental version
 ---------------------
 
 The bleeding edge developmental version is at the public pyhull's `Github
-repo <https://github.com/shyuep/pyhull/tarball/master>`_. The developmental
+repo <https://github.com/materialsvirtuallab/pyhull>`_. The developmental
 version is likely to be more buggy, but may contain new features. Note that
 the GitHub versions include test files as well for unit testing.
 
@@ -238,7 +238,7 @@ Bug reports / new features
 
 1. Report issues and bugs. A simple way that anyone can contribute is simply to
    report bugs and issues to the developing team. You can submit an Issue in
-   our `github page <https://github.com/shyuep/pyhull/issues>`_.
+   our `github page <https://github.com/materialsvirtuallab/pyhull/issues>`_.
 
 2. Submitting new code. Another way to contribute is to submit new
    code/bugfixes to pyhull. While you can always zip your code and email it

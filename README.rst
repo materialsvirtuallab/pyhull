@@ -15,7 +15,7 @@ but may take a significant amount of time.
 For more information, visit the documentation page at
 http://packages.python.org/pyhull/. To report bugs,
 please use the pyhull's Github Issues page at
-https://github.com/shyuep/pyhull/issues.
+https://github.com/materialsvirtuallab/pyhull/issues.
 
 .. note::
 
