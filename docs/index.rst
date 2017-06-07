@@ -33,24 +33,10 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-v1.5.4
+v1.5.5
 ------
-1. Fix minor compilation problems for Qhull on some systems.
-
-v1.5.3
-------
-1. Improve Simplex properties and performance.
-
-
-v1.5.2
-------
-1. Fix minor issues with compilation on Linux systems because Py3.4+ enables
-   -Werror=declaration-after-statement by default.
-2. Upgrade ez_setup.py script.
-
-v1.5.0
-------
-1. Pyhull is now completely compatible with Python versions 2.7-3.4.
+1. Update numpy.
+2. Add LICENSE file.
 
 :doc:`Older versions </changelog>`
 
