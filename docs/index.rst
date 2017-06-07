@@ -33,7 +33,7 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-v1.5.5
+v1.5.6
 ------
 1. Update numpy.
 2. Add LICENSE file.
