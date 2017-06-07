@@ -1,5 +1,3 @@
-__author__ = 'shyue'
-
 import glob
 import os
 import sys
@@ -34,7 +32,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.5.4",
+      version="1.5.5",
       author="Shyue Ping Ong, William Davidson Richards",
       author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",
@@ -54,6 +52,8 @@ setup(name="pyhull",
           "Programming Language :: Python :: 3.2",
           "Programming Language :: Python :: 3.3",
           "Programming Language :: Python :: 3.4",
+          "Programming Language :: Python :: 3.5",
+          "Programming Language :: Python :: 3.6",
           "Development Status :: 5 - Production/Stable",
           "Intended Audience :: Science/Research",
           "License :: OSI Approved :: MIT License",
