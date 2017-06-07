@@ -32,7 +32,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="1.5.6",
+      version="1.5.7",
       author="Shyue Ping Ong, William Davidson Richards",
       author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",

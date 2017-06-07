@@ -7,7 +7,7 @@ package and can be called as pyhull.qconvex, pyhull.qdelauany, etc.
 """
 
 __author__ = "Shyue Ping Ong"
-__version__ = "1.5.6"
+__version__ = "1.5.7"
 __date__ = "Jun 7 2017"
 __maintainer__ = "Shyue Ping Ong"
 __email__ = "shyuep@gmail.com"
