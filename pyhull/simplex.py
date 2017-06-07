@@ -23,11 +23,12 @@ class Simplex(object):
 
     .. attribute: space_dim
 
-        Dimension of the space. Usually, this is 1 more than the simplex_dim.
+        Dimension of the space.
 
     .. attribute: simplex_dim
 
-        Dimension of the simplex coordinate space.
+        Dimension of the simplex. Usually, this is 1 more than the space_dim.
+        E.g. you need four vertices to define a tetrahedon in 3D space.
     """
 
     def __init__(self, coords):
@@ -39,9 +40,9 @@ class Simplex(object):
                 [[1, 2, 3], [2, 4, 5], [6, 7, 8], [8, 9, 10].
         """
         self._coords = np.array(coords)
-        self.space_dim, self.simplex_dim = self._coords.shape
+        self.simplex_dim, self.space_dim = self._coords.shape
         self.origin = self._coords[-1]
-        if self.space_dim == self.simplex_dim + 1:
+        if self.simplex_dim == self.space_dim + 1:
             # precompute attributes for calculating bary_coords
             self.T = self._coords[:-1] - self.origin
             self.T_inv = np.linalg.inv(self.T)
@@ -51,7 +52,7 @@ class Simplex(object):
         """
         Volume of the simplex.
         """
-        return abs(np.linalg.det(self.T)) / math.factorial(self.simplex_dim)
+        return abs(np.linalg.det(self.T)) / math.factorial(self.space_dim)
 
     def bary_coords(self, point):
         try:
@@ -88,8 +89,8 @@ class Simplex(object):
         return len(self._coords)
 
     def __repr__(self):
-        output = ["{}-simplex in {}D space".format(self.simplex_dim,
-                                                   self.space_dim),
+        output = ["{}-simplex in {}D space".format(self.space_dim,
+                                                   self.simplex_dim),
                   "Vertices:"]
         for coord in self._coords:
             output.append("\t({})".format(", ".join(map(str, coord))))
