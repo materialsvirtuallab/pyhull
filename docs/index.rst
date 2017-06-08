@@ -33,10 +33,12 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
-v1.5.8
-------
-1. Update numpy.
-2. Add LICENSE file.
+v2015.2.0
+---------
+1. From this version, we will follow qhull's version number with a minor
+   version number added. This will make it easier to know which qhull is being
+   used.
+2. Update numpy.
 
 :doc:`Older versions </changelog>`
 

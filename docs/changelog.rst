@@ -1,6 +1,11 @@
 Change log
 ==========
 
+v1.5.8
+------
+1. Update numpy.
+2. Add LICENSE file.
+
 v1.5.4
 ------
 1. Fix minor compilation problems for Qhull on some systems.
