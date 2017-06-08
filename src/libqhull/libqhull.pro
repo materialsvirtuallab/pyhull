@@ -1,6 +1,5 @@
 # -------------------------------------------------
 # libqhull.pro -- Qt project for Qhull shared library
-#   Built with qh_QHpointer=1
 # -------------------------------------------------
 
 include(../qhull-warn.pri)
@@ -23,35 +22,37 @@ win32-msvc* : QMAKE_LFLAGS += /INCREMENTAL:NO
 win32-msvc* : DEF_FILE += ../../src/libqhull/qhull-exports.def
 
 # Order object files by frequency of execution.  Small files at end.
-SOURCES += rboxlib.c
-SOURCES += user.c
-SOURCES += global.c
-SOURCES += stat.c
-SOURCES += io.c
-SOURCES += geom2.c
-SOURCES += poly2.c
-SOURCES += merge.c
-SOURCES += libqhull.c
-SOURCES += geom.c
-SOURCES += poly.c
-SOURCES += qset.c
-SOURCES += mem.c
-SOURCES += usermem.c
-SOURCES += userprintf.c
-SOURCES += userprintf_rbox.c
-SOURCES += random.c
 
-HEADERS += geom.h
-HEADERS += io.h
-HEADERS += libqhull.h
-HEADERS += mem.h
-HEADERS += merge.h
-HEADERS += poly.h
-HEADERS += random.h
-HEADERS += qhull_a.h
-HEADERS += qset.h
-HEADERS += stat.h
-HEADERS += user.h
+# libqhull/libqhull.pro and ../qhull-libqhull-src.pri have the same SOURCES and HEADERS
+SOURCES += ../libqhull/global.c
+SOURCES += ../libqhull/stat.c
+SOURCES += ../libqhull/geom2.c
+SOURCES += ../libqhull/poly2.c
+SOURCES += ../libqhull/merge.c
+SOURCES += ../libqhull/libqhull.c
+SOURCES += ../libqhull/geom.c
+SOURCES += ../libqhull/poly.c
+SOURCES += ../libqhull/qset.c
+SOURCES += ../libqhull/mem.c
+SOURCES += ../libqhull/random.c
+SOURCES += ../libqhull/usermem.c
+SOURCES += ../libqhull/userprintf.c
+SOURCES += ../libqhull/io.c
+SOURCES += ../libqhull/user.c
+SOURCES += ../libqhull/rboxlib.c
+SOURCES += ../libqhull/userprintf_rbox.c
+
+HEADERS += ../libqhull/geom.h
+HEADERS += ../libqhull/io.h
+HEADERS += ../libqhull/libqhull.h
+HEADERS += ../libqhull/mem.h
+HEADERS += ../libqhull/merge.h
+HEADERS += ../libqhull/poly.h
+HEADERS += ../libqhull/random.h
+HEADERS += ../libqhull/qhull_a.h
+HEADERS += ../libqhull/qset.h
+HEADERS += ../libqhull/stat.h
+HEADERS += ../libqhull/user.h
 
 OTHER_FILES += Mborland
 OTHER_FILES += qh-geom.htm

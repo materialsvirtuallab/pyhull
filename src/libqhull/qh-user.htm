@@ -19,7 +19,8 @@ href="http://www.qhull.org">Home page</a> for Qhull<br>
 &#149; <a href="../../html/qh-optp.htm#print">Print</a>
 &#149; <a href="../../html/qh-optq.htm#qhull">Qhull</a>
 &#149; <a href="../../html/qh-optc.htm#prec">Precision</a>
-&#149; <a href="../../html/qh-optt.htm#trace">Trace</a><br>
+&#149; <a href="../../html/qh-optt.htm#trace">Trace</a>
+&#149; <a href="index.htm">Functions</a><br>
 <b>Up:</b> <a href="../../html/qh-code.htm#TOC">Qhull code: Table of Contents</a><br>
 <b>To:</b> <a href="index.htm">Qhull functions</a>, macros, and data structures<br>
 <b>To:</b> <a href="qh-geom.htm">Geom</a> &#149; <a href="qh-globa.htm">Global</a>
@@ -35,7 +36,7 @@ href="http://www.qhull.org">Home page</a> for Qhull<br>
 user may want to change. </p>
 
 </blockquote>
-<p><b>Copyright &copy; 1995-2012 C.B. Barber</b></p>
+<p><b>Copyright &copy; 1995-2015 C.B. Barber</b></p>
 <hr>
 <p><a href="#TOP">&#187;</a> <a href="qh-geom.htm#TOC">Geom</a>
 <a name="TOC">&#149;</a> <a href="qh-globa.htm#TOC">Global</a>
@@ -73,6 +74,8 @@ types and configuration macros</a></h3>
 <ul>
 <li><a href="user.h#realT">realT, qh_REAL...</a> size
 of floating point numbers </li>
+<li><a href="user.h#countT">countT, COUNTmax</a> size
+of counts and identifiers, typically 'int' or 'long long' </li>
 <li><a href="user.h#CPUclock">qh_CPUclock</a> clock()
 function for reporting the total time spent by
 Qhull </li>
@@ -191,15 +194,18 @@ qh_check_maxout() </li>
 when is facet coplanar with the best facet for qh_findbesthorizon</li>
 <li><a href="user.h#USEfindbestnew">qh_USEfindbestnew</a>
 when to use qh_findbestnew for qh_partitionpoint()</li>
-<li><a href="user.h#WIDEcoplanar">qh_WIDEcoplanar</a>
-what is a WIDEfacet? </li>
 <li><a href="user.h#WARNnarrow">qh_WARNnarrow</a>
 max. cosine to warn about qh.NARROWhull </li>
+<li><a href="user.h#WIDEcoplanar">qh_WIDEcoplanar</a>
+what is a wide facet? </li>
+<li><a href="user.h#WIDEduplicate">qh_WIDEduplicate</a>
+what is a wide ratio on merging duplicate ridges? </li>
 </ul>
 
 <h3><a href="qh-user.htm#TOC">&#187;</a><a name="ufunc">user.c
 functions</a></h3>
 <ul>
+<li><a href="user.c#qhull_template">Qhull template</a> for calling qh_new_qhull from your program</li>
 <li><a href="user.c#errexit">qh_errexit</a> report
 error and exit qhull()</li>
 <li><a href="user.c#errprint">qh_errprint</a> print
@@ -213,7 +219,8 @@ print all fields of all facets </li>
 <h3><a href="qh-user.htm#TOC">&#187;</a><a name="u2func">usermem.c
 functions</a></h3>
 <ul>
-<li><a href="usermem.c#qh_exit">qh_exit</a> exit program, same as exit().</li>
+<li><a href="usermem.c#qh_exit">qh_exit</a> exit program, same as exit().  May be redefined as throw "QH10003.." by libqhullcpp/usermem_r-cpp.cpp</li>
+<li><a href="usermem.c#qh_fprintf_stderr">qh_fprintf_stderr</a> print to stderr when qh.ferr is not defined.</li>
 <li><a href="usermem.c#qh_free">qh_free</a> free memory, same as free().</li>
 <li><a href="usermem.c#qh_malloc">qh_malloc</a> allocate memory, same as malloc()</li>
 </ul>
@@ -241,7 +248,8 @@ Qhull</a> <br>
 &#149; <a href="../../html/qh-optp.htm#print">Print</a>
 &#149; <a href="../../html/qh-optq.htm#qhull">Qhull</a>
 &#149; <a href="../../html/qh-optc.htm#prec">Precision</a>
-&#149; <a href="../../html/qh-optt.htm#trace">Trace</a><br>
+&#149; <a href="../../html/qh-optt.htm#trace">Trace</a>
+&#149; <a href="index.htm">Functions</a><br>
 <b>Up:</b> <a href="../../html/qh-code.htm#TOC">Qhull code: Table of Contents</a> <br>
 <b>To:</b> <a href="index.htm">Qhull functions</a>, macros, and data structures<br>
 <b>To:</b> <a href="qh-geom.htm">Geom</a> &#149;
