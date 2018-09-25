@@ -33,6 +33,10 @@ but may take a significant amount of time.
 Latest Change Log
 =================
 
+v2015.2.1
+---------
+1. Updates to support Windows install. (Maximillian Peters)
+
 v2015.2.0
 ---------
 1. From this version, we will follow qhull's version number with a minor
