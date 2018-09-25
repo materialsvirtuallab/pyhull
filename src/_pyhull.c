@@ -506,43 +506,41 @@ struct module_state {
 };
 
 #if PY_MAJOR_VERSION >= 3
-    #define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
 #else
-    #define GETSTATE(m) (&_state)
-    static struct module_state _state;
+#define GETSTATE(m) (&_state)
+static struct module_state _state;
 #endif
 
 #if PY_MAJOR_VERSION >= 3
 
-    static int _pyhull_traverse(PyObject *m, visitproc visit, void *arg) {
-        Py_VISIT(GETSTATE(m)->error);
-        return 0;
-    }
+static int _pyhull_traverse(PyObject *m, visitproc visit, void *arg) {
+	Py_VISIT(GETSTATE(m)->error);
+	return 0;
+}
 
-    static int _pyhull_clear(PyObject *m) {
-        Py_CLEAR(GETSTATE(m)->error);
-        return 0;
-    }
+static int _pyhull_clear(PyObject *m) {
+	Py_CLEAR(GETSTATE(m)->error);
+	return 0;
+}
 
 
-    static struct PyModuleDef moduledef = {
-            PyModuleDef_HEAD_INIT,
-            "_pyhull",
-            NULL,
-            sizeof(struct module_state),
-            QhullMethods,
-            NULL,
-            _pyhull_traverse,
-            _pyhull_clear,
-            NULL
-    };
+static struct PyModuleDef moduledef = {
+		PyModuleDef_HEAD_INIT,
+		"_pyhull",
+		NULL,
+		sizeof(struct module_state),
+		QhullMethods,
+		NULL,
+		_pyhull_traverse,
+		_pyhull_clear,
+		NULL
+};
 
-    #define INITERROR return NULL
-
+#define INITERROR return NULL
 #else
-    #define INITERROR return
+#define INITERROR return
 #endif
-
 
 #if PY_MAJOR_VERSION >= 3
 PyMODINIT_FUNC PyInit__pyhull(void)
