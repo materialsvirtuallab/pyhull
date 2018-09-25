@@ -40,7 +40,8 @@ Date: Nov 23 2012
 #include <Desk.h>
 
 #elif __cplusplus
-extern "C" {
+extern "C" 
+{
   int isatty(int);
 }
 
@@ -60,8 +61,35 @@ int isatty(int);  /* returns 1 if stdin is a tty
 #include "open_memstream.h"
 #endif
 
+#if defined(_WIN32) || defined(_WIN64)
+/* We are on Windows */
+#include <windows.h>
+#include <fcntl.h>
+#include <tchar.h>
+#define strtok_r strtok_s
+
+
+static int get_windows_temp_file()
+{
+    #define MAX_PATH 260
+    char lpTempPathBuffer[MAX_PATH];
+    char szTempFileName[MAX_PATH];
+    DWORD dwRetVal = GetTempPath(MAX_PATH, lpTempPathBuffer);
+    
+    UINT uRetVal = GetTempFileName(lpTempPathBuffer, 
+                              TEXT("tmp_pyhull_"),     
+                              0,                
+                              szTempFileName);
+                              
+    HANDLE handle = CreateFileA(szTempFileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_TEMPORARY |  FILE_FLAG_DELETE_ON_CLOSE, NULL);
+    int fd = _open_osfhandle((intptr_t)handle, _O_TEXT);
+    return fd;
+}
+#endif
+
 char hidden_options[]=" d v H Qbb Qf Qg Qm Qr Qu Qv Qx Qz TR E V Fp Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
 char qhalf_hidden_options[]=" d n v Qbb QbB Qf Qg Qm Qr QR Qv Qx Qz TR E V Fa FA FC FD FS Ft FV Gt Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 ";
+
 
 static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     const char *arg;
@@ -82,6 +110,7 @@ static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     FILE* fin;
     FILE* fout;
 
+    
     if (!PyArg_ParseTuple(args, "ss", &arg, &data))
         return NULL;
 
@@ -95,21 +124,31 @@ static PyObject* py_qconvex(PyObject *self, PyObject *args) {
     }
     argv[0] = "qconvex";
 
+    
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
+    #if defined(_WIN32) || defined(_WIN64)
+    fin = _fdopen(get_windows_temp_file(), "w+");
+    fprintf(fin, data);    
+    fflush(fin);
+    rewind(fin);
+    fout = _fdopen(get_windows_temp_file(), "w+");
+    #else
     fin = fmemopen(data, strlen(data), "r");
     fout = open_memstream(&bp, &size);
-
-    if ((fin != NULL) && (fout != NULL))
+    #endif
+    
+    if ((fin == NULL) || (fout == NULL))
     {
-        /* Now do the usual qhull code (modified from qconvex.c). */
-        qh_init_A(fin, fout, stderr, argc, argv);
-
-        exitcode= setjmp(qh errexit);
-        if (!exitcode) {
-            qh_checkflags(qh qhull_command, hidden_options);
-            qh_initflags(qh qhull_command);
-            points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        return NULL;
+    }
+    /* Now do the usual qhull code (modified from qconvex.c). */
+    qh_init_A(fin, fout, stderr, argc, argv);
+    exitcode= setjmp(qh errexit);
+    if (!exitcode) {
+        qh_checkflags(qh qhull_command, hidden_options);
+        qh_initflags(qh qhull_command);
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
         if (dim >= 5) {
             qh_option("Qxact_merge", NULL, NULL);
             qh MERGEexact= True;
@@ -121,24 +160,32 @@ static PyObject* py_qconvex(PyObject *self, PyObject *args) {
         if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
             qh_check_points();
         exitcode= qh_ERRnone;
-        }
-        qh NOerrexit= True;  /* no more setjmp */
-        #ifdef qh_NOmem
-            qh_freeqhull( True);
-        #else
-            qh_freeqhull( False);
-            qh_memfreeshort(&curlong, &totlong);
-            if (curlong || totlong)
-                fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n", totlong, curlong);
-        #endif
-        fclose(fin);
-        fclose(fout);
-        return Py_BuildValue("s", bp);
-    }
-    else
-    {
-        return NULL;
-    }
+    } 
+    
+    qh NOerrexit= True;  /* no more setjmp */
+    #ifdef qh_NOmem
+    qh_freeqhull( True);
+    #else
+    qh_freeqhull( False);
+    qh_memfreeshort(&curlong, &totlong);
+    if (curlong || totlong)
+        fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n", totlong, curlong);
+    #endif
+    #if defined(_WIN32) || defined(_WIN64)
+    
+    rewind(fout);
+    fseek(fout, 0, SEEK_END);
+    size = ftell(fout);
+    rewind(fout);
+    bp = calloc(1, size + 1);
+    fread(bp, 1, size, fout);
+    bp[size] = '\0';
+    #endif
+    
+    fclose(fin);
+    fclose(fout);
+    
+    return Py_BuildValue("s", bp);
 }
 
 
@@ -177,53 +224,69 @@ static PyObject* py_qdelaunay(PyObject *self, PyObject *args) {
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
+    #if defined(_WIN32) || defined(_WIN64)
+    fin = _fdopen(get_windows_temp_file(), "w+");
+    fprintf(fin, data);    
+    fflush(fin);
+    rewind(fin);
+    fout = _fdopen(get_windows_temp_file(), "w+");
+    #else
     fin = fmemopen(data, strlen(data), "r");
     fout = open_memstream(&bp, &size);
+    #endif
 
-    if ((fin != NULL) && (fout != NULL))
-    {
-        /* Now do the usual qhull code (modified from qdelaunay.c). */
-        qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
-        exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
-        if (!exitcode) {
-            qh_option("delaunay  Qbbound-last", NULL, NULL);
-            qh DELAUNAY= True;     /* 'd'   */
-            qh SCALElast= True;    /* 'Qbb' */
-            qh KEEPcoplanar= True; /* 'Qc', to keep coplanars in 'p' */
-            qh_checkflags(qh qhull_command, hidden_options);
-            qh_initflags(qh qhull_command);
-            points= qh_readpoints(&numpoints, &dim, &ismalloc);
-            if (dim >= 5) {
-                qh_option("Qxact_merge", NULL, NULL);
-                qh MERGEexact= True; /* 'Qx' always */
-            }
-            qh_init_B(points, numpoints, dim, ismalloc);
-            qh_qhull();
-            qh_check_output();
-            qh_produce_output();
-            if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
-                qh_check_points();
-            exitcode= qh_ERRnone;
-        }
-        qh NOerrexit= True;  /* no more setjmp */
-        #ifdef qh_NOmem
-            qh_freeqhull( True);
-        #else
-            qh_freeqhull( False);
-            qh_memfreeshort(&curlong, &totlong);
-            if (curlong || totlong)
-                fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
-                totlong, curlong);
-        #endif
-
-        fclose(fin);
-        fclose(fout);
-        return Py_BuildValue("s", bp);
-    }
-    else
+    if ((fin == NULL) || (fout == NULL))
     {
         return NULL;
     }
+    /* Now do the usual qhull code (modified from qdelaunay.c). */
+    qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
+    exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
+    if (!exitcode) {
+        qh_option("delaunay  Qbbound-last", NULL, NULL);
+        qh DELAUNAY= True;     /* 'd'   */
+        qh SCALElast= True;    /* 'Qbb' */
+        qh KEEPcoplanar= True; /* 'Qc', to keep coplanars in 'p' */
+        qh_checkflags(qh qhull_command, hidden_options);
+        qh_initflags(qh qhull_command);
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        if (dim >= 5) {
+            qh_option("Qxact_merge", NULL, NULL);
+            qh MERGEexact= True; /* 'Qx' always */
+        }
+        qh_init_B(points, numpoints, dim, ismalloc);
+        qh_qhull();
+        qh_check_output();
+        qh_produce_output();
+        if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+            qh_check_points();
+        exitcode= qh_ERRnone;
+    }
+    qh NOerrexit= True;  /* no more setjmp */
+    #ifdef qh_NOmem
+    qh_freeqhull( True);
+    #else
+    qh_freeqhull( False);
+    qh_memfreeshort(&curlong, &totlong);
+    if (curlong || totlong)
+        fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
+        totlong, curlong);
+    #endif
+    #if defined(_WIN32) || defined(_WIN64)
+    
+    rewind(fout);
+    fseek(fout, 0, SEEK_END);
+    size = ftell(fout);
+    rewind(fout);
+    bp = calloc(1, size + 1);
+    fread(bp, 1, size, fout);
+    bp[size] = '\0';
+    #endif
+    
+    fclose(fin);
+    fclose(fout);
+    
+    return Py_BuildValue("s", bp);
 }
 
 
@@ -261,53 +324,68 @@ static PyObject* py_qvoronoi(PyObject *self, PyObject *args) {
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
     FILE* stream to simulate these io streams.*/
+    #if defined(_WIN32) || defined(_WIN64)
+    fin = _fdopen(get_windows_temp_file(), "w+");
+    fprintf(fin, data);    
+    fflush(fin);
+    rewind(fin);
+    fout = _fdopen(get_windows_temp_file(), "w+");
+    #else
     fin = fmemopen(data, strlen(data), "r");
     fout = open_memstream(&bp, &size);
+    #endif
 
-    if ((fin != NULL) && (fout != NULL))
-    {
-        /* Now do the usual qhull code (modified from qvoronoi.c). */
-        qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
-        exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
-        if (!exitcode) {
-            qh_option("voronoi  _bbound-last  _coplanar-keep", NULL, NULL);
-            qh DELAUNAY= True;     /* 'v'   */
-            qh VORONOI= True;
-            qh SCALElast= True;    /* 'Qbb' */
-            qh_checkflags(qh qhull_command, hidden_options);
-            qh_initflags(qh qhull_command);
-            points= qh_readpoints(&numpoints, &dim, &ismalloc);
-            if (dim >= 5) {
-                qh_option("_merge-exact", NULL, NULL);
-                qh MERGEexact= True; /* 'Qx' always */
-            }
-            qh_init_B(points, numpoints, dim, ismalloc);
-            qh_qhull();
-            qh_check_output();
-            qh_produce_output();
-            if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
-                qh_check_points();
-            exitcode= qh_ERRnone;
-        }
-        qh NOerrexit= True;  /* no more setjmp */
-        #ifdef qh_NOmem
-            qh_freeqhull( True);
-        #else
-            qh_freeqhull( False);
-            qh_memfreeshort(&curlong, &totlong);
-            if (curlong || totlong)
-                fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
-                totlong, curlong);
-        #endif
-        fclose(fin);
-        fclose(fout);
-
-        return Py_BuildValue("s", bp);
-    }
-    else
+    if ((fin == NULL) || (fout == NULL))        
     {
         return NULL;
     }
+    /* Now do the usual qhull code (modified from qvoronoi.c). */
+    qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
+    exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
+    if (!exitcode) {
+        qh_option("voronoi  _bbound-last  _coplanar-keep", NULL, NULL);
+        qh DELAUNAY= True;     /* 'v'   */
+        qh VORONOI= True;
+        qh SCALElast= True;    /* 'Qbb' */
+        qh_checkflags(qh qhull_command, hidden_options);
+        qh_initflags(qh qhull_command);
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        if (dim >= 5) {
+            qh_option("_merge-exact", NULL, NULL);
+            qh MERGEexact= True; /* 'Qx' always */
+        }
+        qh_init_B(points, numpoints, dim, ismalloc);
+        qh_qhull();
+        qh_check_output();
+        qh_produce_output();
+        if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+            qh_check_points();
+        exitcode= qh_ERRnone;
+    }
+    qh NOerrexit= True;  /* no more setjmp */
+    #ifdef qh_NOmem
+    qh_freeqhull( True);
+    #else
+    qh_freeqhull( False);
+    qh_memfreeshort(&curlong, &totlong);
+    if (curlong || totlong)
+        fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
+        totlong, curlong);
+    #endif
+    #if defined(_WIN32) || defined(_WIN64)
+    
+    rewind(fout);
+    fseek(fout, 0, SEEK_END);
+    size = ftell(fout);
+    rewind(fout);
+    bp = calloc(1, size + 1);
+    fread(bp, 1, size, fout);
+    bp[size] = '\0';
+    #endif
+    fclose(fin);
+    fclose(fout);
+
+    return Py_BuildValue("s", bp);
 }
 
 
@@ -344,57 +422,73 @@ static PyObject* py_qhalf(PyObject *self, PyObject *args) {
 
     /* Because qhull uses stdin and stdout streams for io, we need to create
      FILE* stream to simulate these io streams.*/
+    #if defined(_WIN32) || defined(_WIN64)
+    fin = _fdopen(get_windows_temp_file(), "w+");
+    fprintf(fin, data);    
+    fflush(fin);
+    rewind(fin);
+    fout = _fdopen(get_windows_temp_file(), "w+");
+    #else
     fin = fmemopen(data, strlen(data), "r");
     fout = open_memstream(&bp, &size);
+    #endif
 
-    if ((fin != NULL) && (fout != NULL))
-    {
-        /* Now do the usual qhull code (modified from qvoronoi.c). */
-        qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
-        exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
-        if (!exitcode) {
-            qh_option("Halfspace", NULL, NULL);
-            qh HALFspace= True;    /* 'H'   */
-            qh_checkflags(qh qhull_command, qhalf_hidden_options);
-            qh_initflags(qh qhull_command);
-            if (qh SCALEinput) {
-                fprintf(qh ferr, "\
-                        qhull error: options 'Qbk:n' and 'QBk:n' are not used with qhalf.\n\
-                        Use 'Qbk:0Bk:0 to drop dimension k.\n");
-                qh_errexit(qh_ERRinput, NULL, NULL);
-            }
-            points= qh_readpoints(&numpoints, &dim, &ismalloc);
-            if (dim >= 5) {
-                qh_option("Qxact_merge", NULL, NULL);
-                qh MERGEexact= True; /* 'Qx' always */
-            }
-            qh_init_B(points, numpoints, dim, ismalloc);
-            qh_qhull();
-            qh_check_output();
-            qh_produce_output();
-            if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
-                qh_check_points();
-            exitcode= qh_ERRnone;
-        }
-        qh NOerrexit= True;  /* no more setjmp */
-#ifdef qh_NOmem
-        qh_freeqhull( True);
-#else
-        qh_freeqhull( False);
-        qh_memfreeshort(&curlong, &totlong);
-        if (curlong || totlong)
-            fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
-                    totlong, curlong);
-#endif
-        fclose(fin);
-        fclose(fout);
-
-        return Py_BuildValue("s", bp);
-    }
-    else
+    if ((fin == NULL) || (fout == NULL))
     {
         return NULL;
     }
+    /* Now do the usual qhull code (modified from qvoronoi.c). */
+    qh_init_A(fin, fout, stderr, argc, argv);  /* sets qh qhull_command */
+    exitcode= setjmp(qh errexit); /* simple statement for CRAY J916 */
+    if (!exitcode) {
+        qh_option("Halfspace", NULL, NULL);
+        qh HALFspace= True;    /* 'H'   */
+        qh_checkflags(qh qhull_command, qhalf_hidden_options);
+        qh_initflags(qh qhull_command);
+        if (qh SCALEinput) {
+            fprintf(qh ferr, "\
+                    qhull error: options 'Qbk:n' and 'QBk:n' are not used with qhalf.\n\
+                    Use 'Qbk:0Bk:0 to drop dimension k.\n");
+            qh_errexit(qh_ERRinput, NULL, NULL);
+        }
+        points= qh_readpoints(&numpoints, &dim, &ismalloc);
+        if (dim >= 5) {
+            qh_option("Qxact_merge", NULL, NULL);
+            qh MERGEexact= True; /* 'Qx' always */
+        }
+        qh_init_B(points, numpoints, dim, ismalloc);
+        qh_qhull();
+        qh_check_output();
+        qh_produce_output();
+        if (qh VERIFYoutput && !qh FORCEoutput && !qh STOPpoint && !qh STOPcone)
+            qh_check_points();
+        exitcode= qh_ERRnone;
+    }
+    qh NOerrexit= True;  /* no more setjmp */
+    #ifdef qh_NOmem
+    qh_freeqhull( True);
+    #else
+    qh_freeqhull( False);
+    qh_memfreeshort(&curlong, &totlong);
+    if (curlong || totlong)
+        fprintf(stderr, "qhull internal warning (main): did not free %d bytes of long memory(%d pieces)\n",
+                totlong, curlong);
+    #endif
+    #if defined(_WIN32) || defined(_WIN64)
+    
+    rewind(fout);
+    fseek(fout, 0, SEEK_END);
+    size = ftell(fout);
+    rewind(fout);
+    bp = calloc(1, size + 1);
+    fread(bp, 1, size, fout);
+    bp[size] = '\0';
+    #endif
+
+    fclose(fin);
+    fclose(fout);
+
+    return Py_BuildValue("s", bp);    
 }
 
 
@@ -421,44 +515,42 @@ static struct module_state _state;
 #if PY_MAJOR_VERSION >= 3
 
 static int _pyhull_traverse(PyObject *m, visitproc visit, void *arg) {
-    Py_VISIT(GETSTATE(m)->error);
-    return 0;
+	Py_VISIT(GETSTATE(m)->error);
+	return 0;
 }
 
 static int _pyhull_clear(PyObject *m) {
-    Py_CLEAR(GETSTATE(m)->error);
-    return 0;
+	Py_CLEAR(GETSTATE(m)->error);
+	return 0;
 }
 
 
 static struct PyModuleDef moduledef = {
-        PyModuleDef_HEAD_INIT,
-        "_pyhull",
-        NULL,
-        sizeof(struct module_state),
-        QhullMethods,
-        NULL,
-        _pyhull_traverse,
-        _pyhull_clear,
-        NULL
+	PyModuleDef_HEAD_INIT,
+	"_pyhull",
+	NULL,
+	sizeof(struct module_state),
+	QhullMethods,
+	NULL,
+	_pyhull_traverse,
+	_pyhull_clear,
+	NULL
 };
 
 #define INITERROR return NULL
-
-__attribute__((visibility("default"))) PyMODINIT_FUNC PyInit__pyhull(void)
-
 #else
 #define INITERROR return
-
-__attribute__((visibility("default"))) void init_pyhull(void)
 #endif
-{
+
 #if PY_MAJOR_VERSION >= 3
+PyMODINIT_FUNC PyInit__pyhull(void)
+{
     PyObject *module = PyModule_Create(&moduledef);
     return module;
-#else
-    (void) Py_InitModule("_pyhull", QhullMethods);
-#endif
-
 }
-
+#else
+void init_pyhull(void)
+{
+    (void) Py_InitModule("_pyhull", QhullMethods);
+}
+#endif
