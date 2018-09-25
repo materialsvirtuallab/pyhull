@@ -526,15 +526,15 @@ static int _pyhull_clear(PyObject *m) {
 
 
 static struct PyModuleDef moduledef = {
-		PyModuleDef_HEAD_INIT,
-		"_pyhull",
-		NULL,
-		sizeof(struct module_state),
-		QhullMethods,
-		NULL,
-		_pyhull_traverse,
-		_pyhull_clear,
-		NULL
+	PyModuleDef_HEAD_INIT,
+	"_pyhull",
+	NULL,
+	sizeof(struct module_state),
+	QhullMethods,
+	NULL,
+	_pyhull_traverse,
+	_pyhull_clear,
+	NULL
 };
 
 #define INITERROR return NULL
