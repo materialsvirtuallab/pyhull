@@ -32,7 +32,7 @@ http://packages.python.org/pyhull/.
 """
 
 setup(name="pyhull",
-      version="2015.2.0",
+      version="2015.2.1",
       author="Shyue Ping Ong, William Davidson Richards",
       author_email="shyuep@gmail.com, wrichard@mit.edu",
       maintainer="Shyue Ping Ong",
@@ -54,6 +54,7 @@ setup(name="pyhull",
           "Programming Language :: Python :: 3.4",
           "Programming Language :: Python :: 3.5",
           "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
           "Development Status :: 5 - Production/Stable",
           "Intended Audience :: Science/Research",
           "License :: OSI Approved :: MIT License",
